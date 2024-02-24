@@ -5,6 +5,7 @@ import {getAboutPageData} from "@admin/lib/aboutPage";
 import AboutPageComponent from "@admin/components/AboutPage";
 import {getGalleryPageData} from "@admin/lib/galleryPage";
 import GalleryPageComponent from "@admin/components/GalleryPage";
+import {WithoutId} from "mongodb";
 
 export async function generateMetadata() {
     return {
@@ -17,9 +18,9 @@ export default async function WebsitePage({params: {slug}}: {
     params: { slug: string }
 }) {
 
-    const homePageData: HomePageData = await getHomePageData()
-    const aboutPageData: AboutPageData = await getAboutPageData()
-    const galleryPageData: GalleryPageData = await getGalleryPageData()
+    const homePageData: WithoutId<HomePageData> = await getHomePageData()
+    const aboutPageData: WithoutId<AboutPageData> = await getAboutPageData()
+    const galleryPageData: WithoutId<GalleryPageData> = await getGalleryPageData()
     // Convert pageData to a plain object
     const plainHomePageData: HomePageData = JSON.parse(JSON.stringify(homePageData));
     const plainAboutPageData: AboutPageData = JSON.parse(JSON.stringify(aboutPageData));
