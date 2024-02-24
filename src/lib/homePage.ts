@@ -23,3 +23,7 @@ export const getCallToAction = async () => {
     const homePageData = await getHomePageData()
     return homePageData?.callToActionBlock
 }
+export const getSchoolFeatures = async () => {
+    const homePageData = await getHomePageData()
+    return homePageData?.schoolFeatures
+}

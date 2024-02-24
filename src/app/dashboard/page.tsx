@@ -1,6 +1,6 @@
 import {getHomePageData} from "@admin/lib/homePage";
 import {Fragment} from "react";
-import HomePageComponent from "@admin/components/HomePageComponent";
+import HomePageComponent from "@admin/components/HomePage/HomePageComponent";
 import {Button} from "flowbite-react";
 
 const Dashboard = async () => {

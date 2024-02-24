@@ -29,6 +29,8 @@ const Dropzone = ({imagePath, withPopover}: DropzoneProps) => {
                                 className="w-96 text-sm text-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400">
                                 <Image
                                     src={getImageUrl(imagePath)}
+                                    width={800}
+                                    height={400}
                                     className="col-span-2 h-full"
                                     alt="Italy map"
                                 />

@@ -1,7 +1,3 @@
-import {getHomePageData} from "@admin/lib/homePage";
-import {HomePageData} from "@admin/types";
-import HomePageComponent from "@admin/components/HomePageComponent";
-
 export async function generateMetadata() {
     return {
         title: `Program - Little FERN Admin`,
