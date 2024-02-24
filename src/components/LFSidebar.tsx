@@ -9,20 +9,9 @@ import {
     SidebarItems
 } from 'flowbite-react';
 import {BiBuoy} from 'react-icons/bi';
-import {
-    HiArrowSmRight,
-    HiChartPie,
-    HiInbox,
-    HiOfficeBuilding,
-    HiOutlineMinusSm,
-    HiOutlinePlusSm,
-    HiTable,
-    HiUser,
-    HiViewBoards
-} from 'react-icons/hi';
+import {HiArrowSmRight, HiChartPie, HiInbox, HiOfficeBuilding, HiTable, HiUser, HiViewBoards} from 'react-icons/hi';
 import {DeepPartial} from "flowbite-react/lib/esm/types";
 import {HiCamera, HiHome, HiMiniDocument, HiMiniInformationCircle, HiPhone, HiUserGroup} from "react-icons/hi2";
-import {twMerge} from "tailwind-merge";
 // Define your custom theme
 const customSidebarTheme: DeepPartial<FlowbiteSidebarTheme> = {
     root: {
@@ -44,10 +33,7 @@ const LFSidebar = ({programs}: LFSidebarProps) => {
     }, {
         name: 'Gallery', href: '/gallery', icon: HiCamera,
     }, {
-        name: 'Programs',
-        href: '/programs',
-        icon: HiOfficeBuilding,
-        children: programs?.map((program) => ({name: program.name, href: `/programs/${program.slug}`}))
+        name: 'Programs', href: '/programs', icon: HiOfficeBuilding,
     }, {
         name: 'Contact', href: '/contact', icon: HiPhone,
     }, {
@@ -60,25 +46,11 @@ const LFSidebar = ({programs}: LFSidebarProps) => {
                     Dashboard
                 </SidebarItem>
                 <SidebarCollapse icon={HiMiniDocument} label="Pages">
-                    {pages?.map((page) => {
-                        if (!page.children) return <SidebarItem href={`/website-pages/${page.name}`} key={page.name}
-                                                                icon={page.icon}
-                                                                className='text-ellipsis overflow-hidden text-sm'>
-                            {page.name}
-                        </SidebarItem>
-                        return <SidebarCollapse icon={page.icon} label={page.name} key={page.name}
-                                                className='text-ellipsis overflow-hidden text-sm'
-                                                renderChevronIcon={(theme, open) => {
-                                                    const IconComponent = open ? HiOutlineMinusSm : HiOutlinePlusSm;
-
-                                                    return <IconComponent aria-hidden
-                                                                          className={twMerge(theme.label.icon.open[open ? 'on' : 'off'])}/>;
-                                                }}>
-                            {page.children.map((child) => <SidebarItem href={child.href} key={child.name}
-                                                                       className='justify-start text-ellipsis overflow-hidden text-sm'>
-                                {child.name}</SidebarItem>)}
-                        </SidebarCollapse>
-                    })}
+                    {pages?.map((page) => (<SidebarItem href={`/website-pages/${page.name}`} key={page.name}
+                                                        icon={page.icon}
+                                                        className='text-ellipsis overflow-hidden text-sm'>
+                        {page.name}
+                    </SidebarItem>))}
                 </SidebarCollapse>
                 <SidebarItem href="https://email.littlefern.in" target='_blank' icon={HiInbox}>
                     Inbox
