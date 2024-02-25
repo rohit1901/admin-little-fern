@@ -27,17 +27,17 @@ type LFSidebarProps = {
 }
 const LFSidebar = ({programs}: LFSidebarProps) => {
     const pages = [{
-        name: 'Home', href: '/', icon: HiHome,
+        name: 'Home', href: '/website-pages/Home', icon: HiHome,
     }, {
-        name: 'About', href: '/about', icon: HiMiniInformationCircle,
+        name: 'About', href: '/website-pages/About', icon: HiMiniInformationCircle,
     }, {
-        name: 'Gallery', href: '/gallery', icon: HiCamera,
+        name: 'Gallery', href: '/website-pages/Gallery', icon: HiCamera,
     }, {
         name: 'Programs', href: '/programs', icon: HiOfficeBuilding,
     }, {
-        name: 'Contact', href: '/contact', icon: HiPhone,
+        name: 'Contact', href: '/website-pages/Contact', icon: HiPhone,
     }, {
-        name: 'Parents', href: '/parents', icon: HiUserGroup,
+        name: 'Parents', href: '/website-pages/Parents', icon: HiUserGroup,
     }]
     return (<Sidebar theme={customSidebarTheme}>
         <SidebarItems>
@@ -46,7 +46,7 @@ const LFSidebar = ({programs}: LFSidebarProps) => {
                     Dashboard
                 </SidebarItem>
                 <SidebarCollapse icon={HiMiniDocument} label="Pages">
-                    {pages?.map((page) => (<SidebarItem href={`/website-pages/${page.name}`} key={page.name}
+                    {pages?.map((page) => (<SidebarItem href={page.href} key={page.name}
                                                         icon={page.icon}
                                                         className='text-ellipsis overflow-hidden text-sm'>
                         {page.name}

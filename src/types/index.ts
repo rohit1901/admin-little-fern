@@ -230,7 +230,7 @@ export type StaffBlock = {
 }
 export type AboutPageData = {
     title?: string
-    subtitle?: string
+    subTitle?: string
     paragraph?: string
     aboutHero?: ImageItem[]
     description?: string

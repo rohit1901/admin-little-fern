@@ -9,6 +9,7 @@ import {
     NavbarBrand
 } from "flowbite-react";
 import Logo from "@admin/components/Logo";
+import {getImageUrl} from "@admin/lib";
 
 const LFNavbar = () => {
     return (
@@ -47,10 +48,10 @@ const LFNavbar = () => {
                 </svg>
                 <span className="sr-only">Toggle sidebar</span>
             </button>
-            <NavbarBrand href="https://flowbite-react.com" className='mr-2'>
+            <NavbarBrand href="https://www.littlefern.in" className='mr-2'>
                 <Logo className="mr-3 h-6 sm:h-9"/>
                 <span
-                    className="self-center whitespace-nowrap text-xl font-semibold text-primary-900 dark:text-primary-50">Flowbite React</span>
+                    className="self-center whitespace-nowrap text-xl font-semibold text-primary-900 dark:text-primary-50">Little FERN Administration</span>
             </NavbarBrand>
 
             <div className="flex items-center lg:order-2">
@@ -60,12 +61,12 @@ const LFNavbar = () => {
                     inline
                     label={
                         <Avatar alt="User settings"
-                                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded/>
+                                img={getImageUrl('/images/stock/testimonials/female.avatar.jpg')} rounded/>
                     }
                 >
                     <DropdownHeader>
-                        <span className="block text-sm">Bonnie Green</span>
-                        <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+                        <span className="block text-sm">Manju Khanduri</span>
+                        <span className="block truncate text-sm font-medium">info@littlefern.in</span>
                     </DropdownHeader>
                     <DropdownItem>Dashboard</DropdownItem>
                     <DropdownItem>Settings</DropdownItem>

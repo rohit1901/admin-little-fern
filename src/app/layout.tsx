@@ -23,7 +23,7 @@ export default async function RootLayout({
     return (
         <html lang="en">
         <head>
-            <ThemeModeScript/>
+            <ThemeModeScript/><title>{metadata.title?.toString()}</title>
         </head>
         <body className={notoFont.className}>
         <Suspense fallback={<div>Loading...</div>}>
