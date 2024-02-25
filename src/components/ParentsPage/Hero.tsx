@@ -34,25 +34,36 @@ const ParentsHero = ({parentsHero, heroItems}: ParentsHeroProps) => {
         <LFFormSection sectionTitle={'Parents Hero Items'}>
             {/*items*/}
             {heroItems.map((item, index) => {
-                return <LFFormElement key={index} labelValue={`Hero Item ${index + 1}`}
-                                      labelName={`parents-hero-item-${index}`}>
-                    <TextInput id={`parents-hero-item-label`} placeholder='Parents Hero Item Label'
-                               value={item?.label} required onChange={(event) => {
-                        // update the title
-                    }}/>
-                    <TextInput id={`parents-hero-item-description`} placeholder='Parents Hero Item Description'
-                               value={item?.description} required onChange={(event) => {
-                        // update the title
-                    }}/>
-                    <TextInput id={`parents-hero-item-icon`} placeholder='Parents Hero Item Icon'
-                               value={item?.icon} required onChange={(event) => {
-                        // update the title
-                    }}/>
-                    <TextInput id={`parents-hero-item-href`} placeholder='Parents Hero Item Href'
-                               value={item?.href} required onChange={(event) => {
-                        // update the title
-                    }}/>
-                </LFFormElement>
+                return <Fragment key={index}>
+                    <LFFormElement labelValue={`Label ${index + 1}`}
+                                   labelName={`parents-hero-item-${index}`}>
+                        <TextInput id={`parents-hero-item-label`} placeholder='Parents Hero Item Label'
+                                   value={item?.label} required onChange={(event) => {
+                            // update the title
+                        }}/>
+                    </LFFormElement>
+                    <LFFormElement labelValue={`Description ${index + 1}`}
+                                   labelName={`parents-hero-item-${index}`}>
+                        <TextInput id={`parents-hero-item-description`} placeholder='Parents Hero Item Description'
+                                   value={item?.description} required onChange={(event) => {
+                            // update the title
+                        }}/>
+                    </LFFormElement>
+                    <LFFormElement labelValue={`Icon ${index + 1}`}
+                                   labelName={`parents-hero-item-${index}`}>
+                        <TextInput id={`parents-hero-item-icon`} placeholder='Parents Hero Item Icon'
+                                   value={item?.icon} required onChange={(event) => {
+                            // update the title
+                        }}/>
+                    </LFFormElement>
+                    <LFFormElement labelValue={`Href ${index + 1}`}
+                                   labelName={`parents-hero-item-${index}`}>
+                        <TextInput id={`parents-hero-item-href`} placeholder='Parents Hero Item Href'
+                                   value={item?.href} required onChange={(event) => {
+                            // update the title
+                        }}/>
+                    </LFFormElement>
+                </Fragment>
             })}
         </LFFormSection>
     </Fragment>

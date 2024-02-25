@@ -1,12 +1,12 @@
 import type {Metadata} from "next";
 import {Noto_Sans} from "next/font/google";
 import "./globals.css";
-import {Flowbite, ThemeModeScript} from "flowbite-react";
+import {Flowbite, Spinner, ThemeModeScript} from "flowbite-react";
 import LFNavbar from "@admin/components/LFNavbar";
 import LFSidebar from "@admin/components/LFSidebar";
 import {ReactNode, Suspense} from "react";
 import {getSchoolPrograms} from "@admin/lib/homePage";
-import {customTheme} from "@admin/theme/theme";
+import {customTheme} from "@admin/theme";
 
 const notoFont = Noto_Sans({subsets: ["latin"]});
 
@@ -25,10 +25,13 @@ export default async function RootLayout({
         <head>
             <ThemeModeScript/><title>{metadata.title?.toString()}</title>
         </head>
-        <body className={notoFont.className}>
-        <Suspense fallback={<div>Loading...</div>}>
+        <body className={`bg-white dark:bg-gray-800 ${notoFont.className}`}>
+        <Suspense
+            fallback={<div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
+                <Spinner aria-label="Default status example"/>
+            </div>}>
             <Flowbite theme={{theme: customTheme}}>
-                <section className="antialiased bg-white-50 dark:bg-gray-800 mx-auto md:h-screen lg:py-0">
+                <section className="antialiased md:h-screen lg:py-0">
                     <LFNavbar/>
                     <LFSidebar programs={programs?.map(p => ({
                         name: p.name,
