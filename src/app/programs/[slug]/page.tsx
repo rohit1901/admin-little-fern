@@ -1,3 +1,8 @@
+import ProgramsPage from "@admin/components/ProgramsPage";
+import {HomePageData} from "@admin/types";
+import {WithoutId} from "mongodb";
+import {getHomePageData, getSchoolProgram} from "@admin/lib/homePage";
+
 export async function generateMetadata() {
     return {
         title: `Program - Little FERN Admin`,
@@ -8,11 +13,11 @@ export async function generateMetadata() {
 export default async function ProgramPage({params: {slug}}: {
     params: { slug: string }
 }) {
-    return (
-        <div className='p-4 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
-            <h1>Program Page - {slug}</h1>
-        </div>
-    )
+    const homePageData: WithoutId<HomePageData> = await getHomePageData()
+    const schoolProgram = getSchoolProgram(slug, homePageData)
+    if (!schoolProgram) return null
+
+    return (<ProgramsPage schoolProgram={schoolProgram}/>)
 }
 
 export const dynamicParams = false

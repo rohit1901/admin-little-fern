@@ -16,23 +16,19 @@ const HomeHero = ({homeHero}: HomeHeroProps) => {
         <LFFormSection sectionTitle='Hero Block'>
             <LFFormElement labelValue='Tagline' labelName='tagline'>
                 <TextInput id="tagline" type="text" placeholder="Tagline for the Hero Block"
-                           value={homeHero.hero?.tagline} required
-                           onChange={(event) => onChange(homeHero, event.currentTarget.value)}/>
+                           value={homeHero.hero?.tagline} required/>
             </LFFormElement>
             <LFFormElement labelValue="Headline" labelName="headline">
                 <TextInput id="headline" type="text" placeholder="Headline for the Hero Block"
-                           value={homeHero.hero?.headline} required
-                           onChange={(event) => onChange(homeHero, event.currentTarget.value)}/>
+                           value={homeHero.hero?.headline} required/>
             </LFFormElement>
             <LFFormElement labelValue="Text" labelName="text">
                 <Textarea id="text" placeholder="Text for the Hero Block"
-                          value={homeHero.hero?.text} required className='h-text-area'
-                          onChange={(event) => onChange(homeHero, event.currentTarget.value)}/>
+                          value={homeHero.hero?.text} required className='h-text-area'/>
             </LFFormElement>
             <LFFormElement labelValue="YouTube Video Link" labelName="youtube">
                 <TextInput id="youtube" placeholder="YouTube Video Link"
-                           value={homeHero.hero?.youTubeLink} required
-                           onChange={(event) => onChange(homeHero, event.currentTarget.value)}/>
+                           value={homeHero.hero?.youTubeLink} required/>
             </LFFormElement>
             <Dropzone imagePath={homeHero.hero?.image?.src} withPopover/>
         </LFFormSection>
