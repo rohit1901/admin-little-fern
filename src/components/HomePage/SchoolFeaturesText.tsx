@@ -1,3 +1,4 @@
+'use client'
 import {Fragment} from "react";
 import LFFormElement from "@admin/components/LFFormElement";
 import {TextInput} from "flowbite-react";
