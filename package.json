@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "apexcharts": "^3.46.0",
     "flowbite": "^2.3.0",
     "flowbite-react": "^0.7.2",
     "mongodb": "^6.3.0",
