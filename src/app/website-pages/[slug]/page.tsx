@@ -5,7 +5,7 @@ import {getAboutPageData} from "@admin/lib/aboutPage";
 import AboutPageComponent from "@admin/components/AboutPage";
 import {getGalleryPageData} from "@admin/lib/galleryPage";
 import GalleryPageComponent from "@admin/components/GalleryPage";
-import {WithoutId} from "mongodb";
+import {WithId, WithoutId} from "mongodb";
 import ParentsPageComponent from "@admin/components/ParentsPage";
 import ContactPageComponent from "@admin/components/ContactPage";
 import {getParentsPage} from "@admin/lib/parentsPage";
@@ -22,9 +22,9 @@ export default async function WebsitePage({params: {slug}}: {
     params: { slug: string }
 }) {
     if (slug === 'Home') {
-        const homePageData: WithoutId<HomePageData> = await getHomePageData()
-        const plainHomePageData: HomePageData = JSON.parse(JSON.stringify(homePageData));
-        return <HomePageComponent homePageData={plainHomePageData}/>
+        const homePageData: WithId<HomePageData> = await getHomePageData()
+        const plainHomePageData: WithId<HomePageData> = JSON.parse(JSON.stringify(homePageData));
+        return <HomePageComponent data={plainHomePageData}/>
     }
     if (slug === 'About') {
         const aboutPageData: WithoutId<AboutPageData> = await getAboutPageData()

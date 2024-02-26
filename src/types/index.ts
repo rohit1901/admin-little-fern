@@ -1,3 +1,5 @@
+import {WithId} from "mongodb";
+
 /**
  * Global Types used across the application
  */
@@ -53,14 +55,14 @@ export type StaffAssurancesBlock = {
 }
 export type Staff = {
     assurancesBlock?: StaffAssurancesBlock
-    staffDetails?: StaffDetails[]
-    featuredStaffDescription?: StaffDescription[]
+    staffDetails?: WithId<StaffDetails>[]
+    featuredStaffDescription?: WithId<StaffDescription>[]
     heading?: string
     pageTitle?: string
     subHeading?: string
 }
 export type SchoolFeatures = {
-    featureBlocks?: HomeFeatureBlock[]
+    featureBlocks?: WithId<HomeFeatureBlock>[]
     features?: string[]
     heading?: string
     subHeading?: string
@@ -191,14 +193,14 @@ export type TestimonialsBlock = {
 }
 export type SchoolProgramsBlock = {
     heading?: string
-    schoolPrograms?: SchoolProgram[]
+    schoolPrograms?: WithId<SchoolProgram>[]
 }
 export type HomeHeroBlock = {
     hero?: Hero
     ratings?: Rating[]
 }
 export type HomePageData = {
-    homeHero: HomeHeroBlock
+    homeHero: WithId<HomeHeroBlock>
     ratings: Rating[]
     schoolFeatures: SchoolFeatures
     staff: Staff

@@ -7,30 +7,37 @@ import SchoolFeaturesText from "@admin/components/HomePage/SchoolFeaturesText";
 import SchoolFeaturesItems from "@admin/components/HomePage/SchoolFeaturesItems";
 import Staff from "@admin/components/HomePage/Staff";
 import SchoolPrograms from "@admin/components/HomePage/SchoolPrograms";
-import Testimonials from "@admin/components/HomePage/Testimonials";
-import FAQsBlock from "@admin/components/HomePage/FAQsBlock";
+import {useHomePageStore} from "@admin/store";
+import {useEffect} from "react";
+import {WithId} from "mongodb";
 
 type HomePageDataProps = {
-    homePageData: HomePageData
+    data: WithId<HomePageData>
 }
-const HomePageComponent = ({homePageData}: HomePageDataProps) => {
+const HomePageComponent = ({data}: HomePageDataProps) => {
+    const {
+        setHomePageData
+    } = useHomePageStore((state) => state)
+    useEffect(() => {
+        setHomePageData(data)
+    }, [])
 
     return (<div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800 w-5/6'>
             <LFForm>
                 {/* Hero Block */}
-                <HomeHero homeHero={homePageData.homeHero}/>
+                <HomeHero/>
                 {/* School Features heading, subheading, text */}
-                <SchoolFeaturesText schoolFeatures={homePageData.schoolFeatures}/>
+                <SchoolFeaturesText/>
                 {/* School Features items */}
-                <SchoolFeaturesItems schoolFeatures={homePageData.schoolFeatures}/>
+                <SchoolFeaturesItems/>
                 {/* Featured Staff block */}
-                <Staff staff={homePageData.staff}/>
+                <Staff/>
                 {/*School Programs heading, sub-heading*/}
-                <SchoolPrograms schoolProgramsBlock={homePageData.schoolProgramsBlock}/>
+                <SchoolPrograms/>
                 {/*Testimonials*/}
-                <Testimonials testimonialsBlock={homePageData.testimonialsBlock}/>
+                {/*<Testimonials testimonialsBlock={homePage.testimonialsBlock}/>*/}
                 {/*FAQ Block*/}
-                <FAQsBlock faqBlock={homePageData.faqBlock}/>
+                {/*<FAQsBlock faqBlock={homePage.faqBlock}/>*/}
 
                 <div className="flex items-center gap-2 pt-2 pb-2">
                     <Checkbox id="ratings" defaultChecked/>
