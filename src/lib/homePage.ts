@@ -1,5 +1,6 @@
 import {getMongoDb} from '@admin/lib/mongodb'
 import {HomePageData, SchoolProgram} from '@admin/types'
+import {WithId} from "mongodb";
 
 export const getHomePageData = async () => {
     const db = await getMongoDb()
@@ -19,7 +20,7 @@ export const getSchoolPrograms = async () => {
     const homePageData = await getHomePageData()
     return homePageData?.schoolProgramsBlock.schoolPrograms
 }
-export const getSchoolProgram = (slug: string, homePageData: HomePageData): SchoolProgram | undefined => {
+export const getSchoolProgram = (slug: string, homePageData: HomePageData): WithId<SchoolProgram> | undefined => {
     return homePageData?.schoolProgramsBlock.schoolPrograms?.find((program) => program.slug === slug)
 }
 export const getCallToAction = async () => {

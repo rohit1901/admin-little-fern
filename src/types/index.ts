@@ -107,7 +107,7 @@ export type Pricing = {
     price: string
     interval: string
     shortDescription: string
-    features: Feature[]
+    features: WithId<Feature>[]
     action: Action
 }
 
@@ -196,8 +196,8 @@ export type SchoolProgramsBlock = {
     schoolPrograms?: WithId<SchoolProgram>[]
 }
 export type HomeHeroBlock = {
-    hero?: Hero
-    ratings?: Rating[]
+    hero: Hero
+    ratings: Rating[]
 }
 export type HomePageData = {
     homeHero: WithId<HomeHeroBlock>
@@ -249,7 +249,7 @@ export type ParentsPageData = {
     newsletters: NewsletterItem[]
 }
 export type GalleryPageData = {
-    gallery: GalleryItem[]
+    gallery: WithId<GalleryItem>[]
     textBlock: TextBlock
     pageHero?: Hero
 }

@@ -1,5 +1,5 @@
 import {WithId} from "mongodb";
-import {Hero, SchoolProgram} from "@admin/types";
+import {GalleryItem, Hero, SchoolProgram} from "@admin/types";
 
 /**
  * Get the image url from the src
@@ -18,4 +18,10 @@ export const getNewSchoolPrograms = (id: string, newHero: Hero, schoolPrograms?:
         }
         return {...program}
     })
+}
+
+export const getUniqueTags = (galleryItems: GalleryItem[]) => {
+    const badges = galleryItems.map((galleryItem) => galleryItem.tag)
+    const set = new Set(badges)
+    return Array.from(set)
 }

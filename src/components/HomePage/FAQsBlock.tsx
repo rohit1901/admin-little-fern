@@ -8,23 +8,23 @@ import {useHomePageStore} from "@admin/store";
 const FAQsBlock = () => {
     const {homePageData: {faqBlock}, setFaqBlockHeading, setFaqQuestion, setFaqAnswer} = useHomePageStore()
     return <Fragment>
-        <LFFormSection sectionTitle={'FAQ Block - Heading'}>
+        {faqBlock?.heading && <LFFormSection sectionTitle={'FAQ Block - Heading'}>
             <LFFormElement labelValue="FAQ Heading" labelName='faqHeading'>
                 <TextInput id="faqHeading" type="text" placeholder="FAQ Heading"
                            value={faqBlock?.heading} required
                            onChange={(event) => setFaqBlockHeading(event.currentTarget.value)}/>
             </LFFormElement>
-        </LFFormSection>
+        </LFFormSection>}
         <LFFormSection sectionTitle={'FAQ Block - FAQs'}>
             {faqBlock?.faqs?.map((faq) => {
                 return (<Fragment key={faq._id.toString()}>
-                    <LFFormElement labelValue="FAQ Question" labelName='faqQuestion'>
-                        <TextInput id="faqQuestion" type="text" placeholder="FAQ Question"
+                    <LFFormElement labelValue="FAQ Question" labelName={`faqQuestion${faq._id.toString()}`}>
+                        <TextInput id={`faqQuestion${faq._id.toString()}`} type="text" placeholder="FAQ Question"
                                    value={faq.question} required
                                    onChange={(event) => setFaqQuestion(faq._id, event.currentTarget.value)}/>
                     </LFFormElement>
-                    <LFFormElement labelValue="FAQ Answer" labelName='faqAnswer'>
-                        <Textarea id="faqAnswer" placeholder="FAQ Answer"
+                    <LFFormElement labelValue="FAQ Answer" labelName={`faqAnswer${faq._id.toString()}`}>
+                        <Textarea id={`faqAnswer${faq._id.toString()}`} placeholder="FAQ Answer"
                                   value={faq.answer} required
                                   onChange={(event) => setFaqAnswer(faq._id, event.currentTarget.value)}/>
                     </LFFormElement>

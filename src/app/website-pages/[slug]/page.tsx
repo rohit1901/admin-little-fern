@@ -10,6 +10,8 @@ import ParentsPageComponent from "@admin/components/ParentsPage";
 import ContactPageComponent from "@admin/components/ContactPage";
 import {getParentsPage} from "@admin/lib/parentsPage";
 import {getContactPageData} from "@admin/lib/contactPage";
+import {Spinner} from "flowbite-react";
+import {Suspense} from "react";
 
 export async function generateMetadata() {
     return {
@@ -18,13 +20,11 @@ export async function generateMetadata() {
     }
 }
 
-export default async function WebsitePage({params: {slug}}: {
-    params: { slug: string }
-}) {
+const getElems = async (slug: string) => {
     if (slug === 'Home') {
         const homePageData: WithId<HomePageData> = await getHomePageData()
         const plainHomePageData: WithId<HomePageData> = JSON.parse(JSON.stringify(homePageData));
-        return <HomePageComponent data={plainHomePageData}/>
+        return <HomePageComponent pageData={plainHomePageData}/>
     }
     if (slug === 'About') {
         const aboutPageData: WithoutId<AboutPageData> = await getAboutPageData()
@@ -34,7 +34,7 @@ export default async function WebsitePage({params: {slug}}: {
     if (slug === 'Gallery') {
         const galleryPageData: WithoutId<GalleryPageData> = await getGalleryPageData()
         const plainGalleryPageData: GalleryPageData = JSON.parse(JSON.stringify(galleryPageData));
-        return <GalleryPageComponent galleryPageData={plainGalleryPageData}/>
+        return <GalleryPageComponent pageData={plainGalleryPageData}/>
     }
     if (slug === 'Parents') {
         const parentsPageData: WithoutId<ParentsPageData> = await getParentsPage()
@@ -46,11 +46,18 @@ export default async function WebsitePage({params: {slug}}: {
         const plainContactPageData: ContactPageData = JSON.parse(JSON.stringify(contactPageData));
         return <ContactPageComponent contactPageData={plainContactPageData}/>
     }
-
-
-    return (<div className='p-4 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
-            <h1>Website Page - {slug}</h1>
-        </div>)
+    return null
+}
+export default async function WebsitePage({params: {slug}}: {
+    params: { slug: string }
+}) {
+    const elem = await getElems(slug)
+    return <Suspense
+        fallback={<div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
+            <Spinner aria-label="Default status example"/>
+        </div>}>
+        {elem}
+    </Suspense>
 }
 
 export const dynamicParams = false

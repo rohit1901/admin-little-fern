@@ -13,20 +13,23 @@ import {WithId} from "mongodb";
 import FAQsBlock from "@admin/components/HomePage/FAQsBlock";
 
 type HomePageDataProps = {
-    data: WithId<HomePageData>
+    pageData: WithId<HomePageData>
 }
-const HomePageComponent = ({data}: HomePageDataProps) => {
+const HomePageComponent = ({pageData}: HomePageDataProps) => {
     const {
+        homePageData,
         setHomePageData
-    } = useHomePageStore((state) => state)
+    } = useHomePageStore()
     useEffect(() => {
-        setHomePageData(data)
+        setHomePageData(pageData)
     }, [])
 
-    return (<div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800 w-5/6'>
+    return (homePageData && <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800 w-5/6'>
             <LFForm>
                 {/* Hero Block */}
-                <HomeHero/>
+                <HomeHero image={homePageData.homeHero?.hero.image} tagline={homePageData.homeHero?.hero.tagline}
+                          headline={homePageData.homeHero?.hero.headline} text={homePageData.homeHero?.hero.text}
+                          youTubeLink={homePageData.homeHero?.hero.youTubeLink}/>
                 {/* School Features heading, subheading, text */}
                 <SchoolFeaturesText/>
                 {/* School Features items */}
@@ -37,13 +40,13 @@ const HomePageComponent = ({data}: HomePageDataProps) => {
                 <SchoolPrograms/>
                 {/*FAQ Block*/}
                 <FAQsBlock/>
-
                 <div className="flex items-center gap-2 pt-2 pb-2">
                     <Checkbox id="ratings" defaultChecked/>
                     <Label htmlFor="ratings" className="flex">
                         Show ratings from Google Maps on the website
                     </Label>
                 </div>
+
             </LFForm>
         </div>
     )

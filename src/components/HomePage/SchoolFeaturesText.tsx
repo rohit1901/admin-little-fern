@@ -14,21 +14,23 @@ const SchoolFeaturesText = () => {
     } = useHomePageStore(state => state)
     return <Fragment>
         <LFFormSection sectionTitle='School Features'>
-            <LFFormElement labelValue="School features heading" labelName="sfh">
-                <TextInput id="sfh" type="text" placeholder="School features heading"
-                           value={homePageData.schoolFeatures?.heading} required
-                           onChange={(event) => setSchoolFeaturesHeading(event.currentTarget.value)}/>
-            </LFFormElement>
-            <LFFormElement labelValue="School features sub-heading" labelName="sfsh">
-                <TextInput id="sfsh" type="text" placeholder="School features  sub-heading"
-                           value={homePageData.schoolFeatures?.subHeading} required
-                           onChange={(event) => setSchoolFeaturesSubHeading(event.currentTarget.value)}/>
-            </LFFormElement>
-            <LFFormElement labelValue="School features" labelName="sff">
+            {homePageData.schoolFeatures?.heading &&
+                <LFFormElement labelValue="School features heading" labelName="sfh">
+                    <TextInput id="sfh" type="text" placeholder="School features heading"
+                               value={homePageData.schoolFeatures?.heading} required
+                               onChange={(event) => setSchoolFeaturesHeading(event.currentTarget.value)}/>
+                </LFFormElement>}
+            {homePageData.schoolFeatures?.subHeading &&
+                <LFFormElement labelValue="School features sub-heading" labelName="sfsh">
+                    <TextInput id="sfsh" type="text" placeholder="School features  sub-heading"
+                               value={homePageData.schoolFeatures?.subHeading} required
+                               onChange={(event) => setSchoolFeaturesSubHeading(event.currentTarget.value)}/>
+                </LFFormElement>}
+            {homePageData.schoolFeatures?.features && <LFFormElement labelValue="School features" labelName="sff">
                 <TextInput id="sff" type="text" placeholder="School features"
                            value={homePageData.schoolFeatures?.features?.toString()} required
                            onChange={(event) => setSchoolFeaturesFeatures(event.currentTarget.value)}/>
-            </LFFormElement>
+            </LFFormElement>}
         </LFFormSection>
     </Fragment>
 }
