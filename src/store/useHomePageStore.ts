@@ -3,7 +3,7 @@ import {Faq, Hero, HomeFeatureBlock, HomePageData, SchoolProgram, StaffDescripti
 import {ObjectId, WithId} from "mongodb";
 import {getNewSchoolPrograms} from "@admin/lib";
 
-type State = {
+type HomePageStore = {
     homePageData: WithId<HomePageData>;
     setHomePageData: (data: WithId<HomePageData>) => void;
     setHomePageHeroTagline: (tagline: string) => void;
@@ -32,7 +32,7 @@ type State = {
     setFaqAnswer: (id: ObjectId, answer: string) => void;
 };
 
-export const useHomePageStore = create<State>((set) => ({
+export const useHomePageStore = create<HomePageStore>((set) => ({
     homePageData: {} as WithId<HomePageData>,
     newFeatureBlocks: [] as WithId<HomeFeatureBlock>[],
     setHomePageData: (data: WithId<HomePageData>) => set(state => {

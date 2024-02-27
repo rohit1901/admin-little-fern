@@ -28,8 +28,8 @@ export default async function WebsitePage({params: {slug}}: {
     }
     if (slug === 'About') {
         const aboutPageData: WithoutId<AboutPageData> = await getAboutPageData()
-        const plainAboutPageData: AboutPageData = JSON.parse(JSON.stringify(aboutPageData));
-        return <AboutPageComponent aboutPageData={plainAboutPageData}/>
+        const plainAboutPageData: WithId<AboutPageData> = JSON.parse(JSON.stringify(aboutPageData));
+        return <AboutPageComponent pageData={plainAboutPageData}/>
     }
     if (slug === 'Gallery') {
         const galleryPageData: WithoutId<GalleryPageData> = await getGalleryPageData()
@@ -39,7 +39,7 @@ export default async function WebsitePage({params: {slug}}: {
     if (slug === 'Parents') {
         const parentsPageData: WithoutId<ParentsPageData> = await getParentsPage()
         const plainParentsPageData: ParentsPageData = JSON.parse(JSON.stringify(parentsPageData));
-        return <ParentsPageComponent parentsPageData={plainParentsPageData}/>
+        return <ParentsPageComponent pageData={plainParentsPageData}/>
     }
     if (slug === 'Contact') {
         const contactPageData: WithoutId<ContactPageData> = await getContactPageData()

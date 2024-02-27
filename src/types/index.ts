@@ -139,7 +139,7 @@ export type ValueItem = { value: string; description: string }
 export type ValueData = {
     heading: string
     subHeading: string
-    values: ValueItem[]
+    values: WithId<ValueItem>[]
     image: ImageItem
 }
 export type AlternatingFeaturesItem = {
@@ -213,7 +213,7 @@ export type HomePageData = {
 export type AlternatingFeaturesData = {
     sectionTitle?: string
     underlinedText?: string
-    blocks: AlternatingFeaturesItem[]
+    blocks: WithId<AlternatingFeaturesItem>[]
 }
 export type CallToActionBlock = {
     sectionTitle?: string
@@ -223,10 +223,10 @@ export type CallToActionBlock = {
 export type StatsBlock = {
     heading: string
     subHeading: string
-    stats: Stat[]
+    stats: WithId<Stat>[]
 }
 export type StaffBlock = {
-    staffDetails: StaffDetails[]
+    staffDetails: WithId<StaffDetails>[]
     heading: string
     subHeading: string
 }
@@ -234,7 +234,7 @@ export type AboutPageData = {
     title?: string
     subTitle?: string
     paragraph?: string
-    aboutHero?: ImageItem[]
+    aboutHero?: WithId<ImageItem>[]
     description?: string
     alternatingFeatures: AlternatingFeaturesData
     statsBlock: StatsBlock
@@ -243,8 +243,8 @@ export type AboutPageData = {
 }
 export type ParentsPageData = {
     hero: Hero
-    heroItems: ParentsHeroItem[]
-    events: EventItem[]
+    heroItems: WithId<ParentsHeroItem>[]
+    events: WithId<EventItem>[]
     eventsText: TextBlock
     newsletters: NewsletterItem[]
 }
