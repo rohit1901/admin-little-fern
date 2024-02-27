@@ -48,11 +48,9 @@ export default async function WebsitePage({params: {slug}}: {
     }
 
 
-    return (
-        <div className='p-4 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
+    return (<div className='p-4 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
             <h1>Website Page - {slug}</h1>
-        </div>
-    )
+        </div>)
 }
 
 export const dynamicParams = false
