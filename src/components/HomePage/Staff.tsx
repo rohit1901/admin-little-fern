@@ -3,12 +3,8 @@ import LFFormSection from "@admin/components/LFFormSection";
 import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
 import Dropzone from "@admin/components/Dropzone";
-import {Staff} from "@admin/types";
 import {useHomePageStore} from "@admin/store";
 
-type StaffProps = {
-    staff: Staff
-}
 const Staff = () => {
     const {
         homePageData: {staff},

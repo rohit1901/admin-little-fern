@@ -10,6 +10,7 @@ import SchoolPrograms from "@admin/components/HomePage/SchoolPrograms";
 import {useHomePageStore} from "@admin/store";
 import {useEffect} from "react";
 import {WithId} from "mongodb";
+import FAQsBlock from "@admin/components/HomePage/FAQsBlock";
 
 type HomePageDataProps = {
     data: WithId<HomePageData>
@@ -34,10 +35,8 @@ const HomePageComponent = ({data}: HomePageDataProps) => {
                 <Staff/>
                 {/*School Programs heading, sub-heading*/}
                 <SchoolPrograms/>
-                {/*Testimonials*/}
-                {/*<Testimonials testimonialsBlock={homePage.testimonialsBlock}/>*/}
                 {/*FAQ Block*/}
-                {/*<FAQsBlock faqBlock={homePage.faqBlock}/>*/}
+                <FAQsBlock/>
 
                 <div className="flex items-center gap-2 pt-2 pb-2">
                     <Checkbox id="ratings" defaultChecked/>

@@ -183,7 +183,7 @@ export type GalleryItem = {
     tag: string
 }
 export type FAQBlock = {
-    faqs?: Faq[]
+    faqs?: WithId<Faq>[]
     heading?: string
 }
 export type TestimonialsBlock = {

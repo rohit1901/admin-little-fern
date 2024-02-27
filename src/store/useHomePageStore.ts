@@ -1,6 +1,7 @@
 import {create} from 'zustand';
-import {Hero, HomeFeatureBlock, HomePageData, SchoolProgram, StaffDescription, StaffDetails} from "@admin/types";
+import {Faq, Hero, HomeFeatureBlock, HomePageData, SchoolProgram, StaffDescription, StaffDetails} from "@admin/types";
 import {ObjectId, WithId} from "mongodb";
+import {getNewSchoolPrograms} from "@admin/lib";
 
 type State = {
     homePageData: WithId<HomePageData>;
@@ -26,6 +27,9 @@ type State = {
     setSchoolProgramHeroTagline: (id: ObjectId, tagline: string) => void;
     setSchoolProgramHeroHeadline: (id: ObjectId, headline: string) => void;
     setSchoolProgramHeroText: (id: ObjectId, text: string) => void;
+    setFaqBlockHeading: (heading: string) => void;
+    setFaqQuestion: (id: ObjectId, question: string) => void;
+    setFaqAnswer: (id: ObjectId, answer: string) => void;
 };
 
 export const useHomePageStore = create<State>((set) => ({
@@ -246,12 +250,7 @@ export const useHomePageStore = create<State>((set) => ({
         if (!newProgram) return state
         const newHero: Hero = {...newProgram.hero, tagline: tagline}
         // create the new schoolPrograms array with the updated hero block
-        const newSchoolPrograms = state.homePageData.schoolProgramsBlock?.schoolPrograms?.map((program) => {
-            if (program._id?.toString() === id.toString()) {
-                return {...program, hero: newHero}
-            }
-            return {...program}
-        })
+        const newSchoolPrograms = getNewSchoolPrograms(id.toString(), newHero, state.homePageData.schoolProgramsBlock?.schoolPrograms)
         if (!newSchoolPrograms) return state
         return {
             homePageData: {
@@ -266,12 +265,7 @@ export const useHomePageStore = create<State>((set) => ({
         if (!newProgram) return state
         const newHero: Hero = {...newProgram.hero, headline: headline}
         // create the new schoolPrograms array with the updated hero block
-        const newSchoolPrograms = state.homePageData.schoolProgramsBlock?.schoolPrograms?.map((program) => {
-            if (program._id?.toString() === id.toString()) {
-                return {...program, hero: newHero}
-            }
-            return {...program}
-        })
+        const newSchoolPrograms = getNewSchoolPrograms(id.toString(), newHero, state.homePageData.schoolProgramsBlock?.schoolPrograms)
         if (!newSchoolPrograms) return state
         return {
             homePageData: {
@@ -286,12 +280,7 @@ export const useHomePageStore = create<State>((set) => ({
         if (!newProgram) return state
         const newHero: Hero = {...newProgram.hero, text: text}
         // create the new schoolPrograms array with the updated hero block
-        const newSchoolPrograms = state.homePageData.schoolProgramsBlock?.schoolPrograms?.map((program) => {
-            if (program._id?.toString() === id.toString()) {
-                return {...program, hero: newHero}
-            }
-            return {...program}
-        })
+        const newSchoolPrograms = getNewSchoolPrograms(id.toString(), newHero, state.homePageData.schoolProgramsBlock?.schoolPrograms)
         if (!newSchoolPrograms) return state
         return {
             homePageData: {
@@ -300,4 +289,46 @@ export const useHomePageStore = create<State>((set) => ({
             }
         }
     }),
+    setFaqBlockHeading: (heading: string) => set((state) => ({
+        homePageData: {
+            ...state.homePageData,
+            faqBlock: {...state.homePageData.faqBlock, heading: heading}
+        }
+    })),
+    setFaqQuestion: (id: ObjectId, question: string) => set((state) => {
+        const nFaq: WithId<Faq> | undefined = state.homePageData.faqBlock?.faqs?.find((faq) => faq._id.toString() === id.toString())
+        if (!nFaq) return state
+        const newFaq: WithId<Faq> = {...nFaq, question: question}
+        const newFaqs = state.homePageData.faqBlock?.faqs?.map((faq) => {
+            if (faq._id.toString() === nFaq?._id.toString()) {
+                return newFaq
+            }
+            return faq
+        })
+        if (!newFaqs) return state
+        return {
+            homePageData: {
+                ...state.homePageData,
+                faqBlock: {...state.homePageData.faqBlock, faqs: newFaqs}
+            }
+        }
+    }),
+    setFaqAnswer: (id: ObjectId, answer: string) => set((state) => {
+        const nFaq: WithId<Faq> | undefined = state.homePageData.faqBlock?.faqs?.find((faq) => faq._id.toString() === id.toString())
+        if (!nFaq) return state
+        const newFaq: WithId<Faq> = {...nFaq, answer: answer}
+        const newFaqs = state.homePageData.faqBlock?.faqs?.map((faq) => {
+            if (faq._id.toString() === nFaq?._id.toString()) {
+                return newFaq
+            }
+            return faq
+        })
+        if (!newFaqs) return state
+        return {
+            homePageData: {
+                ...state.homePageData,
+                faqBlock: {...state.homePageData.faqBlock, faqs: newFaqs}
+            }
+        }
+    })
 }));
