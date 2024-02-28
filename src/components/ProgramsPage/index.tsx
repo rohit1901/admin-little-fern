@@ -25,7 +25,15 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
         setProgramDescriptionSectionText,
         setProgramPricingSectionHeadline,
         setProgramPricingSectionTagline,
-        setProgramPricingSectionText
+        setProgramPricingSectionText,
+        setProgramPricingSectionPricing1Interval,
+        setProgramPricingSectionPricing1Name,
+        setProgramPricingSectionPricing1Price,
+        setProgramPricingSectionPricing1ShortDescription,
+        setProgramPricingSectionPricing2Interval,
+        setProgramPricingSectionPricing2Name,
+        setProgramPricingSectionPricing2Price,
+        setProgramPricingSectionPricing2ShortDescription
     } = useSchoolProgramsPageStore()
     return <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
         <LFForm>
@@ -116,31 +124,24 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
                 </LFFormElement>
                 <LFFormElement labelValue="Name" labelName="program-pricing1-name">
                     <TextInput id="program-pricing1-name" placeholder="Name for the Pricing1 Block"
-                               value={schoolProgram?.pricingSection?.pricing1?.name} required onChange={(event) => {
-                        // update the title
-                    }}/>
+                               value={schoolProgram?.pricingSection?.pricing1?.name} required onChange={(event) => setProgramPricingSectionPricing1Name(schoolProgram?._id.toString(), event.target.value)}/>
                 </LFFormElement>
                 <LFFormElement labelValue="Price" labelName="program-pricing1-price">
                     <TextInput id="program-pricing1-price" placeholder="Price for the Pricing1 Block"
-                               value={schoolProgram?.pricingSection?.pricing1?.price} required onChange={(event) => {
-                        // update the title
-                    }}/>
+                               value={schoolProgram?.pricingSection?.pricing1?.price} required onChange={(event) => setProgramPricingSectionPricing1Price(schoolProgram?._id.toString(), event.target.value)}/>
                 </LFFormElement>
                 <LFFormElement labelValue="Interval" labelName="program-pricing1-interval">
                     <TextInput id="program-pricing1-interval" placeholder="Interval for the Pricing1 Block"
-                               value={schoolProgram?.pricingSection?.pricing1?.interval} required onChange={(event) => {
-                        // update the title
-                    }}/>
+                               value={schoolProgram?.pricingSection?.pricing1?.interval} required onChange={(event) => setProgramPricingSectionPricing1Interval(schoolProgram?._id.toString(), event.target.value)}/>
                 </LFFormElement>
                 <LFFormElement labelValue="Short Description" labelName="program-pricing1-short-description">
                     <TextInput id="program-pricing1-short-description"
                                placeholder="Short Description for the Pricing1 Block"
                                value={schoolProgram?.pricingSection?.pricing1?.shortDescription} required
-                               onChange={(event) => {
-                                   // update the title
-                               }}/>
+                               onChange={(event) => setProgramPricingSectionPricing1ShortDescription(schoolProgram?._id.toString(), event.target.value)}/>
                 </LFFormElement>
-                {schoolProgram?.pricingSection?.pricing1?.features.map((feature, index) => {
+                {/*TODO: Feature text - Think of changing the DB Schema to have a single pricing section with an array of features*/}
+                {/*{schoolProgram?.pricingSection?.pricing1?.features.map((feature, index) => {
                     return <LFFormElement key={feature._id.toString()} labelValue={`Feature ${index + 1}`}
                                           labelName={`program-pricing1-feature-${index}`}>
                         <TextInput id={`program-pricing1-feature-${index}`} placeholder='Feature'
@@ -148,42 +149,35 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
                             // update the title
                         }}/>
                     </LFFormElement>
-                })}
+                })}*/}
                 <LFFormElement labelValue="Name" labelName="program-pricing2-name">
                     <TextInput id="program-pricing2-name" placeholder="Name for the Pricing2 Block"
-                               value={schoolProgram?.pricingSection?.pricing2?.name} required onChange={(event) => {
-                        // update the title
-                    }}/>
+                               value={schoolProgram?.pricingSection?.pricing2?.name} required onChange={(event) => setProgramPricingSectionPricing2Name(schoolProgram?._id.toString(), event.target.value)}/>
                 </LFFormElement>
                 <LFFormElement labelValue="Price" labelName="program-pricing2-price">
                     <TextInput id="program-pricing2-price" placeholder="Price for the Pricing2 Block"
-                               value={schoolProgram?.pricingSection?.pricing2?.price} required onChange={(event) => {
-                        // update the title
-                    }}/>
+                               value={schoolProgram?.pricingSection?.pricing2?.price} required onChange={(event) => setProgramPricingSectionPricing2Price(schoolProgram?._id.toString(), event.target.value)}/>
                 </LFFormElement>
                 <LFFormElement labelValue="Interval" labelName="program-pricing2-interval">
                     <TextInput id="program-pricing2-interval" placeholder="Interval for the Pricing2 Block"
-                               value={schoolProgram?.pricingSection?.pricing2?.interval} required onChange={(event) => {
-                        // update the title
-                    }}/>
+                               value={schoolProgram?.pricingSection?.pricing2?.interval} required onChange={(event) => setProgramPricingSectionPricing2Interval(schoolProgram?._id.toString(), event.target.value)}/>
                 </LFFormElement>
                 <LFFormElement labelValue="Short Description" labelName="program-pricing2-short-description">
                     <TextInput id="program-pricing2-short-description"
                                placeholder="Short Description for the Pricing2 Block"
                                value={schoolProgram?.pricingSection?.pricing2?.shortDescription} required
-                               onChange={(event) => {
-                                   // update the title
-                               }}/>
+                               onChange={(event) => setProgramPricingSectionPricing2ShortDescription(schoolProgram?._id.toString(), event.target.value)}/>
                 </LFFormElement>
-                {schoolProgram?.pricingSection?.pricing2?.features.map((feature, index) => {
+                {/*TODO: Feature text - Think of changing the DB Schema to have a single pricing section with an array of features*/}
+                {/*{schoolProgram?.pricingSection?.pricing2?.features.map((feature, index) => {
                     return <LFFormElement key={feature._id.toString()} labelValue={`Feature ${index + 1}`}
-                                          labelName={`program-pricing2-feature-${index}`}>
-                        <TextInput id={`program-pricing2-feature-${index}`} placeholder='Feature'
+                                          labelName={`program-pricing2-feature-${feature._id.toString()}`}>
+                        <TextInput id={`program-pricing2-feature-${feature._id.toString()}`} placeholder='Feature'
                                    value={feature?.feature} required onChange={(event) => {
                             // update the title
                         }}/>
                     </LFFormElement>
-                })}
+                })}*/}
             </LFFormSection>
         </LFForm>
     </div>
