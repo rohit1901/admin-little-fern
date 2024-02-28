@@ -1,24 +1,11 @@
 'use client';
 
-import {
-    FlowbiteSidebarTheme,
-    Sidebar,
-    SidebarCollapse,
-    SidebarItem,
-    SidebarItemGroup,
-    SidebarItems
-} from 'flowbite-react';
+import {Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems} from 'flowbite-react';
 import {BiBuoy} from 'react-icons/bi';
-import {HiArrowSmRight, HiChartPie, HiInbox, HiOfficeBuilding, HiTable, HiUser, HiViewBoards} from 'react-icons/hi';
-import {DeepPartial} from "flowbite-react/lib/esm/types";
+import {HiChartPie, HiInbox, HiOfficeBuilding, HiUser, HiViewBoards} from 'react-icons/hi';
 import {HiCamera, HiHome, HiMiniDocument, HiMiniInformationCircle, HiPhone, HiUserGroup} from "react-icons/hi2";
-// Define your custom theme
-const customSidebarTheme: DeepPartial<FlowbiteSidebarTheme> = {
-    root: {
-        base: 'fixed overflow-y-auto scrolling-touch top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700', // Tailwind class for background color
-        inner: 'py-5 px-7 h-full bg-white dark:bg-gray-800', // Tailwind class for background color
-    },
-};
+import {usePathname} from "next/navigation";
+
 type LFSidebarProps = {
     programs?: {
         name?: string
@@ -26,6 +13,16 @@ type LFSidebarProps = {
     }[]
 }
 const LFSidebar = ({programs}: LFSidebarProps) => {
+    const slug = usePathname()
+    //create a function to set active property to true based on the slug matching the current page
+    const setActive = (href: string) => {
+        // set active to true if the slug includes '/programs'
+        if (href.includes('/programs')) {
+            return slug.includes('/programs')
+        }
+        return slug === href
+    }
+
     const pages = [{
         name: 'Home', href: '/website-pages/Home', icon: HiHome,
     }, {
@@ -39,16 +36,20 @@ const LFSidebar = ({programs}: LFSidebarProps) => {
     }, {
         name: 'Parents', href: '/website-pages/Parents', icon: HiUserGroup,
     }]
-    return (<Sidebar theme={customSidebarTheme}>
+    const isSidebarCollapseOpen = () => {
+        return slug.includes('/website-pages') || slug.includes('/programs')
+    }
+    return (<Sidebar className='fixed px-4 mt-16 mb-4'>
         <SidebarItems>
             <SidebarItemGroup>
-                <SidebarItem href="/dashboard" icon={HiChartPie}>
+                <SidebarItem href="/dashboard" icon={HiChartPie} active={setActive('/dashboard')}>
                     Dashboard
                 </SidebarItem>
-                <SidebarCollapse icon={HiMiniDocument} label="Pages">
+                <SidebarCollapse icon={HiMiniDocument} label="Pages" open={isSidebarCollapseOpen()}>
                     {pages?.map((page) => (<SidebarItem href={page.href} key={page.name}
                                                         icon={page.icon}
-                                                        className='text-ellipsis overflow-hidden text-sm'>
+                                                        className='text-ellipsis overflow-hidden text-sm'
+                                                        active={setActive(page.href)}>
                         {page.name}
                     </SidebarItem>))}
                 </SidebarCollapse>
@@ -57,12 +58,6 @@ const LFSidebar = ({programs}: LFSidebarProps) => {
                 </SidebarItem>
                 <SidebarItem href="#" icon={HiUser}>
                     Users
-                </SidebarItem>
-                <SidebarItem href="#" icon={HiArrowSmRight}>
-                    Sign In
-                </SidebarItem>
-                <SidebarItem href="#" icon={HiTable}>
-                    Sign Up
                 </SidebarItem>
             </SidebarItemGroup>
             <SidebarItemGroup>

@@ -1,7 +1,5 @@
-import ProgramsPage from "@admin/components/ProgramsPage";
-import {HomePageData} from "@admin/types";
-import {WithoutId} from "mongodb";
-import {getHomePageData, getSchoolProgram} from "@admin/lib/homePage";
+import {getSchoolPrograms} from "@admin/lib/homePage";
+import ProgramsPageWrapper from "@admin/components/ProgramsPage/ProgramsPageWrapper";
 
 export async function generateMetadata() {
     return {
@@ -13,11 +11,8 @@ export async function generateMetadata() {
 export default async function ProgramPage({params: {slug}}: {
     params: { slug: string }
 }) {
-    const homePageData: WithoutId<HomePageData> = await getHomePageData()
-    const schoolProgram = getSchoolProgram(slug, homePageData)
-    if (!schoolProgram) return null
-
-    return (<ProgramsPage schoolProgram={schoolProgram}/>)
+    const schoolPrograms = await getSchoolPrograms()
+    return <ProgramsPageWrapper schoolPrograms={JSON.parse(JSON.stringify(schoolPrograms))} slug={slug}/>
 }
 
 export const dynamicParams = false

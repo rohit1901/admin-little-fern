@@ -1,11 +1,7 @@
-import {getHomePageData} from "@admin/lib/homePage";
 import {Fragment} from "react";
 import {Button} from "flowbite-react";
-import {HomePageData} from "@admin/types";
-import {WithoutId} from "mongodb";
 
 const Dashboard = async () => {
-    const homePageData: WithoutId<HomePageData> = await getHomePageData()
     return (
         <Fragment>
             <Button href="/dashboard"

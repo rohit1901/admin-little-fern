@@ -1,3 +1,5 @@
+import {WithId} from "mongodb";
+
 /**
  * Global Types used across the application
  */
@@ -53,14 +55,14 @@ export type StaffAssurancesBlock = {
 }
 export type Staff = {
     assurancesBlock?: StaffAssurancesBlock
-    staffDetails?: StaffDetails[]
-    featuredStaffDescription?: StaffDescription[]
+    staffDetails?: WithId<StaffDetails>[]
+    featuredStaffDescription?: WithId<StaffDescription>[]
     heading?: string
     pageTitle?: string
     subHeading?: string
 }
 export type SchoolFeatures = {
-    featureBlocks?: HomeFeatureBlock[]
+    featureBlocks?: WithId<HomeFeatureBlock>[]
     features?: string[]
     heading?: string
     subHeading?: string
@@ -105,7 +107,7 @@ export type Pricing = {
     price: string
     interval: string
     shortDescription: string
-    features: Feature[]
+    features: WithId<Feature>[]
     action: Action
 }
 
@@ -137,7 +139,7 @@ export type ValueItem = { value: string; description: string }
 export type ValueData = {
     heading: string
     subHeading: string
-    values: ValueItem[]
+    values: WithId<ValueItem>[]
     image: ImageItem
 }
 export type AlternatingFeaturesItem = {
@@ -181,7 +183,7 @@ export type GalleryItem = {
     tag: string
 }
 export type FAQBlock = {
-    faqs?: Faq[]
+    faqs?: WithId<Faq>[]
     heading?: string
 }
 export type TestimonialsBlock = {
@@ -191,14 +193,14 @@ export type TestimonialsBlock = {
 }
 export type SchoolProgramsBlock = {
     heading?: string
-    schoolPrograms?: SchoolProgram[]
+    schoolPrograms?: WithId<SchoolProgram>[]
 }
 export type HomeHeroBlock = {
-    hero?: Hero
-    ratings?: Rating[]
+    hero: Hero
+    ratings: Rating[]
 }
 export type HomePageData = {
-    homeHero: HomeHeroBlock
+    homeHero: WithId<HomeHeroBlock>
     ratings: Rating[]
     schoolFeatures: SchoolFeatures
     staff: Staff
@@ -211,7 +213,7 @@ export type HomePageData = {
 export type AlternatingFeaturesData = {
     sectionTitle?: string
     underlinedText?: string
-    blocks: AlternatingFeaturesItem[]
+    blocks: WithId<AlternatingFeaturesItem>[]
 }
 export type CallToActionBlock = {
     sectionTitle?: string
@@ -221,10 +223,10 @@ export type CallToActionBlock = {
 export type StatsBlock = {
     heading: string
     subHeading: string
-    stats: Stat[]
+    stats: WithId<Stat>[]
 }
 export type StaffBlock = {
-    staffDetails: StaffDetails[]
+    staffDetails: WithId<StaffDetails>[]
     heading: string
     subHeading: string
 }
@@ -232,7 +234,7 @@ export type AboutPageData = {
     title?: string
     subTitle?: string
     paragraph?: string
-    aboutHero?: ImageItem[]
+    aboutHero?: WithId<ImageItem>[]
     description?: string
     alternatingFeatures: AlternatingFeaturesData
     statsBlock: StatsBlock
@@ -241,13 +243,13 @@ export type AboutPageData = {
 }
 export type ParentsPageData = {
     hero: Hero
-    heroItems: ParentsHeroItem[]
-    events: EventItem[]
+    heroItems: WithId<ParentsHeroItem>[]
+    events: WithId<EventItem>[]
     eventsText: TextBlock
     newsletters: NewsletterItem[]
 }
 export type GalleryPageData = {
-    gallery: GalleryItem[]
+    gallery: WithId<GalleryItem>[]
     textBlock: TextBlock
     pageHero?: Hero
 }

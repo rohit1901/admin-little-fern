@@ -7,11 +7,14 @@ export async function getMongoClient(): Promise<MongoClient> {
      * during API Route usage.
      * https://github.com/vercel/next.js/pull/17666
      */
+    // @ts-ignore
     if (!global.mongoClientPromise) {
         const client = new MongoClient(process.env.MONGODB_URI ?? '')
         // client.connect() returns an instance of MongoClient when resolved
+        // @ts-ignore
         global.mongoClientPromise = client.connect()
     }
+    // @ts-ignore
     return global.mongoClientPromise
 }
 
