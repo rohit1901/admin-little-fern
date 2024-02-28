@@ -1,5 +1,5 @@
 import {WithId} from "mongodb";
-import {Feature, SchoolProgram} from "@admin/types";
+import {SchoolProgram} from "@admin/types";
 import {create} from "zustand";
 
 type SchoolProgramsPageStore = {
@@ -103,42 +103,56 @@ export const useSchoolProgramsPageStore = create<SchoolProgramsPageStore>((set) 
     })),
     setProgramPricingSectionPricing1Name: (id, name) => set((state) => ({
         programs: state.programs.map((program) => program._id.toString() === id ? {
-            ...program, pricingSection: {...program.pricingSection, pricing1: {...program.pricingSection.pricing1, name}}
+            ...program,
+            pricingSection: {...program.pricingSection, pricing1: {...program.pricingSection.pricing1, name}}
         } : program)
     })),
     setProgramPricingSectionPricing1Price: (id, price) => set((state) => ({
         programs: state.programs.map((program) => program._id.toString() === id ? {
-            ...program, pricingSection: {...program.pricingSection, pricing1: {...program.pricingSection.pricing1, price}}
+            ...program,
+            pricingSection: {...program.pricingSection, pricing1: {...program.pricingSection.pricing1, price}}
         } : program)
     })),
     setProgramPricingSectionPricing1Interval: (id, interval) => set((state) => ({
         programs: state.programs.map((program) => program._id.toString() === id ? {
-            ...program, pricingSection: {...program.pricingSection, pricing1: {...program.pricingSection.pricing1, interval}}
+            ...program,
+            pricingSection: {...program.pricingSection, pricing1: {...program.pricingSection.pricing1, interval}}
         } : program)
     })),
     setProgramPricingSectionPricing1ShortDescription: (id, shortDescription) => set((state) => ({
         programs: state.programs.map((program) => program._id.toString() === id ? {
-            ...program, pricingSection: {...program.pricingSection, pricing1: {...program.pricingSection.pricing1, shortDescription}}
+            ...program,
+            pricingSection: {
+                ...program.pricingSection,
+                pricing1: {...program.pricingSection.pricing1, shortDescription}
+            }
         } : program)
     })),
     setProgramPricingSectionPricing2Name: (id, name) => set((state) => ({
         programs: state.programs.map((program) => program._id.toString() === id ? {
-            ...program, pricingSection: {...program.pricingSection, pricing2: {...program.pricingSection.pricing2, name}}
+            ...program,
+            pricingSection: {...program.pricingSection, pricing2: {...program.pricingSection.pricing2, name}}
         } : program)
     })),
     setProgramPricingSectionPricing2Price: (id, price) => set((state) => ({
         programs: state.programs.map((program) => program._id.toString() === id ? {
-            ...program, pricingSection: {...program.pricingSection, pricing2: {...program.pricingSection.pricing2, price}}
+            ...program,
+            pricingSection: {...program.pricingSection, pricing2: {...program.pricingSection.pricing2, price}}
         } : program)
     })),
     setProgramPricingSectionPricing2Interval: (id, interval) => set((state) => ({
         programs: state.programs.map((program) => program._id.toString() === id ? {
-            ...program, pricingSection: {...program.pricingSection, pricing2: {...program.pricingSection.pricing2, interval}}
+            ...program,
+            pricingSection: {...program.pricingSection, pricing2: {...program.pricingSection.pricing2, interval}}
         } : program)
     })),
     setProgramPricingSectionPricing2ShortDescription: (id, shortDescription) => set((state) => ({
         programs: state.programs.map((program) => program._id.toString() === id ? {
-            ...program, pricingSection: {...program.pricingSection, pricing2: {...program.pricingSection.pricing2, shortDescription}}
+            ...program,
+            pricingSection: {
+                ...program.pricingSection,
+                pricing2: {...program.pricingSection.pricing2, shortDescription}
+            }
         } : program)
     })),
 }))

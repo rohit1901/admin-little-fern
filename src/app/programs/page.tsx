@@ -3,6 +3,7 @@ import {Noto_Sans} from "next/font/google";
 import {Button} from "flowbite-react";
 import {getSchoolPrograms} from "@admin/lib/homePage";
 import {SchoolProgram} from "@admin/types";
+import LFFormSection from "@admin/components/LFFormSection";
 
 const notoFont = Noto_Sans({subsets: ["latin"]});
 
@@ -11,8 +12,10 @@ export const metadata: Metadata = {
 };
 export default async function ProgramsLayout() {
     const programs = await getSchoolPrograms()
-    return (<div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
-        {programs?.map((program: SchoolProgram) => (
-            <Button key={program.slug} href={`/programs/${program.slug}`} className='m-2'>{program.name}</Button>))}
+    return (<div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
+        <LFFormSection sectionTitle='' isGallery>
+            {programs?.map((program: SchoolProgram) => (
+                <Button key={program.slug} href={`/programs/${program.slug}`} className='m-2'>{program.name}</Button>))}
+        </LFFormSection>
     </div>);
 }

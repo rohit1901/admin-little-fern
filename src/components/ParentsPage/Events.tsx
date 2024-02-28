@@ -2,9 +2,9 @@
 import LFFormSection from "@admin/components/LFFormSection";
 import LFFormElement from "@admin/components/LFFormElement";
 import {Fragment} from "react";
-import Dropzone from "@admin/components/Dropzone";
-import {TextInput} from "flowbite-react";
+import {Textarea, TextInput} from "flowbite-react";
 import {useParentsPageStore} from "@admin/store/useParentsPageStore";
+import {ImageBlock} from "@admin/components/ImageBlock";
 
 const ParentsEvents = () => {
     const {
@@ -17,35 +17,46 @@ const ParentsEvents = () => {
     } = useParentsPageStore()
     return <Fragment>
         <LFFormSection sectionTitle={'Parents Events Text'}>
-            <LFFormElement labelValue="Title" labelName="parents-events-title">
-                <TextInput id="parents-events-title" placeholder="Title" value={parentsPageData?.eventsText?.headline}
-                           required
-                           onChange={(event) => setEventsHeadline(event.target.value)}/>
-            </LFFormElement>
-            <LFFormElement labelValue="Description" labelName="parents-events-description">
-                <TextInput id="parents-events-description" placeholder="Description"
-                           value={parentsPageData?.eventsText?.text} required
-                           onChange={(event) => setEventsText(event.target.value)}/>
-            </LFFormElement>
+            <div className="lg:flex-grow md:w-1/2 pr-4">
+                {parentsPageData?.eventsText?.headline &&
+                    <LFFormElement labelValue="Title" labelName="parents-events-title">
+                        <TextInput id="parents-events-title" placeholder="Title"
+                                   value={parentsPageData?.eventsText?.headline}
+                                   required
+                                   onChange={(event) => setEventsHeadline(event.target.value)}/>
+                    </LFFormElement>}
+            </div>
+            <div className="lg:flex-grow md:w-1/2 pr-4">
+                {parentsPageData?.eventsText?.text &&
+                    <LFFormElement labelValue="Description" labelName="parents-events-description">
+                        <Textarea id="parents-events-description" placeholder="Description"
+                                  value={parentsPageData?.eventsText?.text} required className="h-text-area"
+                                  onChange={(event) => setEventsText(event.target.value)}/>
+                    </LFFormElement>}
+            </div>
         </LFFormSection>
         <LFFormSection sectionTitle={'Parents Events'}>
             {parentsPageData?.events?.map((event, index) => {
-                return <Fragment key={event._id.toString()}>
-                    <LFFormElement labelValue="Name" labelName="parents-event-name">
-                        <TextInput id="parents-event-name" placeholder="Event Name" value={event?.name} required
+                return <div key={event._id.toString()} className="sm:w-1/2 px-4">
+                    <LFFormElement labelValue="Name" labelName={`parents-event-name${event._id.toString()}`}>
+                        <TextInput id={`parents-event-name${event._id.toString()}`} placeholder="Event Name"
+                                   value={event?.name} required
                                    onChange={(e) => setEventName(event._id.toString(), e.target.value)}/>
                     </LFFormElement>
-                    <LFFormElement labelValue="Description" labelName="parents-event-description">
-                        <TextInput id="parents-event-description" placeholder="Event Description"
+                    <LFFormElement labelValue="Description"
+                                   labelName={`parents-event-description${event._id.toString()}`}>
+                        <TextInput placeholder="Event Description"
+                                   id={`parents-event-description${event._id.toString()}`}
                                    value={event?.description} required
                                    onChange={(e) => setEventDescription(event._id.toString(), e.target.value)}/>
                     </LFFormElement>
-                    <LFFormElement labelValue="Dates" labelName="parents-event-dates">
-                        <TextInput id="parents-event-dates" placeholder="Event Dates" value={event?.dates} required
+                    <LFFormElement labelValue="Dates" labelName={`parents-event-dates${event._id.toString()}`}>
+                        <TextInput placeholder="Event Dates" value={event?.dates} required
+                                   id={`parents-event-dates${event._id.toString()}`}
                                    onChange={(e) => setEventDates(event._id.toString(), e.target.value)}/>
                     </LFFormElement>
-                    <Dropzone imagePath={event?.image} withPopover/>
-                </Fragment>
+                    <ImageBlock imagePath={event?.image}/>
+                </div>
             })}
         </LFFormSection>
     </Fragment>

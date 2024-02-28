@@ -24,7 +24,7 @@ const HomePageComponent = ({pageData}: HomePageDataProps) => {
         setHomePageData(pageData)
     }, [])
 
-    return (homePageData && <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800 w-5/6'>
+    return (homePageData && <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
             <LFForm>
                 {/* Hero Block */}
                 <HomeHero image={homePageData.homeHero?.hero.image} tagline={homePageData.homeHero?.hero.tagline}
