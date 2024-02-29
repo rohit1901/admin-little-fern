@@ -1,3 +1,4 @@
+'use client'
 import {
     Avatar,
     DarkThemeToggle,
@@ -10,8 +11,10 @@ import {
 } from "flowbite-react";
 import Logo from "@admin/components/Logo";
 import {getImageUrl} from "@admin/lib";
+import {signOut, useSession} from "next-auth/react";
 
 const LFNavbar = () => {
+    const {data: session} = useSession()
     return (
         <Navbar fluid rounded border className='fixed top-0 w-full z-50'>
             <NavbarBrand href="https://www.littlefern.in" className='mr-2'>
@@ -31,14 +34,14 @@ const LFNavbar = () => {
                     }
                 >
                     <DropdownHeader>
-                        <span className="block text-sm">Manju Khanduri</span>
-                        <span className="block truncate text-sm font-medium">info@littlefern.in</span>
+                        <span className="block text-sm">{session?.user.name}</span>
+                        <span className="block truncate text-sm font-medium">{session?.user.email}</span>
                     </DropdownHeader>
                     <DropdownItem>Dashboard</DropdownItem>
                     <DropdownItem>Settings</DropdownItem>
                     <DropdownItem>Earnings</DropdownItem>
                     <DropdownDivider/>
-                    <DropdownItem>Sign out</DropdownItem>
+                    <DropdownItem onClick={() => signOut()}>Sign out</DropdownItem>
                 </Dropdown>
             </div>
         </Navbar>

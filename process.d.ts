@@ -6,5 +6,6 @@ declare namespace NodeJS {
         COGNITO_ISSUER: string
         AWS_CLOUDFRONT_URL: string
         AWS_REGION: string
+        NEXT_AUTH_ISSUER: string
     }
 }
