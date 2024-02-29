@@ -36,7 +36,7 @@ const ContactPageComponent = ({contactPageData}: ContactPageProps) => {
                         <iframe loading="lazy" width="100%" height="100%"
                                 className="absolute inset-0 grayscale opacity-20" title="map"
                                 src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"></iframe>
-                        <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md">
+                        <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md dark:bg-gray-800">
                             <div className="lg:w-1/2 px-6">
                                 {contactInformation?.address &&
                                     <LFFormElement labelValue="Address" labelName="contact-address">
@@ -62,7 +62,8 @@ const ContactPageComponent = ({contactPageData}: ContactPageProps) => {
                         </div>
                     </div>
                     {/* Properties */}
-                    <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
+                    <div
+                        className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0 dark:bg-gray-800">
                         {contactInformation?.hero?.tagline &&
                             <LFFormElement labelValue="Tagline" labelName="contact-hero-tagline">
                                 <TextInput id="contact-hero-tagline" placeholder="Tagline for the Hero Block"
