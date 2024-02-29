@@ -24,7 +24,7 @@ export default function LoginButton({children}: PropsWithChildren) {
     return (
         <section className="bg-white dark:bg-gray-800">
             <Card className="max-w-sm mx-auto py-6 my-12">
-                <Image alt="User avatar"
+                <Image alt="Little Fern Logo"
                        height="96"
                        src={getImageUrl('/images/bright-logo.jpg')}
                        width="96"
