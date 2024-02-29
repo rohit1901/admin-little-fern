@@ -31,7 +31,7 @@ export default async function RootLayout({
                     className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
                     <Spinner aria-label="Default status example"/>
                 </div>}>
-                <LoginButton programs={programs}>{children}</LoginButton>
+                <LoginButton programs={JSON.parse(JSON.stringify(programs))}>{children}</LoginButton>
             </Suspense>
         </Providers>
         </body>

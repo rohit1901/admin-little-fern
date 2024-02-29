@@ -209,6 +209,7 @@ export type HomePageData = {
     faqBlock: FAQBlock
     callToActionBlock: CallToActionBlock
     footer: TextBlock
+    dateCreated: Date
 }
 export type AlternatingFeaturesData = {
     sectionTitle?: string
