@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const db = await getMongoDb();
         if (req.method === 'POST') {
-            const aboutPageData = req.body as AboutPageData;
+            const aboutPageData = req.body as WithId<AboutPageData>;
             const newAboutPageData: WithId<AboutPageData> = {
                 ...aboutPageData,
                 _id: new ObjectId(),

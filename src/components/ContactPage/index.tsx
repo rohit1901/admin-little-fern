@@ -7,9 +7,10 @@ import LFFormSection from "@admin/components/LFFormSection";
 import {useContactPageStore} from "@admin/store/useContactPageStore";
 import {useEffect} from "react";
 import {isContactPageData} from "@admin/lib";
+import {WithId} from "mongodb";
 
 type ContactPageProps = {
-    contactPageData: ContactPageData
+    contactPageData: WithId<ContactPageData>
 }
 const ContactPageComponent = ({contactPageData}: ContactPageProps) => {
     const {

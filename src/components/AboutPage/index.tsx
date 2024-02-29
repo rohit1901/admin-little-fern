@@ -11,9 +11,10 @@ import Stats from "@admin/components/AboutPage/Stats";
 import {useAboutPageStore} from "@admin/store/useAboutPageStore";
 import {ImageBlock} from "@admin/components/ImageBlock";
 import {isAboutPageData} from "@admin/lib";
+import {WithId} from "mongodb";
 
 type AboutPageComponentProps = {
-    pageData: AboutPageData
+    pageData: WithId<AboutPageData>
 }
 const AboutPageComponent = ({pageData}: AboutPageComponentProps) => {
     const {aboutPageData, setAboutPageData} = useAboutPageStore()

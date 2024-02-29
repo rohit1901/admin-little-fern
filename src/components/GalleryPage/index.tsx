@@ -7,9 +7,10 @@ import GalleryWithTags from "@admin/components/GalleryPage/GalleryWithTags";
 import {useGalleryPageStore} from "@admin/store/useGalleryPageStore";
 import GalleryTextBlock from "@admin/components/GalleryPage/GalleryTextBlock";
 import {isGalleryPageData} from "@admin/lib";
+import {WithId} from "mongodb";
 
 type GalleryPageProps = {
-    pageData: GalleryPageData
+    pageData: WithId<GalleryPageData>
 }
 const GalleryPageComponent = ({pageData}: GalleryPageProps) => {
     const {setGalleryPageData} = useGalleryPageStore()

@@ -244,7 +244,7 @@ export type ParentsPageData = {
     heroItems: WithId<ParentsHeroItem>[]
     events: WithId<EventItem>[]
     eventsText: TextBlock
-    newsletters: NewsletterItem[]
+    newsletters: WithId<NewsletterItem>[]
     dateCreated: Date
 }
 export type GalleryPageData = {

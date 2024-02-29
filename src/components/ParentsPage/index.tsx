@@ -6,9 +6,10 @@ import ParentsEvents from "@admin/components/ParentsPage/Events";
 import {useParentsPageStore} from "@admin/store/useParentsPageStore";
 import {useEffect} from "react";
 import {isParentsPageData} from "@admin/lib";
+import {WithId} from "mongodb";
 
 type ParentsPageProps = {
-    pageData: ParentsPageData
+    pageData: WithId<ParentsPageData>
 }
 const ParentsPageComponent = ({pageData}: ParentsPageProps) => {
     const {setParentsPageData} = useParentsPageStore()
