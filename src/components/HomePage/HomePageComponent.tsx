@@ -11,6 +11,7 @@ import {useHomePageStore} from "@admin/store";
 import {useEffect} from "react";
 import {WithId} from "mongodb";
 import FAQsBlock from "@admin/components/HomePage/FAQsBlock";
+import {isHomePageData} from "@admin/lib";
 
 type HomePageDataProps = {
     pageData: WithId<HomePageData>
@@ -25,7 +26,9 @@ const HomePageComponent = ({pageData}: HomePageDataProps) => {
     }, [])
 
     return (homePageData && <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
-            <LFForm>
+            <LFForm data={homePageData} updateState={(data) => {
+                if (isHomePageData(data)) setHomePageData(data)
+            }}>
                 {/* Hero Block */}
                 <HomeHero image={homePageData.homeHero?.hero.image} tagline={homePageData.homeHero?.hero.tagline}
                           headline={homePageData.homeHero?.hero.headline} text={homePageData.homeHero?.hero.text}

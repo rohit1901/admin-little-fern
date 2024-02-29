@@ -167,10 +167,6 @@ export type NewsletterItem = {
     description: string
     link: string
 }
-export type ContactPageData = {
-    textBlock: TextBlock
-    contactInformation: ContactInformationItem
-}
 export type ContactInformationItem = {
     address?: string
     phone?: string
@@ -199,18 +195,6 @@ export type HomeHeroBlock = {
     hero: Hero
     ratings: Rating[]
 }
-export type HomePageData = {
-    homeHero: WithId<HomeHeroBlock>
-    ratings: Rating[]
-    schoolFeatures: SchoolFeatures
-    staff: Staff
-    schoolProgramsBlock: SchoolProgramsBlock
-    testimonialsBlock: TestimonialsBlock
-    faqBlock: FAQBlock
-    callToActionBlock: CallToActionBlock
-    footer: TextBlock
-    dateCreated: Date
-}
 export type AlternatingFeaturesData = {
     sectionTitle?: string
     underlinedText?: string
@@ -231,6 +215,18 @@ export type StaffBlock = {
     heading: string
     subHeading: string
 }
+export type HomePageData = {
+    homeHero: WithId<HomeHeroBlock>
+    ratings: Rating[]
+    schoolFeatures: SchoolFeatures
+    staff: Staff
+    schoolProgramsBlock: SchoolProgramsBlock
+    testimonialsBlock: TestimonialsBlock
+    faqBlock: FAQBlock
+    callToActionBlock: CallToActionBlock
+    footer: TextBlock
+    dateCreated: Date
+}
 export type AboutPageData = {
     title?: string
     subTitle?: string
@@ -241,6 +237,7 @@ export type AboutPageData = {
     statsBlock: StatsBlock
     staffBlock: StaffBlock
     valueData: ValueData
+    dateCreated: Date
 }
 export type ParentsPageData = {
     hero: Hero
@@ -248,11 +245,18 @@ export type ParentsPageData = {
     events: WithId<EventItem>[]
     eventsText: TextBlock
     newsletters: NewsletterItem[]
+    dateCreated: Date
 }
 export type GalleryPageData = {
     gallery: WithId<GalleryItem>[]
     textBlock: TextBlock
     pageHero?: Hero
+    dateCreated: Date
+}
+export type ContactPageData = {
+    textBlock: TextBlock
+    contactInformation: ContactInformationItem
+    dateCreated: Date
 }
 export type SocialLinkProps = {
     className?: string

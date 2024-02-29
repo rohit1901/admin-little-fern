@@ -7,5 +7,6 @@ declare namespace NodeJS {
         AWS_CLOUDFRONT_URL: string
         AWS_REGION: string
         NEXT_AUTH_ISSUER: string
+        DB_NAME: string
     }
 }
