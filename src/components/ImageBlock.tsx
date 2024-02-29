@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Dropzone from "@admin/components/Dropzone";
 import {getImageUrl} from "@admin/lib";
+import {Button} from "flowbite-react";
 
 type ImageBlockProps = {
     imagePath?: string
@@ -17,9 +18,9 @@ export const ImageBlock = ({imagePath}: ImageBlockProps) => {
                 <Dropzone imagePath={imagePath} withPopover/>
             </div>
             <div className="flex">
-                <button
-                    className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Upload
-                </button>
+                <Button
+                    className="flex ml-auto text-white bg-cyan-700 border-0 py-2 px-6 focus:outline-none hover:bg-cyan-500 rounded">Upload
+                </Button>
             </div>
         </div>
     </div>

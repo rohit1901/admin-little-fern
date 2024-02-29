@@ -8,8 +8,9 @@ type LFFormElementProps = {
 const LFFormElement = ({labelValue, labelName, children}: PropsWithChildren<LFFormElementProps>) => {
     return (
         <div>
-            <div className="mb-2 block">
-                {labelValue && <Label htmlFor={labelName} value={labelValue}/>}
+            <div className="my-2 block">
+                {labelValue && <Label className="text-cyan-800" htmlFor={labelName} value={labelValue}/>}
+                <div className="h-1 w-10 bg-cyan-700 rounded hover:bg-cyan-500 dark:bg-cyan-50 dark:hover:bg-cyan-500"></div>
             </div>
             {children}
         </div>
