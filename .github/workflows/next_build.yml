@@ -17,6 +17,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build --if-present
+        env:
+          PUBLIC_AWS_USER_POOL_ID: ${{ secrets.PUBLIC_AWS_USER_POOL_ID }}
+          PUBLIC_AWS_USER_POOL_APP_CLIENT_ID: ${{ secrets.PUBLIC_AWS_USER_POOL_APP_CLIENT_ID }}
+          PUBLIC_AWS_USER_POOL_APP_CLIENT_SECRET: ${{ secrets.PUBLIC_AWS_USER_POOL_APP_CLIENT_SECRET }}
+          COGNITO_ISSUER: ${{ secrets.COGNITO_ISSUER }}
+          AWS_CLOUDFRONT_URL: ${{ secrets.AWS_CLOUDFRONT_URL }}
+          NEXT_PUBLIC_AWS_REGION: ${{ secrets.NEXT_PUBLIC_AWS_REGION }}
+          NEXT_AUTH_ISSUER: ${{ secrets.NEXT_AUTH_ISSUER }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          NEXT_PUBLIC_AWS_ACCESS_KEY_ID: ${{ secrets.NEXT_PUBLIC_AWS_ACCESS_KEY_ID }}
+          NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY: ${{ secrets.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY }}
+          NEXT_PUBLIC_AWS_BUCKET_NAME: ${{ secrets.NEXT_PUBLIC_AWS_BUCKET_NAME }}
+      - name: Test
+        run: npm test --if-present
