@@ -6,7 +6,7 @@ export const authOptions = {
         clientId: process.env.PUBLIC_AWS_USER_POOL_APP_CLIENT_ID,
         clientSecret: process.env.PUBLIC_AWS_USER_POOL_APP_CLIENT_SECRET,
         issuer: process.env.NEXT_AUTH_ISSUER,
-        region: process.env.AWS_REGION,
+        region: process.env.NEXT_PUBLIC_AWS_REGION,
         client: {
             token_endpoint_auth_method: "none"
         }

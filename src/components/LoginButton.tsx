@@ -4,26 +4,18 @@ import {Button, Card, Flowbite} from "flowbite-react";
 import {customTheme} from "@admin/theme";
 import LFNavbar from "@admin/components/LFNavbar";
 import LFSidebar from "@admin/components/LFSidebar";
-import {SchoolProgram} from "@admin/types";
-import {WithId} from "mongodb";
 import {PropsWithChildren} from "react";
 import Image from "next/image";
 import {getImageUrl} from "@admin/lib";
 
-type LoginProps = {
-    programs?: WithId<SchoolProgram>[]
-}
-export default function LoginButton({programs, children}: PropsWithChildren<LoginProps>) {
+export default function LoginButton({children}: PropsWithChildren) {
     const {data: session} = useSession();
     if (session && session.user) {
         return (
             <Flowbite theme={{theme: customTheme}}>
                 <section className="antialiased md:h-screen lg:py-0">
                     <LFNavbar/>
-                    <LFSidebar programs={programs?.map(p => ({
-                        name: p.name,
-                        slug: p.slug
-                    }))}/>
+                    <LFSidebar/>
                     {children}
                 </section>
             </Flowbite>
@@ -32,7 +24,7 @@ export default function LoginButton({programs, children}: PropsWithChildren<Logi
     return (
         <section className="bg-white dark:bg-gray-800">
             <Card className="max-w-sm mx-auto py-6 my-12">
-                <Image alt="Bonnie image"
+                <Image alt="Little Fern Logo"
                        height="96"
                        src={getImageUrl('/images/bright-logo.png')}
                        width="96"

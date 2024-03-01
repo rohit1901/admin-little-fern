@@ -20,5 +20,5 @@ export async function getMongoClient(): Promise<MongoClient> {
 
 export async function getMongoDb() {
     const mongoClient = await getMongoClient()
-    return mongoClient.db('little_fern_db')
+    return mongoClient.db(process.env.DB_NAME)
 }

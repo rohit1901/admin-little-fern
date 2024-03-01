@@ -6,13 +6,7 @@ import {HiChartPie, HiInbox, HiOfficeBuilding, HiUser, HiViewBoards} from 'react
 import {HiCamera, HiHome, HiMiniDocument, HiMiniInformationCircle, HiPhone, HiUserGroup} from "react-icons/hi2";
 import {usePathname} from "next/navigation";
 
-type LFSidebarProps = {
-    programs?: {
-        name?: string
-        slug?: string
-    }[]
-}
-const LFSidebar = ({programs}: LFSidebarProps) => {
+const LFSidebar = () => {
     const slug = usePathname()
     //create a function to set active property to true based on the slug matching the current page
     const setActive = (href: string) => {
@@ -54,7 +48,7 @@ const LFSidebar = ({programs}: LFSidebarProps) => {
                         {page.name}
                     </SidebarItem>))}
                 </SidebarCollapse>
-                <SidebarItem href="https://email.littlefern.in" target='_blank' icon={HiInbox}>
+                <SidebarItem href="http://email.littlefern.in" target='_blank' icon={HiInbox}>
                     Inbox
                 </SidebarItem>
                 <SidebarItem href="#" icon={HiUser}>

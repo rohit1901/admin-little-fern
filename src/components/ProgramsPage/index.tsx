@@ -91,7 +91,7 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
                                    value={schoolProgram?.infoSection?.schedule} required
                                    onChange={(event) => setProgramInfoSectionSchedule(schoolProgram?._id.toString(), event.target.value)}/>
                     </LFFormElement>
-                    <LFFormElement labelValue="Class Size" labelName={schoolProgram?.infoSection?.classSize}>
+                    <LFFormElement labelValue="Class Size" labelName="program-info-class-size">
                         <TextInput id="program-info-class-size" placeholder="Class Size for the Info Block"
                                    value={schoolProgram?.infoSection?.classSize} required
                                    onChange={(event) => setProgramInfoSectionClassSize(schoolProgram?._id.toString(), event.target.value)}/>

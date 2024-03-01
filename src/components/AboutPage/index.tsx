@@ -10,9 +10,11 @@ import AlternatingFeatures from "@admin/components/AboutPage/AlternatingFeatures
 import Stats from "@admin/components/AboutPage/Stats";
 import {useAboutPageStore} from "@admin/store/useAboutPageStore";
 import {ImageBlock} from "@admin/components/ImageBlock";
+import {isAboutPageData} from "@admin/lib";
+import {WithId} from "mongodb";
 
 type AboutPageComponentProps = {
-    pageData: AboutPageData
+    pageData: WithId<AboutPageData>
 }
 const AboutPageComponent = ({pageData}: AboutPageComponentProps) => {
     const {aboutPageData, setAboutPageData} = useAboutPageStore()
@@ -24,7 +26,10 @@ const AboutPageComponent = ({pageData}: AboutPageComponentProps) => {
     }
     return (
         <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
-            <LFForm>
+            <LFForm data={aboutPageData} updateState={(data) => {
+                if (!isAboutPageData(data)) return
+                setAboutPageData(data)
+            }}>
                 <AboutTitle/>
                 <LFFormSection sectionTitle={'Hero Block Images'} isGallery>
                     {aboutPageData?.aboutHero?.map((hero) => <div className="m-4 text-center" key={hero._id.toString()}>
