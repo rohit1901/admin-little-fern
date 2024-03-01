@@ -1,4 +1,4 @@
-name: NEXT Build
+name: NEXT Lint
 
 on:
   push:
