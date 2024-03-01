@@ -2,9 +2,9 @@ import Image from "next/image";
 import Dropzone from "@admin/components/Dropzone";
 import {getImageUrl, getS3UploadKey} from "@admin/lib";
 import {Button, Spinner} from "flowbite-react";
-import {uploadToS3} from "@admin/lib/s3";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
+import {uploadToS3} from "@admin/lib/s3";
 
 type ImageBlockProps = {
     imagePath?: string

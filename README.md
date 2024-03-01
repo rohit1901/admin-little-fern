@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Admin Application for [Little Fern](https://www.littlefern.in/)
+
+This is an admin application built with TypeScript, MongoDB, MongoClient, AWS, Heroku, React, Next.js, Flowbite, Flowbite React, and Tailwind CSS. The application is designed to handle various types of data and provide a user-friendly interface for uploading and managing images for the Little Fern website.
+
+## Architecture
+
+The application is built as a full-stack web application with the following components:
+
+1. **Frontend**: The frontend of the application is built using React and Next.js. It includes components like `Dropzone` for uploading images and `ImageBlock` for displaying and managing images. The UI is designed using Flowbite, Flowbite React, and Tailwind CSS.
+
+2. **Backend**: The backend is built with Node.js, using MongoClient to connect to the MongoDB database. User authentication and authorization are handled by AWS Cognito.
+
+3. **Database**: MongoDB is used as the database for this application.
+
+4. **Cloud Storage**: AWS S3 is used for storing images uploaded through the application.
+
+5. **Content Delivery Network (CDN)**: AWS CloudFront is used to serve static and dynamic web content.
+
+6. **Deployment**: The application is deployed on Heroku.
 
 ## Getting Started
 
-First, run the development server:
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
+### Prerequisites
+
+- Node.js
+- npm
+
+### Installing
+
+1. Clone the repository
+```bash
+git clone https://github.com/rohit1901/admin-little-fern.git
+```
+2. Install NPM packages
+```bash
+npm install
+```
+3. Start the development server
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The application includes several components for handling different types of data:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### LoginButton
 
-## Learn More
+`LoginButton` is a component that handles user authentication. It uses AWS Cognito for user authentication and authorization. If the user is already logged in, it renders the `LFNavbar` and `LFSidebar` components along with the children components. If the user is not logged in, it renders a sign-in form.
 
-To learn more about Next.js, take a look at the following resources:
+### Logo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`Logo` is a simple component that displays the logo of the application. It uses the `next/image` component for optimized image rendering.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Dropzone
 
-## Deploy on Vercel
+`Dropzone` is a component for uploading images. It provides a user-friendly interface for selecting and previewing images before upload. The component uses AWS S3 for storing the uploaded images.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Popover
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+`Popover` is a component that displays a popover box. It can be triggered by either hover or click events. The popover box can contain any ReactNode content.
+
+Please refer to the source code for more details about these components.
+
+## Built With
+
+- ![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript)
+- ![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
+- ![React](https://img.shields.io/badge/-React-black?style=flat-square&logo=react)
+- ![Next.js](https://img.shields.io/badge/-Next.js-black?style=flat-square&logo=next.js)
+- ![MongoDB](https://img.shields.io/badge/-MongoDB-black?style=flat-square&logo=mongodb)
+- ![AWS](https://img.shields.io/badge/-AWS-black?style=flat-square&logo=amazon-aws)
+- ![Heroku](https://img.shields.io/badge/-Heroku-430098?style=flat-square&logo=heroku)
+- ![Flowbite](https://img.shields.io/badge/-Flowbite-563D7C?style=flat-square)
+- ![Flowbite React](https://img.shields.io/badge/-FlowbiteReact-563D7C?style=flat-square)
+- ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+## Authors
+
+- [Rohit Khanduri](https://github.com/rohit1901)
+
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgments
+
+- Thanks to all contributors who participated in this project.
