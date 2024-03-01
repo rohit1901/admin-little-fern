@@ -26,7 +26,7 @@ export default function LoginButton({children}: PropsWithChildren) {
             <Card className="max-w-sm mx-auto py-6 my-12">
                 <Image alt="Little Fern Logo"
                        height="96"
-                       src={getImageUrl('/images/bright-logo.jpg')}
+                       src={getImageUrl('/images/bright-logo.png')}
                        width="96"
                        className="mb-3 mx-auto"/>
                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">

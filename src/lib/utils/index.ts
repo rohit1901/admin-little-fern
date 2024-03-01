@@ -53,3 +53,10 @@ export const isAboutPageData = (data: any): data is AboutPageData => {
 export const isGalleryPageData = (data: any): data is GalleryPageData => {
     return data && typeof data === 'object' && 'galleryHero' in data && 'galleryItems' in data;
 }
+
+export const getS3UploadKey = (key: string) => {
+    if (process.env.NODE_ENV === 'development') {
+        return `dev/${key}`
+    }
+    return key
+}
