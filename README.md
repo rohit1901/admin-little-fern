@@ -1,5 +1,5 @@
 # Admin Application for [Little Fern](https://www.littlefern.in/)
-Stats: ![Next Build](https://github.com/github/docs/actions/workflows/next_build.yml/badge.svg)
+Stats: ![Build Status](https://github.com/rohit1901/admin-little-fern/actions/workflows/next_lint.yml/badge.svg)
 This is an admin application built with TypeScript, MongoDB, MongoClient, AWS, Heroku, React, Next.js, Flowbite, Flowbite React, and Tailwind CSS. The application is designed to handle various types of data and provide a user-friendly interface for uploading and managing images for the Little Fern website.
 
 ## Architecture
