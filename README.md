@@ -6,7 +6,7 @@ This is an admin application built with TypeScript, MongoDB, MongoClient, AWS, H
 
 The application is built as a full-stack web application with the following components:
 
-1. **Frontend**: The frontend of the application is built using React and Next.js. It includes components like `Dropzone` for uploading images and `ImageBlock` for displaying and managing images. The UI is designed using Flowbite, Flowbite React, and Tailwind CSS.
+1. **Frontend**: The frontend of the application is built using React and Next.js. It includes components like `Dropzone` for uploading images and `ImageBlock` for displaying and managing images. The UI is designed using Flowbite, Flowbite React, and Tailwind CSS. State management is handled by Zustand 🐻.
 
 2. **Backend**: The backend is built with Node.js, using MongoClient to connect to the MongoDB database. User authentication and authorization are handled by AWS Cognito.
 
@@ -76,6 +76,7 @@ Please refer to the source code for more details about these components.
 - ![Flowbite](https://img.shields.io/badge/-Flowbite-563D7C?style=flat-square)
 - ![Flowbite React](https://img.shields.io/badge/-FlowbiteReact-563D7C?style=flat-square)
 - ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+- ![React](https://img.shields.io/badge/zustand-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) 🐻
 
 ## Authors
 
