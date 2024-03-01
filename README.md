@@ -66,17 +66,17 @@ Please refer to the source code for more details about these components.
 
 ## Built With
 
-- ![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript)
+- ![TypeScript](https://img.shields.io/badge/-TypeScript-000000?style=flat-square&logo=typescript)
 - ![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
 - ![React](https://img.shields.io/badge/-React-black?style=flat-square&logo=react)
 - ![Next.js](https://img.shields.io/badge/-Next.js-black?style=flat-square&logo=next.js)
 - ![MongoDB](https://img.shields.io/badge/-MongoDB-black?style=flat-square&logo=mongodb)
 - ![AWS](https://img.shields.io/badge/-AWS-black?style=flat-square&logo=amazon-aws)
 - ![Heroku](https://img.shields.io/badge/-Heroku-430098?style=flat-square&logo=heroku)
-- ![Flowbite](https://img.shields.io/badge/-Flowbite-563D7C?style=flat-square)
-- ![Flowbite React](https://img.shields.io/badge/-FlowbiteReact-563D7C?style=flat-square)
-- ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-- ![React](https://img.shields.io/badge/zustand-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) 🐻
+- ![Flowbite](https://img.shields.io/badge/-Flowbite-563D7C?logo=tailwind-css&logoColor=white)
+- ![Flowbite React](https://img.shields.io/badge/-FlowbiteReact-563D7C?logo=tailwind-css&logoColor=white)
+- ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-000000?logo=tailwind-css&logoColor=white)
+- ![React](https://img.shields.io/badge/zustand-000000.svg?logo=react&logoColor=%2361DAFB) 🐻
 
 ## Authors
 
