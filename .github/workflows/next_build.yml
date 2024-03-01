@@ -1,5 +1,3 @@
-# This workflow will run the Next.js build command
-
 name: NEXT Build
 
 on:
@@ -19,19 +17,20 @@ jobs:
           node-version: '20.x'
       - name: Install dependencies
         run: npm ci
+      - name: Setup .env
+        run: |
+          echo PUBLIC_AWS_USER_POOL_ID=${{ vars.PUBLIC_AWS_USER_POOL_ID }} >> .env
+          echo PUBLIC_AWS_USER_POOL_APP_CLIENT_ID=${{ vars.PUBLIC_AWS_USER_POOL_APP_CLIENT_ID }} >> .env
+          echo PUBLIC_AWS_USER_POOL_APP_CLIENT_SECRET=${{ vars.PUBLIC_AWS_USER_POOL_APP_CLIENT_SECRET }} >> .env
+          echo COGNITO_ISSUER=${{ vars.COGNITO_ISSUER }} >> .env
+          echo AWS_CLOUDFRONT_URL=${{ vars.AWS_CLOUDFRONT_URL }} >> .env
+          echo NEXT_PUBLIC_AWS_REGION=${{ vars.NEXT_PUBLIC_AWS_REGION }} >> .env
+          echo NEXT_AUTH_ISSUER=${{ vars.NEXT_AUTH_ISSUER }} >> .env
+          echo DB_NAME=${{ vars.DB_NAME }} >> .env
+          echo NEXT_PUBLIC_AWS_ACCESS_KEY_ID=${{ vars.NEXT_PUBLIC_AWS_ACCESS_KEY_ID }} >> .env
+          echo NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY=${{ vars.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY }} >> .env
+          echo NEXT_PUBLIC_AWS_BUCKET_NAME=${{ vars.NEXT_PUBLIC_AWS_BUCKET_NAME }} >> .env
       - name: Build
         run: npm run build --if-present
-        env:
-          PUBLIC_AWS_USER_POOL_ID: ${{ vars.PUBLIC_AWS_USER_POOL_ID }}
-          PUBLIC_AWS_USER_POOL_APP_CLIENT_ID: ${{ vars.PUBLIC_AWS_USER_POOL_APP_CLIENT_ID }}
-          PUBLIC_AWS_USER_POOL_APP_CLIENT_SECRET: ${{ vars.PUBLIC_AWS_USER_POOL_APP_CLIENT_SECRET }}
-          COGNITO_ISSUER: ${{ vars.COGNITO_ISSUER }}
-          AWS_CLOUDFRONT_URL: ${{ vars.AWS_CLOUDFRONT_URL }}
-          NEXT_PUBLIC_AWS_REGION: ${{ vars.NEXT_PUBLIC_AWS_REGION }}
-          NEXT_AUTH_ISSUER: ${{ vars.NEXT_AUTH_ISSUER }}
-          DB_NAME: ${{ vars.DB_NAME }}
-          NEXT_PUBLIC_AWS_ACCESS_KEY_ID: ${{ vars.NEXT_PUBLIC_AWS_ACCESS_KEY_ID }}
-          NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY: ${{ vars.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY }}
-          NEXT_PUBLIC_AWS_BUCKET_NAME: ${{ vars.NEXT_PUBLIC_AWS_BUCKET_NAME }}
       - name: Test
         run: npm test --if-present
