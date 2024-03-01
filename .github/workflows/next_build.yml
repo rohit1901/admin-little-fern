@@ -19,17 +19,18 @@ jobs:
         run: npm ci
       - name: Setup .env
         run: |
-          echo PUBLIC_AWS_USER_POOL_ID=${{ vars.PUBLIC_AWS_USER_POOL_ID }} >> .env
-          echo PUBLIC_AWS_USER_POOL_APP_CLIENT_ID=${{ vars.PUBLIC_AWS_USER_POOL_APP_CLIENT_ID }} >> .env
-          echo PUBLIC_AWS_USER_POOL_APP_CLIENT_SECRET=${{ vars.PUBLIC_AWS_USER_POOL_APP_CLIENT_SECRET }} >> .env
-          echo COGNITO_ISSUER=${{ vars.COGNITO_ISSUER }} >> .env
-          echo AWS_CLOUDFRONT_URL=${{ vars.AWS_CLOUDFRONT_URL }} >> .env
-          echo NEXT_PUBLIC_AWS_REGION=${{ vars.NEXT_PUBLIC_AWS_REGION }} >> .env
-          echo NEXT_AUTH_ISSUER=${{ vars.NEXT_AUTH_ISSUER }} >> .env
-          echo DB_NAME=${{ vars.DB_NAME }} >> .env
-          echo NEXT_PUBLIC_AWS_ACCESS_KEY_ID=${{ vars.NEXT_PUBLIC_AWS_ACCESS_KEY_ID }} >> .env
-          echo NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY=${{ vars.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY }} >> .env
-          echo NEXT_PUBLIC_AWS_BUCKET_NAME=${{ vars.NEXT_PUBLIC_AWS_BUCKET_NAME }} >> .env
+          echo PUBLIC_AWS_USER_POOL_ID=${{ secrets.PUBLIC_AWS_USER_POOL_ID }}
+          echo PUBLIC_AWS_USER_POOL_ID=${{ secrets.PUBLIC_AWS_USER_POOL_ID }} >> .env
+          echo PUBLIC_AWS_USER_POOL_APP_CLIENT_ID=${{ secrets.PUBLIC_AWS_USER_POOL_APP_CLIENT_ID }} >> .env
+          echo PUBLIC_AWS_USER_POOL_APP_CLIENT_SECRET=${{ secrets.PUBLIC_AWS_USER_POOL_APP_CLIENT_SECRET }} >> .env
+          echo COGNITO_ISSUER=${{ secrets.COGNITO_ISSUER }} >> .env
+          echo AWS_CLOUDFRONT_URL=${{ secrets.AWS_CLOUDFRONT_URL }} >> .env
+          echo NEXT_PUBLIC_AWS_REGION=${{ secrets.NEXT_PUBLIC_AWS_REGION }} >> .env
+          echo NEXT_AUTH_ISSUER=${{ secrets.NEXT_AUTH_ISSUER }} >> .env
+          echo DB_NAME=${{ secrets.DB_NAME }} >> .env
+          echo NEXT_PUBLIC_AWS_ACCESS_KEY_ID=${{ secrets.NEXT_PUBLIC_AWS_ACCESS_KEY_ID }} >> .env
+          echo NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY=${{ secrets.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY }} >> .env
+          echo NEXT_PUBLIC_AWS_BUCKET_NAME=${{ secrets.NEXT_PUBLIC_AWS_BUCKET_NAME }} >> .env
       - name: Build
         run: npm run build --if-present
       - name: Test
