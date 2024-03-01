@@ -263,3 +263,21 @@ export type SocialLinkProps = {
     href: string
     icon: string
 }
+type Status = {
+    system: string;
+    status: string;
+};
+
+type Incident = {
+    // Define properties for Incident here
+};
+
+type Scheduled = {
+    // Define properties for Scheduled here
+};
+
+export type HerokuStatuaResponseType = {
+    status: Status[];
+    incidents: Incident[];
+    scheduled: Scheduled[];
+};
