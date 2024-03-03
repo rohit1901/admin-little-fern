@@ -1,18 +1,12 @@
 name: NEXT Lint
-
 on:
   push:
     branches: [ "main" ]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
-      - name: "Echo in file"
-        env:
-          SECRETS_VARS: ${{ toJson(secrets) }}
-          run: echo "$SECRETS_VARS" > ".env"
+      - run: echo {{secrets.NEXT_PUBLIC_CLOUDFRONT_DOMAIN}} > .env
       - uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
