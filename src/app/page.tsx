@@ -35,10 +35,10 @@ export default function Home() {
     }
     const callback = (err: AWSError, data: AWS.S3.Types.HeadBucketOutput) => {
         if (err) {
-            console.log("Error", err);
+            console.log("Error fetching S3 status", err);
             setS3Status(false)
         } else {
-            console.log("Success", data);
+            console.log("Successfully fetched S3 status");
             setS3Status(true)
         }
         setCheckingS3Status(false)
