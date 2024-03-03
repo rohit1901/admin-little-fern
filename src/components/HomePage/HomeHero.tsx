@@ -26,34 +26,26 @@ const HomeHero = ({tagline, headline, text, image, youTubeLink}: HomeHeroProps) 
             <ImageBlock imagePath={image?.src}/>
         </div>
         <div className="lg:flex-grow md:w-1/2">
-            <LFFormElement labelValue='Tagline' labelName='tagline'>
-                {tagline &&
-                    <TextInput id='tagline' type='text' placeholder='Tagline for the Hero Block'
-                               value={tagline} required
-                               onChange={(e) => setHomePageHeroTagline(e.currentTarget.value)}/>
-                }
+            <LFFormElement labelValue='Tagline' labelName='tagline' elemValue={tagline}>
+                <TextInput id='tagline' type='text' placeholder='Tagline for the Hero Block'
+                           value={tagline} required
+                           onChange={(e) => setHomePageHeroTagline(e.currentTarget.value)}/>
             </LFFormElement>
-            <LFFormElement labelValue="Headline" labelName="headline">
-                {headline &&
-                    <TextInput id="headline" type="text" placeholder="Headline for the Hero Block"
-                               value={headline} required
-                               onChange={(e) => setHomePageHeroHeadline(e.currentTarget.value)}/>
-                }
+            <LFFormElement labelValue="Headline" labelName="headline" elemValue={headline}>
+                <TextInput id="headline" type="text" placeholder="Headline for the Hero Block"
+                           value={headline} required
+                           onChange={(e) => setHomePageHeroHeadline(e.currentTarget.value)}/>
             </LFFormElement>
-            <LFFormElement labelValue="Text" labelName="text">
-                {text &&
-                    <Textarea id="text" placeholder="Text for the Hero Block"
-                              value={text} required
-                              className="w-full h-text-area leading-6 transition-colors duration-200 ease-in-out"
-                              onChange={(e) => setHomePageHeroText(e.currentTarget.value)}/>
-                }
+            <LFFormElement labelValue="Text" labelName="text" elemValue={text}>
+                <Textarea id="text" placeholder="Text for the Hero Block"
+                          value={text} required
+                          className="w-full h-text-area leading-6 transition-colors duration-200 ease-in-out"
+                          onChange={(e) => setHomePageHeroText(e.currentTarget.value)}/>
             </LFFormElement>
-            <LFFormElement labelValue="YouTube Video Link" labelName="youtube">
-                {youTubeLink &&
-                    <TextInput id="youtube" type="text" placeholder="YouTube Video Link"
-                               value={youTubeLink} required
-                               onChange={(e) => setYouTubeLink(e.currentTarget.value)}/>
-                }
+            <LFFormElement labelValue="YouTube Video Link" labelName="youtube" elemValue={youTubeLink}>
+                <TextInput id="youtube" type="text" placeholder="YouTube Video Link"
+                           value={youTubeLink} required
+                           onChange={(e) => setYouTubeLink(e.currentTarget.value)}/>
             </LFFormElement>
         </div>
     </LFFormSection>

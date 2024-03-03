@@ -30,17 +30,14 @@ const LFSidebar = () => {
     }, {
         name: 'Parents', href: '/website-pages/Parents', icon: HiUserGroup,
     }]
-    const isSidebarCollapseOpen = () => {
-        return slug?.includes('/website-pages') || slug?.includes('/programs')
-    }
     return (<Sidebar
-        className="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700">
+        className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700">
         <SidebarItems>
             <SidebarItemGroup>
-                <SidebarItem href="/" icon={HiChartPie} active={setActive('/dashboard')}>
+                <SidebarItem href="/" icon={HiChartPie} active={setActive('/')}>
                     Dashboard
                 </SidebarItem>
-                <SidebarCollapse icon={HiMiniDocument} label="Pages" open={isSidebarCollapseOpen()}>
+                <SidebarCollapse icon={HiMiniDocument} label="Pages" open>
                     {pages?.map((page) => (<SidebarItem href={page.href} key={page.name}
                                                         icon={page.icon}
                                                         className='text-ellipsis overflow-hidden text-sm'

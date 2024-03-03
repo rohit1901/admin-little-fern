@@ -21,31 +21,34 @@ const SchoolPrograms = () => {
         </div>
         <div className="container px-5 py-24 mx-auto">
             <div className="flex flex-col w-1/2 mb-20">
-                {schoolProgramsBlock?.heading &&
-                    <LFFormElement labelValue="School Programs Heading" labelName='schoolProgramsHeading'>
-                        <Textarea id="schoolProgramsHeading" placeholder="School Programs Heading"
-                                  className='h-text-area'
-                                  value={schoolProgramsBlock?.heading} required onChange={(event) => {
-                            setSchoolProgramsHeading(event.currentTarget.value)
-                        }}/>
-                    </LFFormElement>}
+                <LFFormElement labelValue="School Programs Heading" labelName='schoolProgramsHeading'
+                               elemValue={schoolProgramsBlock?.heading}>
+                    <Textarea id="schoolProgramsHeading" placeholder="School Programs Heading"
+                              className='h-text-area'
+                              value={schoolProgramsBlock?.heading} required onChange={(event) => {
+                        setSchoolProgramsHeading(event.currentTarget.value)
+                    }}/>
+                </LFFormElement>
             </div>
             <div className="flex flex-wrap -m-4">
                 {schoolProgramsBlock?.schoolPrograms?.slice(0, 3).map(({hero, _id}) => {
                     return (<div key={_id.toString()} className="sm:w-1/2 px-4">
-                        <LFFormElement labelValue="Program Tagline" labelName={`programTagline${_id.toString()}`}>
+                        <LFFormElement labelValue="Program Tagline" labelName={`programTagline${_id.toString()}`}
+                                       elemValue={hero.tagline}>
                             <TextInput id={`programTagline${_id.toString()}`} type="text"
                                        placeholder="Program Tagline"
                                        value={hero.tagline} required
                                        onChange={(event) => setSchoolProgramHeroTagline(_id, event.currentTarget.value)}/>
                         </LFFormElement>
-                        <LFFormElement labelValue="Program Headline" labelName={`programHeadline${_id.toString()}`}>
+                        <LFFormElement labelValue="Program Headline" labelName={`programHeadline${_id.toString()}`}
+                                       elemValue={hero.headline}>
                             <TextInput id={`programHeadline${_id.toString()}`} type="text"
                                        placeholder="Program Headline"
                                        value={hero.headline} required
                                        onChange={(event) => setSchoolProgramHeroHeadline(_id, event.currentTarget.value)}/>
                         </LFFormElement>
-                        <LFFormElement labelValue="Program Text" labelName={`programText${_id.toString()}`}>
+                        <LFFormElement labelValue="Program Text" labelName={`programText${_id.toString()}`}
+                                       elemValue={hero.text}>
                             <Textarea id={`programText${_id.toString()}`} placeholder="Program Text"
                                       className='h-text-area'
                                       value={hero.text} required
@@ -57,37 +60,5 @@ const SchoolPrograms = () => {
             </div>
         </div>
     </section>
-    /*return
-        <LFFormSection sectionTitle='School Programs'>
-            {schoolProgramsBlock?.heading &&
-                <LFFormElement labelValue="School Programs Heading" labelName='schoolProgramsHeading'>
-                    <TextInput id="schoolProgramsHeading" type="text" placeholder="School Programs Heading"
-                               value={schoolProgramsBlock?.heading} required onChange={(event) => {
-                        setSchoolProgramsHeading(event.currentTarget.value)
-                    }}/>
-                </LFFormElement>}
-            {/!*School Programs*!/}
-            {schoolProgramsBlock?.schoolPrograms?.slice(0, 3).map(({hero, _id}) => {
-                return (<div key={_id.toString()} className="sm:w-1/2 px-4">
-                    <LFFormElement labelValue="Program Tagline" labelName={`programTagline${_id.toString()}`}>
-                        <TextInput id={`programTagline${_id.toString()}`} type="text" placeholder="Program Tagline"
-                                   value={hero.tagline} required
-                                   onChange={(event) => setSchoolProgramHeroTagline(_id, event.currentTarget.value)}/>
-                    </LFFormElement>
-                    <LFFormElement labelValue="Program Headline" labelName={`programHeadline${_id.toString()}`}>
-                        <TextInput id={`programHeadline${_id.toString()}`} type="text"
-                                   placeholder="Program Headline"
-                                   value={hero.headline} required
-                                   onChange={(event) => setSchoolProgramHeroHeadline(_id, event.currentTarget.value)}/>
-                    </LFFormElement>
-                    <LFFormElement labelValue="Program Text" labelName={`programText${_id.toString()}`}>
-                        <TextInput id={`programText${_id.toString()}`} type="text" placeholder="Program Text"
-                                   value={hero.text} required
-                                   onChange={(event) => setSchoolProgramHeroText(_id, event.currentTarget.value)}/>
-                    </LFFormElement>
-                    <ImageBlock imagePath={hero.image?.src}/>
-                </div>)
-            })}
-        </LFFormSection>*/
 }
 export default SchoolPrograms;

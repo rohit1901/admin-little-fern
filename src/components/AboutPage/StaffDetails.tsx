@@ -16,13 +16,13 @@ const StaffDetails = () => {
     return (
         <LFFormSection sectionTitle='Staff Details'>
             <div className="lg:flex-grow md:w-1/2 pr-4">
-                <LFFormElement labelValue="Heading" labelName='staffHeading'>
+                <LFFormElement labelValue="Heading" labelName='staffHeading' elemValue={staffBlock?.heading}>
                     <TextInput id="staffHeading" type="text" placeholder="Staff heading"
                                value={staffBlock?.heading} required
                                onChange={(event) => setStaffBlockHeading(event.target.value)}/>
                 </LFFormElement>
 
-                <LFFormElement labelValue="Sub-heading" labelName='staffSubHeading'>
+                <LFFormElement labelValue="Sub-heading" labelName='staffSubHeading' elemValue={staffBlock?.subHeading}>
                     <Textarea id="staffSubHeading" placeholder="Staff sub-heading"
                               value={staffBlock?.subHeading} required className='h-text-area'
                               onChange={(event) => setStaffBlockSubHeading(event.target.value)}/>
@@ -36,13 +36,15 @@ const StaffDetails = () => {
                                             }) => {
                 return (
                     <div key={_id.toString()} className="sm:w-1/2 px-4">
-                        <LFFormElement labelValue="Staff name" labelName='staffName'>
-                            <TextInput id="staffName" type="text" placeholder="Staff name"
+                        <LFFormElement labelValue="Staff name" labelName={`staffName-${_id.toString()}`}
+                                       elemValue={name}>
+                            <TextInput id={`staffName-${_id.toString()}`} type="text" placeholder="Staff name"
                                        value={name} required
                                        onChange={(event) => setStaffBlockName(_id.toString(), event.target.value)}/>
                         </LFFormElement>
-                        <LFFormElement labelValue="Staff role" labelName='staffRole'>
-                            <TextInput id="staffRole" type="text" placeholder="Staff role"
+                        <LFFormElement labelValue="Staff role" labelName={`staffRole-${_id.toString()}`}
+                                       elemValue={role}>
+                            <TextInput id={`staffRole-${_id.toString()}`} type="text" placeholder="Staff role"
                                        value={role} required
                                        onChange={(event) => setStaffBlockRole(_id.toString(), event.target.value)}/>
                         </LFFormElement>

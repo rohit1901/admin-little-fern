@@ -23,7 +23,7 @@ const Staff = () => {
                     return (
                         <Fragment key={_id.toString()}>
                             <LFFormElement labelValue="Featured staff name"
-                                           labelName={`featuredStaffName${_id.toString()}`}>
+                                           labelName={`featuredStaffName${_id.toString()}`} elemValue={name}>
                                 <TextInput id={`featuredStaffName${_id.toString()}`}
                                            placeholder="Featured staff name"
                                            value={name} required onChange={(event) => {
@@ -31,7 +31,8 @@ const Staff = () => {
                                 }}/>
                             </LFFormElement>
                             <LFFormElement labelValue="Featured staff description"
-                                           labelName={`featuredStaffDescription${_id.toString()}`}>
+                                           labelName={`featuredStaffDescription${_id.toString()}`}
+                                           elemValue={description}>
                                 <Textarea id={`featuredStaffDescription${_id.toString()}`}
                                           placeholder="Featured staff description"
                                           className='h-text-area'
@@ -54,13 +55,15 @@ const Staff = () => {
                                        }) => {
                 return (
                     <div key={_id.toString()} className="sm:w-1/2 px-4">
-                        <LFFormElement labelValue="Staff name" labelName={`staffName${_id.toString()}`}>
+                        <LFFormElement labelValue="Staff name" labelName={`staffName${_id.toString()}`}
+                                       elemValue={name}>
                             <TextInput id={`staffName${_id.toString()}`} type="text" placeholder="Staff name"
                                        value={name} required onChange={(event) => {
                                 setStaffDetailsName(_id, event.currentTarget.value)
                             }}/>
                         </LFFormElement>
-                        <LFFormElement labelValue="Staff role" labelName={`staffRole${_id.toString()}`}>
+                        <LFFormElement labelValue="Staff role" labelName={`staffRole${_id.toString()}`}
+                                       elemValue={role}>
                             <TextInput id={`staffRole${_id.toString()}`} type="text" placeholder="Staff role"
                                        value={role} required onChange={(event) => {
                                 setStaffDetailsRole(_id, event.currentTarget.value)
@@ -74,24 +77,24 @@ const Staff = () => {
         </LFFormSection>
         {/*Staff Assurances Block */}
         <LFFormSection sectionTitle='Staff Assurances'>
-            {staff?.assurancesBlock?.heading &&
-                <div className="p-4 lg:w-1/2 md:w-full"><LFFormElement labelValue="Staff Assurances Block Heading"
-                                                                       labelName='staffAssurancesBlockHeading'>
-                    <Textarea id="staffAssurancesBlockHeading" className='h-text-area'
-                              placeholder="Staff Assurances Block Heading"
-                              value={staff?.assurancesBlock?.heading} required
-                              onChange={(event) => {
-                                  setStaffAssurancesBlockHeading(event.currentTarget.value)
-                              }}/>
-                </LFFormElement></div>}
-            {staff?.assurancesBlock?.assurances &&
-                <div className="p-4 lg:w-1/2 md:w-full"><LFFormElement labelValue="Staff Assurance"
-                                                                       labelName='staffAssuranceText'>
-                    <Textarea id="staffAssuranceText" placeholder="Staff Assurance" className='h-text-area'
-                              value={staff?.assurancesBlock?.assurances} required onChange={(event) => {
-                        setStaffAssurancesBlockAssurances(event.currentTarget.value)
-                    }}/>
-                </LFFormElement></div>}
+            <div className="p-4 lg:w-1/2 md:w-full"><LFFormElement labelValue="Staff Assurances Block Heading"
+                                                                   labelName='staffAssurancesBlockHeading'
+                                                                   elemValue={staff?.assurancesBlock?.heading}>
+                <Textarea id="staffAssurancesBlockHeading" className='h-text-area'
+                          placeholder="Staff Assurances Block Heading"
+                          value={staff?.assurancesBlock?.heading} required
+                          onChange={(event) => {
+                              setStaffAssurancesBlockHeading(event.currentTarget.value)
+                          }}/>
+            </LFFormElement></div>
+            <div className="p-4 lg:w-1/2 md:w-full"><LFFormElement labelValue="Staff Assurance"
+                                                                   labelName='staffAssuranceText'
+                                                                   elemValue={staff?.assurancesBlock?.assurances?.toString()}>
+                <Textarea id="staffAssuranceText" placeholder="Staff Assurance" className='h-text-area'
+                          value={staff?.assurancesBlock?.assurances} required onChange={(event) => {
+                    setStaffAssurancesBlockAssurances(event.currentTarget.value)
+                }}/>
+            </LFFormElement></div>
         </LFFormSection>
     </Fragment>
 }

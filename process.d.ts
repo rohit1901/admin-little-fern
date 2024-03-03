@@ -11,5 +11,6 @@ declare namespace NodeJS {
         NEXT_PUBLIC_AWS_ACCESS_KEY_ID: string
         NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY: string
         NEXT_PUBLIC_AWS_BUCKET_NAME: string
+        NEXT_PUBLIC_CLOUDFRONT_DOMAIN: string
     }
 }
