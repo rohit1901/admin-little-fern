@@ -4,7 +4,7 @@ import Image from "next/image";
 import {getImageUrl} from "@admin/lib";
 import {signIn} from "next-auth/react";
 
-export default function LoginPage () {
+export default function LoginPage() {
     return <section className="bg-white dark:bg-gray-800">
         <Card className="max-w-sm mx-auto py-6 my-12">
             <Image alt="Little Fern Logo"
