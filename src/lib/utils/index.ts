@@ -9,6 +9,7 @@ import {
     ParentsPageData,
     SchoolProgram
 } from "@admin/types";
+import {Session} from "next-auth";
 
 /**
  * Get the image url from the src
@@ -16,9 +17,7 @@ import {
  * @param src {string} - the src of the image
  */
 export const getImageUrl = (src?: string) => {
-    const prefix =
-        process.env.AWS_CLOUDFRONT_URL ?? 'https://d28xxvmjntstuh.cloudfront.net'
-    return prefix + src
+    return src ? `${process.env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}${src}` : ''
 }
 export const getNewSchoolPrograms = (id: string, newHero: Hero, schoolPrograms?: WithId<SchoolProgram>[]) => {
     return schoolPrograms?.map((program) => {
@@ -59,4 +58,8 @@ export const getS3UploadKey = (key: string) => {
         return `dev/${key}`
     }
     return key
+}
+
+export const isEmailAuthorized = (session: Session | null) => {
+    return session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAILS
 }

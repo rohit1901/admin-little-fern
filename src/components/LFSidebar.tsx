@@ -32,7 +32,7 @@ const LFSidebar = () => {
     }]
     return (<Sidebar
         className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700">
-        <SidebarItems>
+        <SidebarItems className="sidebar-items">
             <SidebarItemGroup>
                 <SidebarItem href="/" icon={HiChartPie} active={setActive('/')}>
                     Dashboard

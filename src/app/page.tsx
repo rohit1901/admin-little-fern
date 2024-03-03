@@ -44,7 +44,7 @@ export default function Home() {
         setCheckingS3Status(false)
     }
     return (<main className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
-        <div className='flex flex-row gap-4 mt-2 content-center'>
+        <div className='flex flex-row gap-4 mt-4 content-center'>
             <Card className="max-w-sm dark:border-primary-50">
                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     <FaAws/>

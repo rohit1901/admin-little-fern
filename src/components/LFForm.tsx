@@ -3,6 +3,8 @@ import {Button, Spinner} from "flowbite-react";
 import {usePathname} from "next/navigation";
 import {WithId} from "mongodb";
 import {AboutPageData, ContactPageData, GalleryPageData, HomePageData, ParentsPageData} from "@admin/types";
+import {isEmailAuthorized} from "@admin/lib";
+import {useSession} from "next-auth/react";
 
 type PathnameMapping = {
     [key: string]: string
@@ -23,6 +25,7 @@ type LFFormProps = {
     updateState?: (data: WithId<HomePageData | ParentsPageData | GalleryPageData | ContactPageData | AboutPageData>) => void
 }
 const LFForm = ({children, data, updateState}: PropsWithChildren<LFFormProps>) => {
+    const {data: session} = useSession()
     const pathname = usePathname()
     const [loading, setLoading] = useState(false)
 
@@ -30,7 +33,7 @@ const LFForm = ({children, data, updateState}: PropsWithChildren<LFFormProps>) =
         <form className='divide-y-2 divide-slate-200'>
             {children}
         </form>
-        <div className="flex flex-wrap gap-2 mt-2">
+        {isEmailAuthorized(session) && <div className="flex flex-wrap gap-2 mt-2">
             <Button type="submit">Reset</Button>
             <Button disabled={loading} type="submit" onClick={async () => {
                 if (!pathname) return
@@ -44,7 +47,7 @@ const LFForm = ({children, data, updateState}: PropsWithChildren<LFFormProps>) =
                 updateState && updateState(r.body)
                 setLoading(false)
             }}>{loading ? <Spinner/> : 'Update'}</Button>
-        </div>
+        </div>}
     </Fragment>)
 }
 export default LFForm
