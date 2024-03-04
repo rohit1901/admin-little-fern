@@ -1,18 +1,21 @@
 'use client'
 import ProgramsPage from "@admin/components/ProgramsPage/index";
 import {useSchoolProgramsPageStore} from "@admin/store/useSchoolProgramsPageStore";
-import {SchoolProgram} from "@admin/types";
+import {HomePageData} from "@admin/types";
 import {WithId} from "mongodb";
 import {useEffect} from "react";
+import {useHomePageStore} from "@admin/store";
 
 type ProgramsPageWrapperProps = {
-    schoolPrograms: WithId<SchoolProgram>[]
+    homePageData: WithId<HomePageData>
     slug: string
 }
-const ProgramsPageWrapper = ({schoolPrograms, slug}: ProgramsPageWrapperProps) => {
+const ProgramsPageWrapper = ({homePageData, slug}: ProgramsPageWrapperProps) => {
     const {programs, setPrograms} = useSchoolProgramsPageStore()
+    const {setHomePageData} = useHomePageStore()
     useEffect(() => {
-        setPrograms(schoolPrograms)
+        setHomePageData(homePageData)
+        if (homePageData?.schoolProgramsBlock?.schoolPrograms) setPrograms(homePageData.schoolProgramsBlock.schoolPrograms)
     }, [])
     const program = programs.find(p => p.slug === slug)
     if (!programs ?? programs.length === 0) return null

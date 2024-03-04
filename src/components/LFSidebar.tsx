@@ -24,7 +24,7 @@ const LFSidebar = () => {
     }, {
         name: 'Gallery', href: '/website-pages/Gallery', icon: HiCamera,
     }, {
-        name: 'Programs', href: '/programs', icon: HiOfficeBuilding,
+        name: 'Programs', href: '/programs/play-group', icon: HiOfficeBuilding,
     }, {
         name: 'Contact', href: '/website-pages/Contact', icon: HiPhone,
     }, {

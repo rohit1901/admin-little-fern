@@ -1,7 +1,5 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import {getMongoDb} from "@admin/lib/mongodb";
-import {ParentsPageData} from "@admin/types";
-import {ObjectId, WithId} from "mongodb";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {

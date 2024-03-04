@@ -26,7 +26,7 @@ export const ImageBlock = ({imagePath}: ImageBlockProps) => {
             </div>
             {isEmailAuthorized(session) && <div className="flex">
                 <Button disabled={uploading}
-                        className="flex ml-auto text-white bg-cyan-700 border-0 py-2 px-6 focus:outline-none hover:bg-cyan-500 rounded"
+                        outline
                         onClick={() => {
                             setUploading(true);
                             if (!imagePath) {

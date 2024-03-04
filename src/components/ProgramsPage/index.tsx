@@ -7,12 +7,14 @@ import {Textarea, TextInput} from "flowbite-react";
 import {useSchoolProgramsPageStore} from "@admin/store/useSchoolProgramsPageStore";
 import {WithId} from "mongodb";
 import {ImageBlock} from "@admin/components/ImageBlock";
+import {ProgramTabs} from "@admin/components/ProgramTabs";
 
 type ProgramsPageProps = {
     schoolProgram: WithId<SchoolProgram>
 }
 const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
     const {
+        programs,
         setProgramHeroHeadline,
         setProgramHeroTagline,
         setProgramHeroText,
@@ -36,7 +38,8 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
         setProgramPricingSectionPricing2ShortDescription
     } = useSchoolProgramsPageStore()
     return <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
-        <LFForm>
+        <ProgramTabs programs={programs}/>
+        <LFForm isProgram>
             <LFFormSection sectionTitle={`${schoolProgram?.name} Program`}>
                 <div
                     className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16">

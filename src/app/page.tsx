@@ -9,7 +9,6 @@ import {AiFillCheckCircle, AiFillCloseCircle} from "react-icons/ai";
 import {GrHeroku} from "react-icons/gr";
 import {HerokuStatuaResponseType} from "@admin/types";
 import {DiMongodb} from "react-icons/di";
-import {getMongoDb} from "@admin/lib/mongodb";
 
 export default function Home() {
     const [s3Status, setS3Status] = useState(false)
