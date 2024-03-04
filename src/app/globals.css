@@ -176,7 +176,6 @@ main {
 .sidebar-items svg {
     @apply text-cyan-900 dark:text-cyan-50;
 }
-
 /* feed styles */
 
 @media (min-width: 1280px) {

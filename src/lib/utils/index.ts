@@ -52,6 +52,14 @@ export const isAboutPageData = (data: any): data is AboutPageData => {
 export const isGalleryPageData = (data: any): data is GalleryPageData => {
     return data && typeof data === 'object' && 'galleryHero' in data && 'galleryItems' in data;
 }
+export const isSchoolProgramArray = (obj: any): obj is SchoolProgram[] => {
+    return Array.isArray(obj) && obj.every(item => isSchoolProgram(item));
+}
+
+export const isSchoolProgram = (obj: any): obj is SchoolProgram => {
+    // Add your own checks based on the properties of SchoolProgram
+    return obj && typeof obj === 'object' && 'name' in obj && 'hero' in obj;
+}
 
 export const getS3UploadKey = (key: string) => {
     if (process.env.NODE_ENV === 'development') {
