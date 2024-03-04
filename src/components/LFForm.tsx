@@ -1,6 +1,6 @@
 import {Fragment, PropsWithChildren, useState} from "react";
 import {Button, Spinner} from "flowbite-react";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {WithId} from "mongodb";
 import {
     AboutPageData,
@@ -51,6 +51,7 @@ const handleProgramUpdate = async (data: WithId<SchoolProgram>[], homePageData: 
 const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFormProps>) => {
     const {data: session} = useSession()
     const pathname = usePathname()
+    const router = useRouter()
     const {programs} = useSchoolProgramsPageStore()
     const {homePageData, setHomePageData} = useHomePageStore()
     const [loading, setLoading] = useState(false)
@@ -59,7 +60,9 @@ const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFo
             {children}
         </form>
         {isEmailAuthorized(session) && <div className="flex flex-wrap gap-2 mt-2">
-            <Button type="submit" outline>Reset</Button>
+            <Button disabled={loading} outline onClick={() => {
+                window.location.reload()
+            }}>Reset</Button>
             <Button disabled={loading} type="submit" onClick={async () => {
                 if (!pathname) return
                 setLoading(true)
