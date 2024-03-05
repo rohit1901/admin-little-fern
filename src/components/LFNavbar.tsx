@@ -16,7 +16,7 @@ const LFNavbar = () => {
         return (
             <Banner>
                 <div
-                    className="flex w-full justify-between border-b border-gray-200 bg-gray-50 p-4 dark:border-cyan-50 dark:bg-cyan-50">
+                    className="flex w-full justify-between border-b border-gray-200 bg-gray-50 dark:border-cyan-50 dark:bg-cyan-50">
                     <div className="mx-auto flex items-center">
                         <p className="flex items-center text-sm font-normal text-cyan-900">
                             <MdInfo className="h-5 w-5 mr-2"/>
