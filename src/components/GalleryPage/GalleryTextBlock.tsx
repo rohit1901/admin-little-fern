@@ -3,7 +3,7 @@ import {Fragment} from "react";
 import LFFormSection from "@admin/components/LFFormSection";
 import {TextInput} from "flowbite-react";
 import LFFormElement from "@admin/components/LFFormElement";
-import {useGalleryPageStore} from "@admin/store/useGalleryPageStore";
+import {useGalleryPageStore} from "@admin/store/";
 
 const GalleryTextBlock = () => {
     const {galleryPageData, setTextBlockHeadline, setTextBlockText} = useGalleryPageStore()

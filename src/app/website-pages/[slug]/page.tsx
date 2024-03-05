@@ -44,7 +44,7 @@ const getElems = async (slug: string) => {
     if (slug === 'Contact') {
         const contactPageData: WithId<ContactPageData> = await getContactPageData()
         const plainContactPageData: WithId<ContactPageData> = JSON.parse(JSON.stringify(contactPageData));
-        return <ContactPageComponent contactPageData={plainContactPageData}/>
+        return <ContactPageComponent pageData={plainContactPageData}/>
     }
     return null
 }

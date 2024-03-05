@@ -3,7 +3,7 @@ import {Fragment} from "react";
 import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
 import LFFormSection from "@admin/components/LFFormSection";
-import {useAboutPageStore} from "@admin/store/useAboutPageStore";
+import {useAboutPageStore} from "@admin/store/";
 
 const Stats = () => {
     const {
@@ -35,13 +35,15 @@ const Stats = () => {
                                            elemValue={stat?.label}>
                                 <TextInput id={`stat-title-${stat._id.toString()}`} placeholder="Title for the Stat"
                                            value={stat?.label} required
-                                           onChange={(event) => setStatsBlockStatLabel(stat._id.toString(), event.target.value)}/>
+                                           onChange={(event) =>
+                                               setStatsBlockStatLabel(stat._id.toString(), event.target.value)}/>
                             </LFFormElement>
                             <LFFormElement labelValue='Value' labelName={`stat-value-${stat._id.toString()}`}
                                            elemValue={stat?.value}>
                                 <TextInput id={`stat-value-${stat._id.toString()}`} placeholder="Value for the Stat"
                                            value={stat?.value} required
-                                           onChange={(event) => setStatsBlockStatValue(stat._id.toString(), event.target.value)}/>
+                                           onChange={(event) =>
+                                               setStatsBlockStatValue(stat._id.toString(), event.target.value)}/>
                             </LFFormElement>
                         </Fragment>
                     )

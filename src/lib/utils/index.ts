@@ -1,14 +1,6 @@
 import {WithId} from "mongodb";
-import {
-    AboutPageData,
-    ContactPageData,
-    GalleryItem,
-    GalleryPageData,
-    Hero,
-    HomePageData,
-    ParentsPageData,
-    SchoolProgram
-} from "@admin/types";
+import {AboutPageData, ContactPageData, GalleryItem, GalleryPageData, Hero, HomePageData, ParentsPageData, SchoolProgram} from "@admin/types";
+import {Session} from "next-auth";
 
 /**
  * Get the image url from the src
@@ -16,9 +8,7 @@ import {
  * @param src {string} - the src of the image
  */
 export const getImageUrl = (src?: string) => {
-    const prefix =
-        process.env.AWS_CLOUDFRONT_URL ?? 'https://d28xxvmjntstuh.cloudfront.net'
-    return prefix + src
+    return src ? `${process.env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}${src}` : ''
 }
 export const getNewSchoolPrograms = (id: string, newHero: Hero, schoolPrograms?: WithId<SchoolProgram>[]) => {
     return schoolPrograms?.map((program) => {
@@ -36,14 +26,16 @@ export const getUniqueTags = (galleryItems: GalleryItem[]) => {
 }
 
 export const isHomePageData = (data: any): data is HomePageData => {
-    return data && typeof data === 'object' && 'homeHero' in data && 'schoolFeatures' in data && 'staff' in data && 'schoolProgramsBlock' in data && 'testimonialsBlock' in data && 'faqBlock' in data && 'callToActionBlock' in data && 'footer' in data && 'dateCreated' in data;
+    return (data && typeof data === 'object' && 'homeHero' in data
+        && 'schoolFeatures' in data && 'staff' in data && 'schoolProgramsBlock' in data
+        && 'testimonialsBlock' in data && 'faqBlock' in data && 'callToActionBlock' in data && 'footer' in data && 'dateCreated' in data);
 }
 export const isParentsPageData = (data: any): data is ParentsPageData => {
     return data && typeof data === 'object' && 'parentsHero' in data && 'parentsText' in data && 'parentsFAQ' in data;
 }
 
 export const isContactPageData = (data: any): data is ContactPageData => {
-    return data && typeof data === 'object' && 'contactHero' in data && 'contactDetails' in data && 'contactForm' in data;
+    return data && typeof data === 'object' && 'textBlock' in data && 'contactInformation' in data;
 }
 
 export const isAboutPageData = (data: any): data is AboutPageData => {
@@ -53,10 +45,22 @@ export const isAboutPageData = (data: any): data is AboutPageData => {
 export const isGalleryPageData = (data: any): data is GalleryPageData => {
     return data && typeof data === 'object' && 'galleryHero' in data && 'galleryItems' in data;
 }
+export const isSchoolProgramArray = (obj: any): obj is SchoolProgram[] => {
+    return Array.isArray(obj) && obj.every(item => isSchoolProgram(item));
+}
+
+export const isSchoolProgram = (obj: any): obj is SchoolProgram => {
+    // Add your own checks based on the properties of SchoolProgram
+    return obj && typeof obj === 'object' && 'name' in obj && 'hero' in obj;
+}
 
 export const getS3UploadKey = (key: string) => {
     if (process.env.NODE_ENV === 'development') {
         return `dev/${key}`
     }
     return key
+}
+
+export const isEmailAuthorized = (session: Session | null) => {
+    return session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAILS
 }

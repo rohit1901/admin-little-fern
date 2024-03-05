@@ -4,7 +4,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: process.env.NEXT_PUBLIC_CLOUDFRONT_DOMAIN,
+                hostname: 'd28xxvmjntstuh.cloudfront.net',
             },
         ]
     }

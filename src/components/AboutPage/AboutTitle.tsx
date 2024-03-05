@@ -2,7 +2,7 @@
 import LFFormSection from "@admin/components/LFFormSection";
 import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
-import {useAboutPageStore} from "@admin/store/useAboutPageStore";
+import {useAboutPageStore} from "@admin/store/";
 
 const AboutTitle = () => {
     const {

@@ -13,7 +13,7 @@ export default function LoginButton({children}: PropsWithChildren) {
     if (session && session.user) {
         return (
             <Flowbite theme={{theme: customTheme}}>
-                <section className="antialiased md:h-screen lg:py-0">
+                <section>
                     <LFNavbar/>
                     <LFSidebar/>
                     {children}

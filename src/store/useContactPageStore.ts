@@ -1,9 +1,10 @@
 import {ContactPageData} from "@admin/types";
 import {create} from "zustand";
+import {WithId} from "mongodb";
 
 type ContactPageStore = {
-    contactPageData: ContactPageData,
-    setContactPageData: (data: ContactPageData) => void,
+    contactPageData: WithId<ContactPageData>,
+    setContactPageData: (data: WithId<ContactPageData>) => void,
     setHeroTagline: (tagline: string) => void,
     setHeroHeadline: (headline: string) => void,
     setHeroText: (text: string) => void,
@@ -15,8 +16,8 @@ type ContactPageStore = {
     setTextBlockText: (text: string) => void,
 }
 export const useContactPageStore = create<ContactPageStore>((set) => ({
-    contactPageData: {} as ContactPageData,
-    setContactPageData: (data: ContactPageData) => set({contactPageData: data}),
+    contactPageData: {} as WithId<ContactPageData>,
+    setContactPageData: (data: WithId<ContactPageData>) => set({contactPageData: data}),
     setHeroTagline: (tagline: string) => set((state) => ({
         contactPageData: {
             ...state.contactPageData,
