@@ -1,5 +1,5 @@
 'use client'
-import {Checkbox, Label} from "flowbite-react";
+import {Checkbox, Label, Tooltip} from "flowbite-react";
 import {HomePageData} from "@admin/types";
 import LFForm from "@admin/components/LFForm";
 import HomeHero from "@admin/components/HomePage/HomeHero";
@@ -43,11 +43,15 @@ const HomePageComponent = ({pageData}: HomePageDataProps) => {
                 <SchoolPrograms/>
                 {/*FAQ Block*/}
                 <FAQsBlock/>
+
                 <div className="flex items-center gap-2 pt-2 pb-2">
-                    <Checkbox id="ratings" defaultChecked/>
-                    <Label htmlFor="ratings" className="flex">
-                        Show ratings from Google Maps on the website
-                    </Label>
+
+                    <Checkbox id="ratings" defaultChecked disabled/>
+                    <Tooltip content="This feature is not yet available">
+                        <Label htmlFor="ratings" className="flex" disabled>
+                            Show ratings from Google Maps on the website
+                        </Label>
+                    </Tooltip>
                 </div>
 
             </LFForm>

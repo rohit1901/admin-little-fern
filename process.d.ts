@@ -12,5 +12,6 @@ declare namespace NodeJS {
         NEXT_PUBLIC_AWS_BUCKET_NAME: string
         NEXT_PUBLIC_CLOUDFRONT_DOMAIN: string
         NEXT_PUBLIC_ADMIN_EMAILS: string
+        NEXT_PUBLIC_MAP_URI: string
     }
 }

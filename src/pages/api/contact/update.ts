@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 _id: new ObjectId(),
                 dateCreated: new Date()
             }
-            await db.collection('gallery_page').insertOne(newContactPageData);
+            await db.collection('contact_page').insertOne(newContactPageData);
             res.status(200).json({message: 'success', body: newContactPageData});
         }
     } catch (e) {

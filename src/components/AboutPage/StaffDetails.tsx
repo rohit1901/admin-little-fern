@@ -2,7 +2,7 @@
 import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
 import LFFormSection from "@admin/components/LFFormSection";
-import {useAboutPageStore} from "@admin/store/useAboutPageStore";
+import {useAboutPageStore} from "@admin/store/";
 import {ImageBlock} from "@admin/components/ImageBlock";
 
 const StaffDetails = () => {

@@ -4,7 +4,7 @@ import LFFormSection from "@admin/components/LFFormSection";
 import LFForm from "@admin/components/LFForm";
 import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
-import {useSchoolProgramsPageStore} from "@admin/store/useSchoolProgramsPageStore";
+import {useSchoolProgramsPageStore} from "@admin/store/";
 import {WithId} from "mongodb";
 import {ImageBlock} from "@admin/components/ImageBlock";
 import {ProgramTabs} from "@admin/components/ProgramTabs";
@@ -184,7 +184,8 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
                         <TextInput id="program-pricing1-short-description"
                                    placeholder="Short Description for the Pricing1 Block"
                                    value={schoolProgram?.pricingSection?.pricing1?.shortDescription} required
-                                   onChange={(event) => setProgramPricingSectionPricing1ShortDescription(schoolProgram?._id.toString(), event.target.value)}/>
+                                   onChange={(event) =>
+                                       setProgramPricingSectionPricing1ShortDescription(schoolProgram?._id.toString(), event.target.value)}/>
                     </LFFormElement>
                 </div>
                 {/*TODO: Feature text - Think of changing the DB Schema to have a single pricing section with an array of features*/}
@@ -222,7 +223,8 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
                         <TextInput id="program-pricing2-short-description"
                                    placeholder="Short Description for the Pricing2 Block"
                                    value={schoolProgram?.pricingSection?.pricing2?.shortDescription} required
-                                   onChange={(event) => setProgramPricingSectionPricing2ShortDescription(schoolProgram?._id.toString(), event.target.value)}/>
+                                   onChange={(event) =>
+                                       setProgramPricingSectionPricing2ShortDescription(schoolProgram?._id.toString(), event.target.value)}/>
                     </LFFormElement>
                 </div>
                 {/*TODO: Feature text - Think of changing the DB Schema to have a single pricing section with an array of features*/}

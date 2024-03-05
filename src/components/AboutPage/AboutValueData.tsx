@@ -3,7 +3,7 @@ import LFFormSection from "@admin/components/LFFormSection";
 import {Textarea, TextInput} from "flowbite-react";
 import LFFormElement from "@admin/components/LFFormElement";
 import {Fragment} from "react";
-import {useAboutPageStore} from "@admin/store/useAboutPageStore";
+import {useAboutPageStore} from "@admin/store/";
 import {ImageBlock} from "@admin/components/ImageBlock";
 
 const AboutValueData = () => {
@@ -37,14 +37,16 @@ const AboutValueData = () => {
                                        elemValue={value.value}>
                             <TextInput id={`value-value-${value._id.toString()}`} placeholder="Value"
                                        value={value.value} required
-                                       onChange={(event) => setValueDataValue(value._id.toString(), event.target.value)}/>
+                                       onChange={(event) =>
+                                           setValueDataValue(value._id.toString(), event.target.value)}/>
                         </LFFormElement>
                         <LFFormElement labelValue='Description' labelName={`value-description-${value._id.toString()}`}
                                        elemValue={value.description}>
                             <Textarea id={`value-description-${value._id.toString()}`} placeholder="Description"
                                       className="h-text-area"
                                       value={value.description} required
-                                      onChange={(event) => setValueDataDescription(value._id.toString(), event.target.value)}/>
+                                      onChange={(event) =>
+                                          setValueDataDescription(value._id.toString(), event.target.value)}/>
                         </LFFormElement>
                     </Fragment>)
                 })}

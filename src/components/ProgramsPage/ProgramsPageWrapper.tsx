@@ -1,6 +1,6 @@
 'use client'
 import ProgramsPage from "@admin/components/ProgramsPage/index";
-import {useSchoolProgramsPageStore} from "@admin/store/useSchoolProgramsPageStore";
+import {useSchoolProgramsPageStore} from "@admin/store/";
 import {HomePageData} from "@admin/types";
 import {WithId} from "mongodb";
 import {useEffect} from "react";

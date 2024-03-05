@@ -1,1 +1,6 @@
 export * from './useHomePageStore'
+export * from './useGalleryPageStore'
+export * from './useParentsPageStore'
+export * from './useContactPageStore'
+export * from './useAboutPageStore'
+export * from './useSchoolProgramsPageStore'

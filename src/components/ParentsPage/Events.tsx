@@ -3,7 +3,7 @@ import LFFormSection from "@admin/components/LFFormSection";
 import LFFormElement from "@admin/components/LFFormElement";
 import {Fragment} from "react";
 import {Textarea, TextInput} from "flowbite-react";
-import {useParentsPageStore} from "@admin/store/useParentsPageStore";
+import {useParentsPageStore} from "@admin/store/";
 import {ImageBlock} from "@admin/components/ImageBlock";
 
 const ParentsEvents = () => {

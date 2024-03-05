@@ -1,14 +1,5 @@
 import {WithId} from "mongodb";
-import {
-    AboutPageData,
-    ContactPageData,
-    GalleryItem,
-    GalleryPageData,
-    Hero,
-    HomePageData,
-    ParentsPageData,
-    SchoolProgram
-} from "@admin/types";
+import {AboutPageData, ContactPageData, GalleryItem, GalleryPageData, Hero, HomePageData, ParentsPageData, SchoolProgram} from "@admin/types";
 import {Session} from "next-auth";
 
 /**
@@ -35,14 +26,16 @@ export const getUniqueTags = (galleryItems: GalleryItem[]) => {
 }
 
 export const isHomePageData = (data: any): data is HomePageData => {
-    return data && typeof data === 'object' && 'homeHero' in data && 'schoolFeatures' in data && 'staff' in data && 'schoolProgramsBlock' in data && 'testimonialsBlock' in data && 'faqBlock' in data && 'callToActionBlock' in data && 'footer' in data && 'dateCreated' in data;
+    return (data && typeof data === 'object' && 'homeHero' in data
+        && 'schoolFeatures' in data && 'staff' in data && 'schoolProgramsBlock' in data
+        && 'testimonialsBlock' in data && 'faqBlock' in data && 'callToActionBlock' in data && 'footer' in data && 'dateCreated' in data);
 }
 export const isParentsPageData = (data: any): data is ParentsPageData => {
     return data && typeof data === 'object' && 'parentsHero' in data && 'parentsText' in data && 'parentsFAQ' in data;
 }
 
 export const isContactPageData = (data: any): data is ContactPageData => {
-    return data && typeof data === 'object' && 'contactHero' in data && 'contactDetails' in data && 'contactForm' in data;
+    return data && typeof data === 'object' && 'textBlock' in data && 'contactInformation' in data;
 }
 
 export const isAboutPageData = (data: any): data is AboutPageData => {

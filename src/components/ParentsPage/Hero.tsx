@@ -3,15 +3,13 @@ import {Fragment} from "react";
 import LFFormSection from "@admin/components/LFFormSection";
 import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
-import {useParentsPageStore} from "@admin/store/useParentsPageStore";
+import {useParentsPageStore} from "@admin/store/";
 
 const ParentsHero = () => {
     const {
         parentsPageData,
         setHeroHeadline,
         setHeroItemDescription,
-        setHeroItemHref,
-        setHeroItemIcon,
         setHeroItemLabel,
         setHeroTagline,
         setHeroText

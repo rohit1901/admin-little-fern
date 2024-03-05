@@ -5,7 +5,8 @@ import {AWSError} from "aws-sdk/lib/error";
 
 
 export const uploadToS3 = async (key: string, file?: StreamingBlobPayloadInputTypes) => {
-    if (!process.env.NEXT_PUBLIC_AWS_REGION || !process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID || !process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY || !process.env.NEXT_PUBLIC_AWS_BUCKET_NAME) {
+    if (!process.env.NEXT_PUBLIC_AWS_REGION || !process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID
+        || !process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY || !process.env.NEXT_PUBLIC_AWS_BUCKET_NAME) {
         throw new Error('AWS environment variables not set');
     }
     const client = new S3Client({

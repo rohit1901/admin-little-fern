@@ -8,7 +8,7 @@ import AboutValueData from "@admin/components/AboutPage/AboutValueData";
 import AboutTitle from "@admin/components/AboutPage/AboutTitle";
 import AlternatingFeatures from "@admin/components/AboutPage/AlternatingFeatures";
 import Stats from "@admin/components/AboutPage/Stats";
-import {useAboutPageStore} from "@admin/store/useAboutPageStore";
+import {useAboutPageStore} from "@admin/store/";
 import {ImageBlock} from "@admin/components/ImageBlock";
 import {isAboutPageData} from "@admin/lib";
 import {WithId} from "mongodb";

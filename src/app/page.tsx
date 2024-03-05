@@ -24,11 +24,13 @@ export default function Home() {
     }, [])
     const checkHerokuStatus = async () => {
         setCheckingHerokuStatus(true)
-        await fetch('https://status.heroku.com/api/v4/current-status').then(r => r.json()).then((v: HerokuStatuaResponseType) => {
-            setHerokuStatus(v?.status?.find(s => s.system === 'Apps')?.status === 'green') // 'green' or 'red
-        }).catch((e: string) => {
-            setHerokuStatus(false)
-        }).finally(() => setCheckingHerokuStatus(false))
+        await fetch('https://status.heroku.com/api/v4/current-status')
+            .then(r => r.json())
+            .then((v: HerokuStatuaResponseType) => {
+                setHerokuStatus(v?.status?.find(s => s.system === 'Apps')?.status === 'green') // 'green' or 'red
+            }).catch((e: string) => {
+                setHerokuStatus(false)
+            }).finally(() => setCheckingHerokuStatus(false))
 
     }
     const checkS3Status = () => {
@@ -54,7 +56,7 @@ export default function Home() {
         setCheckingS3Status(false)
     }
     return (<main className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
-        <div className='flex flex-row gap-4 mt-4 content-center'>
+        <div className='flex flex-row gap-4 mt-4 justify-center'>
             <Card className="max-w-sm dark:border-primary-50">
                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     <FaAws/>

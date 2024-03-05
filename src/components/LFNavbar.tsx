@@ -1,16 +1,5 @@
 'use client'
-import {
-    Avatar,
-    Banner,
-    Button,
-    DarkThemeToggle,
-    Dropdown,
-    DropdownDivider,
-    DropdownHeader,
-    DropdownItem,
-    Navbar,
-    NavbarBrand
-} from "flowbite-react";
+import {Avatar, Banner, Button, DarkThemeToggle, Dropdown, DropdownDivider, DropdownHeader, DropdownItem, Navbar, NavbarBrand} from "flowbite-react";
 import Logo from "@admin/components/Logo";
 import {getImageUrl, isEmailAuthorized} from "@admin/lib";
 import {signOut, useSession} from "next-auth/react";
@@ -74,7 +63,7 @@ const LFNavbar = () => {
                         <span className="block text-sm">{session?.user.name}</span>
                         <span className="block truncate text-sm font-medium">{session?.user.email}</span>
                     </DropdownHeader>
-                    <DropdownItem>Dashboard</DropdownItem>
+                    <DropdownItem href="/">Dashboard</DropdownItem>
                     <DropdownItem>Settings</DropdownItem>
                     <DropdownDivider/>
                     <DropdownItem onClick={() => signOut()}>Sign out</DropdownItem>

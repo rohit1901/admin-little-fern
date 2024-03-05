@@ -2,7 +2,7 @@ import {Fragment} from "react";
 import LFFormSection from "@admin/components/LFFormSection";
 import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
-import {useGalleryPageStore} from "@admin/store/useGalleryPageStore";
+import {useGalleryPageStore} from "@admin/store/";
 
 const GalleryHero = () => {
     const {galleryPageData, setGalleryHeroHeadline, setGalleryHeroTagline, setGalleryHeroText} = useGalleryPageStore()

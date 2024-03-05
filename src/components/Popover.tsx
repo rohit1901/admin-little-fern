@@ -9,6 +9,7 @@ import {DeepPartial} from "flowbite-react/lib/esm/types";
 import {mergeDeep} from "flowbite-react/lib/esm/helpers/merge-deep";
 import {useBaseFLoating, useFloatingInteractions} from "flowbite-react/lib/esm/hooks/use-floating";
 import {getArrowPlacement} from "flowbite-react/lib/esm/components/Floating/helpers";
+import {popoverTheme} from "@admin/theme";
 
 export interface FlowbitePopoverTheme {
     arrow: Omit<FlowbiteFloatingArrowTheme, 'style'>;
@@ -41,14 +42,7 @@ export function Popover({
                         }: PopoverProps) {
     const [uncontrolledOpen, setUncontrolledOpen] = useState<boolean>(Boolean(initialOpen));
     const arrowRef = useRef<HTMLDivElement>(null);
-    const popoverTheme: FlowbitePopoverTheme = {
-        base: 'absolute z-20 inline-block w-max max-w-[100vw] bg-white outline-none border border-gray-200 rounded-lg shadow-sm dark:border-gray-600 dark:bg-gray-800',
-        content: 'z-10 overflow-hidden rounded-[7px]',
-        arrow: {
-            base: 'absolute h-2 w-2 z-0 rotate-45 mix-blend-lighten bg-white border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:mix-blend-color',
-            placement: '-4px',
-        },
-    };
+
     const theme = mergeDeep(popoverTheme, customTheme);
 
     const open = controlledOpen ?? uncontrolledOpen;
