@@ -36,32 +36,32 @@ const AlternatingFeatures = () => {
         </LFFormSection>
         <LFFormSection sectionTitle={'Alternating Features - Blocks'}>
             {alternatingFeatures?.blocks.map((feature) => {
-                return (<div key={feature._id.toString()} className="sm:w-1/2 px-4">
-                    <LFFormElement labelValue='Tagline' labelName={`feature-block-tagline-${feature._id.toString()}`}
-                                   elemValue={feature.tagline}>
-                        <TextInput id={`feature-block-tagline-${feature._id.toString()}`}
+                return (<div key={feature?._id.toString()} className="sm:w-1/2 px-4">
+                    <LFFormElement labelValue='Tagline' labelName={`feature-block-tagline-${feature?._id.toString()}`}
+                                   elemValue={feature?.tagline}>
+                        <TextInput id={`feature-block-tagline-${feature?._id.toString()}`}
                                    placeholder="Tagline for the Feature Block"
-                                   value={feature.tagline} required
+                                   value={feature?.tagline} required
                                    onChange={(event) =>
-                                       setAFBlockTagline(feature._id.toString(), event.target.value)}/>
+                                       setAFBlockTagline(feature?._id.toString(), event.target.value)}/>
                     </LFFormElement>
-                    <LFFormElement labelValue='Headline' labelName={`feature-block-headline-${feature._id.toString()}`}
-                                   elemValue={feature.headline}>
-                        <TextInput id={`feature-block-headline-${feature._id.toString()}`}
+                    <LFFormElement labelValue='Headline' labelName={`feature-block-headline-${feature?._id.toString()}`}
+                                   elemValue={feature?.headline}>
+                        <TextInput id={`feature-block-headline-${feature?._id.toString()}`}
                                    placeholder="Headline for the Feature Block"
-                                   value={feature.headline} required
+                                   value={feature?.headline} required
                                    onChange={(event) =>
-                                       setAFBlockHeadline(feature._id.toString(), event.target.value)}/>
+                                       setAFBlockHeadline(feature?._id.toString(), event.target.value)}/>
                     </LFFormElement>
-                    <LFFormElement labelValue='Text' labelName={`feature-block-text-${feature._id.toString()}`}
-                                   elemValue={feature.text}>
-                        <Textarea id={`feature-block-text-${feature._id.toString()}`}
+                    <LFFormElement labelValue='Text' labelName={`feature-block-text-${feature?._id.toString()}`}
+                                   elemValue={feature?.text}>
+                        <Textarea id={`feature-block-text-${feature?._id.toString()}`}
                                   placeholder="Text for the Feature Block"
-                                  value={feature.text} required className='h-text-area'
+                                  value={feature?.text} required className='h-text-area'
                                   onChange={(event) =>
-                                      setAFBlockText(feature._id.toString(), event.target.value)}/>
+                                      setAFBlockText(feature?._id.toString(), event.target.value)}/>
                     </LFFormElement>
-                    <ImageBlock imagePath={feature.image.src}/>
+                    <ImageBlock imagePath={feature?.image.src}/>
                 </div>)
             })}
         </LFFormSection>

@@ -32,7 +32,7 @@ const AboutPageComponent = ({pageData}: AboutPageComponentProps) => {
             }}>
                 <AboutTitle/>
                 <LFFormSection sectionTitle={'Hero Block Images'} isGallery>
-                    {aboutPageData?.aboutHero?.map((hero) => <div className="m-4 text-center" key={hero._id.toString()}>
+                    {aboutPageData?.aboutHero?.map((hero) => <div className="m-4 text-center" key={hero?._id.toString()}>
                         <ImageBlock imagePath={hero?.src}/></div>)}
                 </LFFormSection>
                 <AlternatingFeatures/>
