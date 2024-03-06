@@ -10,11 +10,14 @@ type DropzoneProps = {
     imagePath?: string
     withPopover?: boolean
 }
+const LabelClassName = "dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center " +
+    "justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 " +
+    "hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
 const Dropzone = ({imagePath, withPopover}: DropzoneProps) => {
     return (<div className="flex w-full items-center justify-center">
         <Label
-            htmlFor="dropzone-file"
-            className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+            htmlFor={`dropzone-file-${imagePath}`}
+            className={LabelClassName}
         >
             <div className="flex flex-col items-center justify-center pb-6 pt-5">
                 <HiMiniCloudArrowUp className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"/>
@@ -29,6 +32,8 @@ const Dropzone = ({imagePath, withPopover}: DropzoneProps) => {
                                 className="w-96 text-sm text-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400">
                                 <Image
                                     src={getImageUrl(imagePath)}
+                                    width={800}
+                                    height={400}
                                     className="col-span-2 h-full"
                                     alt="Italy map"
                                 />
@@ -44,7 +49,14 @@ const Dropzone = ({imagePath, withPopover}: DropzoneProps) => {
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (Max. 800x400px)</p>
             </div>
-            <FileInput id="dropzone-file" className="hidden"/>
+            <FileInput id={`dropzone-file-${imagePath}`} className="hidden" onChange={(event) => {
+                if (event.target.files?.length === 0) return;
+                const file = event.target.files?.[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                }
+            }}/>
         </Label>
     </div>);
 }

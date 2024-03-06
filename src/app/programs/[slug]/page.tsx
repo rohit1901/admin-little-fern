@@ -1,6 +1,5 @@
 import {getHomePageData} from "@admin/lib/homePage";
-import {HomePageData} from "@admin/types";
-import HomePageComponent from "@admin/components/HomePageComponent";
+import ProgramsPageWrapper from "@admin/components/ProgramsPage/ProgramsPageWrapper";
 
 export async function generateMetadata() {
     return {
@@ -12,11 +11,8 @@ export async function generateMetadata() {
 export default async function ProgramPage({params: {slug}}: {
     params: { slug: string }
 }) {
-    return (
-        <div className='p-4 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
-            <h1>Program Page - {slug}</h1>
-        </div>
-    )
+    const homePageData = await getHomePageData()
+    return <ProgramsPageWrapper homePageData={JSON.parse(JSON.stringify(homePageData))} slug={slug}/>
 }
 
 export const dynamicParams = false

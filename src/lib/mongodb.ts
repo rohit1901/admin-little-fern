@@ -7,15 +7,18 @@ export async function getMongoClient(): Promise<MongoClient> {
      * during API Route usage.
      * https://github.com/vercel/next.js/pull/17666
      */
+    // @ts-ignore
     if (!global.mongoClientPromise) {
-        const client = new MongoClient(process.env.MONGODB_URI ?? '')
+        const client = new MongoClient(process.env.NEXT_PUBLIC_MONGODB_URI ?? '')
         // client.connect() returns an instance of MongoClient when resolved
+        // @ts-ignore
         global.mongoClientPromise = client.connect()
     }
+    // @ts-ignore
     return global.mongoClientPromise
 }
 
 export async function getMongoDb() {
     const mongoClient = await getMongoClient()
-    return mongoClient.db('little_fern_db')
+    return mongoClient.db(process.env.NEXT_PUBLIC_DB_NAME)
 }

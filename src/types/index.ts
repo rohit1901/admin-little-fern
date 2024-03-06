@@ -1,3 +1,5 @@
+import {WithId} from "mongodb";
+
 /**
  * Global Types used across the application
  */
@@ -53,14 +55,14 @@ export type StaffAssurancesBlock = {
 }
 export type Staff = {
     assurancesBlock?: StaffAssurancesBlock
-    staffDetails?: StaffDetails[]
-    featuredStaffDescription?: StaffDescription[]
+    staffDetails?: WithId<StaffDetails>[]
+    featuredStaffDescription?: WithId<StaffDescription>[]
     heading?: string
     pageTitle?: string
     subHeading?: string
 }
 export type SchoolFeatures = {
-    featureBlocks?: HomeFeatureBlock[]
+    featureBlocks?: WithId<HomeFeatureBlock>[]
     features?: string[]
     heading?: string
     subHeading?: string
@@ -105,7 +107,7 @@ export type Pricing = {
     price: string
     interval: string
     shortDescription: string
-    features: Feature[]
+    features: WithId<Feature>[]
     action: Action
 }
 
@@ -137,7 +139,7 @@ export type ValueItem = { value: string; description: string }
 export type ValueData = {
     heading: string
     subHeading: string
-    values: ValueItem[]
+    values: WithId<ValueItem>[]
     image: ImageItem
 }
 export type AlternatingFeaturesItem = {
@@ -165,10 +167,6 @@ export type NewsletterItem = {
     description: string
     link: string
 }
-export type ContactPageData = {
-    textBlock: TextBlock
-    contactInformation: ContactInformationItem
-}
 export type ContactInformationItem = {
     address?: string
     phone?: string
@@ -181,7 +179,7 @@ export type GalleryItem = {
     tag: string
 }
 export type FAQBlock = {
-    faqs?: Faq[]
+    faqs?: WithId<Faq>[]
     heading?: string
 }
 export type TestimonialsBlock = {
@@ -191,27 +189,16 @@ export type TestimonialsBlock = {
 }
 export type SchoolProgramsBlock = {
     heading?: string
-    schoolPrograms?: SchoolProgram[]
+    schoolPrograms?: WithId<SchoolProgram>[]
 }
 export type HomeHeroBlock = {
-    hero?: Hero
-    ratings?: Rating[]
-}
-export type HomePageData = {
-    homeHero: HomeHeroBlock
+    hero: Hero
     ratings: Rating[]
-    schoolFeatures: SchoolFeatures
-    staff: Staff
-    schoolProgramsBlock: SchoolProgramsBlock
-    testimonialsBlock: TestimonialsBlock
-    faqBlock: FAQBlock
-    callToActionBlock: CallToActionBlock
-    footer: TextBlock
 }
 export type AlternatingFeaturesData = {
     sectionTitle?: string
     underlinedText?: string
-    blocks: AlternatingFeaturesItem[]
+    blocks: WithId<AlternatingFeaturesItem>[]
 }
 export type CallToActionBlock = {
     sectionTitle?: string
@@ -221,38 +208,76 @@ export type CallToActionBlock = {
 export type StatsBlock = {
     heading: string
     subHeading: string
-    stats: Stat[]
+    stats: WithId<Stat>[]
 }
 export type StaffBlock = {
-    staffDetails: StaffDetails[]
+    staffDetails: WithId<StaffDetails>[]
     heading: string
     subHeading: string
 }
+export type HomePageData = {
+    homeHero: WithId<HomeHeroBlock>
+    ratings: Rating[]
+    schoolFeatures: SchoolFeatures
+    staff: Staff
+    schoolProgramsBlock: SchoolProgramsBlock
+    testimonialsBlock: TestimonialsBlock
+    faqBlock: FAQBlock
+    callToActionBlock: CallToActionBlock
+    footer: TextBlock
+    dateCreated: Date
+}
 export type AboutPageData = {
     title?: string
-    subtitle?: string
+    subTitle?: string
     paragraph?: string
-    aboutHero?: ImageItem[]
+    aboutHero?: WithId<ImageItem>[]
     description?: string
     alternatingFeatures: AlternatingFeaturesData
     statsBlock: StatsBlock
     staffBlock: StaffBlock
     valueData: ValueData
+    dateCreated: Date
 }
 export type ParentsPageData = {
     hero: Hero
-    heroItems: ParentsHeroItem[]
-    events: EventItem[]
+    heroItems: WithId<ParentsHeroItem>[]
+    events: WithId<EventItem>[]
     eventsText: TextBlock
-    newsletters: NewsletterItem[]
+    newsletters: WithId<NewsletterItem>[]
+    dateCreated: Date
 }
 export type GalleryPageData = {
-    gallery: GalleryItem[]
+    gallery: WithId<GalleryItem>[]
     textBlock: TextBlock
     pageHero?: Hero
+    dateCreated: Date
+}
+export type ContactPageData = {
+    textBlock: TextBlock
+    contactInformation: ContactInformationItem
+    dateCreated: Date
 }
 export type SocialLinkProps = {
     className?: string
     href: string
     icon: string
 }
+type Status = {
+    system: string;
+    status: string;
+};
+
+type Incident = {
+    // Define properties for Incident here
+};
+
+type Scheduled = {
+    // Define properties for Scheduled here
+};
+
+export type HerokuStatuaResponseType = {
+    status: Status[];
+    incidents: Incident[];
+    scheduled: Scheduled[];
+};

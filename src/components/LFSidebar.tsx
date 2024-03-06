@@ -1,96 +1,58 @@
 'use client';
 
-import {
-    FlowbiteSidebarTheme,
-    Sidebar,
-    SidebarCollapse,
-    SidebarItem,
-    SidebarItemGroup,
-    SidebarItems
-} from 'flowbite-react';
+import {Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems} from 'flowbite-react';
 import {BiBuoy} from 'react-icons/bi';
-import {
-    HiArrowSmRight,
-    HiChartPie,
-    HiInbox,
-    HiOfficeBuilding,
-    HiOutlineMinusSm,
-    HiOutlinePlusSm,
-    HiTable,
-    HiUser,
-    HiViewBoards
-} from 'react-icons/hi';
-import {DeepPartial} from "flowbite-react/lib/esm/types";
+import {HiChartPie, HiInbox, HiOfficeBuilding, HiUser, HiViewBoards} from 'react-icons/hi';
 import {HiCamera, HiHome, HiMiniDocument, HiMiniInformationCircle, HiPhone, HiUserGroup} from "react-icons/hi2";
-import {twMerge} from "tailwind-merge";
-// Define your custom theme
-const customSidebarTheme: DeepPartial<FlowbiteSidebarTheme> = {
-    root: {
-        base: 'fixed overflow-y-auto scrolling-touch top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700', // Tailwind class for background color
-        inner: 'py-5 px-7 h-full bg-white dark:bg-gray-800', // Tailwind class for background color
-    },
-};
-type LFSidebarProps = {
-    programs?: {
-        name?: string
-        slug?: string
-    }[]
+import {usePathname} from "next/navigation";
+
+const SidebarClasses = "fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full " +
+    "bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+const pages = [{
+    name: 'Home', href: '/website-pages/Home', icon: HiHome,
+}, {
+    name: 'About', href: '/website-pages/About', icon: HiMiniInformationCircle,
+}, {
+    name: 'Gallery', href: '/website-pages/Gallery', icon: HiCamera,
+}, {
+    name: 'Programs', href: '/programs/play-group', icon: HiOfficeBuilding,
+}, {
+    name: 'Contact', href: '/website-pages/Contact', icon: HiPhone,
+}, {
+    name: 'Parents', href: '/website-pages/Parents', icon: HiUserGroup,
+}]
+const setActive = (href: string, slug: string | null) => {
+    // set active to true if the slug includes '/programs'
+    if (href.includes('/programs')) {
+        return slug?.includes('/programs')
+    }
+    return slug === href
 }
-const LFSidebar = ({programs}: LFSidebarProps) => {
-    const pages = [{
-        name: 'Home', href: '/', icon: HiHome,
-    }, {
-        name: 'About', href: '/about', icon: HiMiniInformationCircle,
-    }, {
-        name: 'Gallery', href: '/gallery', icon: HiCamera,
-    }, {
-        name: 'Programs',
-        href: '/programs',
-        icon: HiOfficeBuilding,
-        children: programs?.map((program) => ({name: program.name, href: `/programs/${program.slug}`}))
-    }, {
-        name: 'Contact', href: '/contact', icon: HiPhone,
-    }, {
-        name: 'Parents', href: '/parents', icon: HiUserGroup,
-    }]
-    return (<Sidebar theme={customSidebarTheme}>
-        <SidebarItems>
+const LFSidebar = () => {
+    const slug = usePathname()
+    //create a function to set active property to true based on the slug matching the current page
+
+
+    return (<Sidebar
+        className={SidebarClasses}>
+        <SidebarItems className="sidebar-items">
             <SidebarItemGroup>
-                <SidebarItem href="/dashboard" icon={HiChartPie}>
+                <SidebarItem href="/" icon={HiChartPie} active={setActive('/', slug)}>
                     Dashboard
                 </SidebarItem>
-                <SidebarCollapse icon={HiMiniDocument} label="Pages">
-                    {pages?.map((page) => {
-                        if (!page.children) return <SidebarItem href={`/website-pages/${page.name}`} key={page.name}
-                                                                icon={page.icon}
-                                                                className='text-ellipsis overflow-hidden text-sm'>
-                            {page.name}
-                        </SidebarItem>
-                        return <SidebarCollapse icon={page.icon} label={page.name} key={page.name}
-                                                className='text-ellipsis overflow-hidden text-sm'
-                                                renderChevronIcon={(theme, open) => {
-                                                    const IconComponent = open ? HiOutlineMinusSm : HiOutlinePlusSm;
-
-                                                    return <IconComponent aria-hidden
-                                                                          className={twMerge(theme.label.icon.open[open ? 'on' : 'off'])}/>;
-                                                }}>
-                            {page.children.map((child) => <SidebarItem href={child.href} key={child.name}
-                                                                       className='justify-start text-ellipsis overflow-hidden text-sm'>
-                                {child.name}</SidebarItem>)}
-                        </SidebarCollapse>
-                    })}
+                <SidebarCollapse icon={HiMiniDocument} label="Pages" open>
+                    {pages?.map((page) => (<SidebarItem href={page.href} key={page.name}
+                                                        icon={page.icon}
+                                                        className='text-ellipsis overflow-hidden text-sm'
+                                                        active={setActive(page.href, slug)}>
+                        {page.name}
+                    </SidebarItem>))}
                 </SidebarCollapse>
-                <SidebarItem href="https://email.littlefern.in" target='_blank' icon={HiInbox}>
+                <SidebarItem href="http://email.littlefern.in" target='_blank' icon={HiInbox}>
                     Inbox
                 </SidebarItem>
                 <SidebarItem href="#" icon={HiUser}>
                     Users
-                </SidebarItem>
-                <SidebarItem href="#" icon={HiArrowSmRight}>
-                    Sign In
-                </SidebarItem>
-                <SidebarItem href="#" icon={HiTable}>
-                    Sign Up
                 </SidebarItem>
             </SidebarItemGroup>
             <SidebarItemGroup>
