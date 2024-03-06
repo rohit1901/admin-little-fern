@@ -20,7 +20,7 @@ const HomeHero = ({tagline, headline, text, image, youTubeLink}: HomeHeroProps) 
         setHomePageHeroTagline,
         setYouTubeLink,
     } = useHomePageStore(state => state)
-    return <LFFormSection sectionTitle={'Hero Block'}>
+    return <LFFormSection sectionTitle={'Home Page'}>
         <div
             className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16">
             <ImageBlock imagePath={image?.src}/>

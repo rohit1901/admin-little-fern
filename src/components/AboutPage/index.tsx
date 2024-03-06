@@ -25,7 +25,7 @@ const AboutPageComponent = ({pageData}: AboutPageComponentProps) => {
         return string.split(',').map((item) => item.trim())
     }
     return (
-        <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
+        <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
             <LFForm data={aboutPageData} updateState={(data) => {
                 if (!isAboutPageData(data)) return
                 setAboutPageData(data)

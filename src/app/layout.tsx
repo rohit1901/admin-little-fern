@@ -4,7 +4,7 @@ import "./globals.css";
 import {ThemeModeScript} from "flowbite-react";
 import {ReactNode, Suspense} from "react";
 import Providers from "@admin/app/providers";
-import LoginButton from "@admin/components/LoginButton";
+import LoginMask from "@admin/components/LoginMask";
 import Loader from "@admin/components/Loader";
 
 const notoFont = Noto_Sans({subsets: ["latin"]});
@@ -27,7 +27,7 @@ export default async function RootLayout({
         <Providers>
             <Suspense
                 fallback={<Loader/>}>
-                <LoginButton>{children}</LoginButton>
+                <LoginMask>{children}</LoginMask>
             </Suspense>
         </Providers>
         </body>

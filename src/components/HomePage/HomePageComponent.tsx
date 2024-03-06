@@ -25,7 +25,7 @@ const HomePageComponent = ({pageData}: HomePageDataProps) => {
         setHomePageData(pageData)
     }, [])
 
-    return (homePageData && <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
+    return (homePageData && <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
             <LFForm data={homePageData} updateState={(data) => {
                 if (isHomePageData(data)) setHomePageData(data)
             }}>

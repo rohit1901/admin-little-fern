@@ -22,8 +22,7 @@ const Dropzone = ({imagePath, withPopover}: DropzoneProps) => {
             <div className="flex flex-col items-center justify-center pb-6 pt-5">
                 <HiMiniCloudArrowUp className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"/>
                 {imagePath && <Fragment>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"> Click to view or hover to preview:
-                    </p>
+                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"> Click to view or hover to preview:</p>
                     <Popover
                         trigger="hover"
                         placement={"right"}
@@ -35,12 +34,12 @@ const Dropzone = ({imagePath, withPopover}: DropzoneProps) => {
                                     width={800}
                                     height={400}
                                     className="col-span-2 h-full"
-                                    alt="Italy map"
+                                    alt="uploaded image"
                                 />
                             </div>
                         }
                     >
-                        <Link className="mb-2 text-sm dark:text-gray-400 text-blue-500 hover:underline"
+                        <Link className="mb-2 text-sm dark:text-cyan-400 text-blue-500 hover:underline overflow-ellipsis"
                               href={getImageUrl(imagePath)} target="_blank">{imagePath} </Link>
                     </Popover>
                 </Fragment>}

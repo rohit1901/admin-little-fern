@@ -6,6 +6,7 @@ import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {uploadToS3} from "@admin/lib/s3";
 import {useSession} from "next-auth/react";
+import {HiMiniCloudArrowUp} from "react-icons/hi2";
 
 type ImageBlockProps = {
     imagePath?: string
@@ -48,7 +49,10 @@ export const ImageBlock = ({imagePath}: ImageBlockProps) => {
                             }).finally(() => {
                                 setUploading(false);
                             })
-                        }}>{uploading ? <Spinner/> : 'Upload'}
+                        }}>{uploading ? <Spinner/> : <div className="flex flex-row items-center">
+                    <HiMiniCloudArrowUp className="mr-2 h-5 w-5"/>
+                    <p>Upload</p>
+                </div>}
                 </Button>
             </div>}
         </div>

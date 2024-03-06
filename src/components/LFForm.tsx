@@ -8,6 +8,8 @@ import {useSession} from "next-auth/react";
 import {useHomePageStore} from "@admin/store";
 import {useSchoolProgramsPageStore} from "@admin/store/";
 import {HiOutlineExclamationCircle} from "react-icons/hi";
+import {IoIosSave} from "react-icons/io";
+import {IoReload} from "react-icons/io5";
 
 type PathnameMapping = {
     [key: string]: string
@@ -88,8 +90,18 @@ const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFo
         {isEmailAuthorized(session) && <div className="flex flex-wrap gap-2 mt-2">
             <Button disabled={loading} outline onClick={() => {
                 window.location.reload()
-            }}>Reset</Button>
-            <Button disabled={loading} type="submit" onClick={() => setOpenModal(true)} outline>{loading ? <Spinner/> : 'Update'}</Button>
+            }}>
+                <div className="flex items-center">
+                    <IoReload className="mr-2 h-5 w-5"/>
+                    <p>Reset</p>
+                </div>
+            </Button>
+            <Button disabled={loading} type="submit" onClick={() => setOpenModal(true)} outline>{loading ? <Spinner/> :
+                <div className="flex items-center">
+                    <IoIosSave className="mr-2 h-5 w-5"/>
+                    <p>Update</p>
+                </div>}
+            </Button>
         </div>}
     </Fragment>)
 }
