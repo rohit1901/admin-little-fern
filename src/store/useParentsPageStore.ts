@@ -1,9 +1,10 @@
 import {ParentsPageData} from "@admin/types";
 import {create} from "zustand";
+import {WithId} from "mongodb";
 
 type ParentsPageStore = {
-    parentsPageData: ParentsPageData
-    setParentsPageData: (data: ParentsPageData) => void
+    parentsPageData: WithId<ParentsPageData>
+    setParentsPageData: (data: WithId<ParentsPageData>) => void
     setHeroTagline: (tagline: string) => void
     setHeroHeadline: (headline: string) => void
     setHeroText: (text: string) => void
@@ -15,11 +16,11 @@ type ParentsPageStore = {
     setEventDates: (id: string, dates: string) => void
     setEventDescription: (id: string, description: string) => void
     setEventsText: (text: string) => void
-    setEventsHeadline: (heading: string) => void
+    setEventsHeadline: (headline: string) => void
 }
 export const useParentsPageStore = create<ParentsPageStore>((set) => ({
-    parentsPageData: {} as ParentsPageData,
-    setParentsPageData: (data: ParentsPageData) => set(() => ({parentsPageData: data})),
+    parentsPageData: {} as WithId<ParentsPageData>,
+    setParentsPageData: (data: WithId<ParentsPageData>) => set(() => ({parentsPageData: data})),
     setHeroTagline: (tagline: string) => set((state) => ({
         parentsPageData: {
             ...state.parentsPageData,
@@ -92,10 +93,10 @@ export const useParentsPageStore = create<ParentsPageStore>((set) => ({
             eventsText: {...state.parentsPageData.eventsText, text}
         }
     })),
-    setEventsHeadline: (heading: string) => set((state) => ({
+    setEventsHeadline: (headline: string) => set((state) => ({
         parentsPageData: {
             ...state.parentsPageData,
-            eventsText: {...state.parentsPageData.eventsText, heading}
+            eventsText: {...state.parentsPageData.eventsText, headline}
         }
     }))
 

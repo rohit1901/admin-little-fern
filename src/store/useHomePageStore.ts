@@ -91,15 +91,17 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
         }
     })),
     setFeatureTagline: (id: ObjectId, tagline: string) => set((state) => {
-        const nFeatureBlock: WithId<HomeFeatureBlock> | undefined = state.homePageData.schoolFeatures?.featureBlocks?.find((block) => block._id.toString() === id.toString())
+        const nFeatureBlock: WithId<HomeFeatureBlock> | undefined =
+            state.homePageData.schoolFeatures?.featureBlocks?.find((block) => block._id.toString() === id.toString())
         if (!nFeatureBlock) return state
         const newFeatureBlock: WithId<HomeFeatureBlock> = {...nFeatureBlock, tagline: tagline}
-        const newFeatureBlocks = state.homePageData.schoolFeatures?.featureBlocks?.map((block) => {
-            if (block._id === nFeatureBlock?._id) {
-                return newFeatureBlock
-            }
-            return block
-        })
+        const newFeatureBlocks =
+            state.homePageData.schoolFeatures?.featureBlocks?.map((block) => {
+                if (block._id === nFeatureBlock?._id) {
+                    return newFeatureBlock
+                }
+                return block
+            })
         if (!newFeatureBlocks) return state
         return {
             homePageData: {
@@ -109,7 +111,8 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
         }
     }),
     setFeatureHeadline: (id: ObjectId, headline: string) => set((state) => {
-        const nFeatureBlock: WithId<HomeFeatureBlock> | undefined = state.homePageData.schoolFeatures?.featureBlocks?.find((block) => block._id.toString() === id.toString())
+        const nFeatureBlock: WithId<HomeFeatureBlock> | undefined =
+            state.homePageData.schoolFeatures?.featureBlocks?.find((block) => block._id.toString() === id.toString())
         if (!nFeatureBlock) return state
         const newFeatureBlock: WithId<HomeFeatureBlock> = {...nFeatureBlock, headline: headline}
         const newFeatureBlocks = state.homePageData.schoolFeatures?.featureBlocks?.map((block) => {
@@ -127,7 +130,8 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
         }
     }),
     setFeatureText: (id: ObjectId, text: string) => set((state) => {
-        const nFeatureBlock: WithId<HomeFeatureBlock> | undefined = state.homePageData.schoolFeatures?.featureBlocks?.find((block) => block._id.toString() === id.toString())
+        const nFeatureBlock: WithId<HomeFeatureBlock> | undefined =
+            state.homePageData.schoolFeatures?.featureBlocks?.find((block) => block._id.toString() === id.toString())
         if (!nFeatureBlock) return state
         const newFeatureBlock: WithId<HomeFeatureBlock> = {...nFeatureBlock, text: text}
         const newFeatureBlocks = state.homePageData.schoolFeatures?.featureBlocks?.map((block) => {
@@ -145,15 +149,17 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
         }
     }),
     setFeaturedStaffName: (id: ObjectId, name: string) => set((state) => {
-        const nStaff: WithId<StaffDescription> | undefined = state.homePageData.staff?.featuredStaffDescription?.find((staff) => staff._id.toString() === id.toString())
+        const nStaff: WithId<StaffDescription> | undefined =
+            state.homePageData.staff?.featuredStaffDescription?.find((staff) => staff._id.toString() === id.toString())
         if (!nStaff) return state
         const newStaff: WithId<StaffDescription> = {...nStaff, name: name}
-        const newStaffDetails = state.homePageData.staff?.featuredStaffDescription?.map((staff) => {
-            if (staff._id === nStaff?._id) {
-                return newStaff
-            }
-            return staff
-        })
+        const newStaffDetails =
+            state.homePageData.staff?.featuredStaffDescription?.map((staff) => {
+                if (staff._id === nStaff?._id) {
+                    return newStaff
+                }
+                return staff
+            })
         if (!newStaffDetails) return state
         return {
             homePageData: {
@@ -163,15 +169,17 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
         }
     }),
     setFeaturedStaffDescription: (id: ObjectId, description: string) => set((state) => {
-        const nStaff: WithId<StaffDescription> | undefined = state.homePageData.staff?.featuredStaffDescription?.find((staff) => staff._id.toString() === id.toString())
+        const nStaff: WithId<StaffDescription> | undefined =
+            state.homePageData.staff?.featuredStaffDescription?.find((staff) => staff._id.toString() === id.toString())
         if (!nStaff) return state
         const newStaff: WithId<StaffDescription> = {...nStaff, description: description}
-        const newStaffDetails = state.homePageData.staff?.featuredStaffDescription?.map((staff) => {
-            if (staff._id === nStaff?._id) {
-                return newStaff
-            }
-            return staff
-        })
+        const newStaffDetails =
+            state.homePageData.staff?.featuredStaffDescription?.map((staff) => {
+                if (staff._id === nStaff?._id) {
+                    return newStaff
+                }
+                return staff
+            })
         if (!newStaffDetails) return state
         return {
             homePageData: {
@@ -181,15 +189,17 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
         }
     }),
     setStaffDetailsName: (id: ObjectId, name: string) => set((state) => {
-        const nStaff: WithId<StaffDetails> | undefined = state.homePageData.staff?.staffDetails?.find((staff) => staff._id.toString() === id.toString())
+        const nStaff: WithId<StaffDetails> | undefined =
+            state.homePageData.staff?.staffDetails?.find((staff) => staff._id.toString() === id.toString())
         if (!nStaff) return state
         const newStaff: WithId<StaffDetails> = {...nStaff, name: name}
-        const newStaffDetails = state.homePageData.staff?.staffDetails?.map((staff) => {
-            if (staff._id === nStaff?._id) {
-                return newStaff
-            }
-            return staff
-        })
+        const newStaffDetails =
+            state.homePageData.staff?.staffDetails?.map((staff) => {
+                if (staff._id === nStaff?._id) {
+                    return newStaff
+                }
+                return staff
+            })
         if (!newStaffDetails) return state
         return {
             homePageData: {
@@ -199,15 +209,17 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
         }
     }),
     setStaffDetailsRole: (id: ObjectId, role: string) => set((state) => {
-        const nStaff: WithId<StaffDetails> | undefined = state.homePageData.staff?.staffDetails?.find((staff) => staff._id.toString() === id.toString())
+        const nStaff: WithId<StaffDetails> | undefined =
+            state.homePageData.staff?.staffDetails?.find((staff) => staff._id.toString() === id.toString())
         if (!nStaff) return state
         const newStaff: WithId<StaffDetails> = {...nStaff, role: role}
-        const newStaffDetails = state.homePageData.staff?.staffDetails?.map((staff) => {
-            if (staff._id === nStaff?._id) {
-                return newStaff
-            }
-            return staff
-        })
+        const newStaffDetails =
+            state.homePageData.staff?.staffDetails?.map((staff) => {
+                if (staff._id === nStaff?._id) {
+                    return newStaff
+                }
+                return staff
+            })
         if (!newStaffDetails) return state
         return {
             homePageData: {
@@ -246,7 +258,8 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
     })),
     setSchoolProgramHeroTagline: (id: ObjectId, tagline: string) => set((state) => {
         // find the hero block with the id of schoolPrograms in the schoolProgramsBlock
-        const newProgram: WithId<SchoolProgram> | undefined = state.homePageData.schoolProgramsBlock?.schoolPrograms?.find((hero) => hero._id.toString() === id.toString())
+        const newProgram: WithId<SchoolProgram> | undefined =
+            state.homePageData.schoolProgramsBlock?.schoolPrograms?.find((hero) => hero._id.toString() === id.toString())
         if (!newProgram) return state
         const newHero: Hero = {...newProgram.hero, tagline: tagline}
         // create the new schoolPrograms array with the updated hero block
@@ -261,7 +274,8 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
     }),
     setSchoolProgramHeroHeadline: (id: ObjectId, headline: string) => set((state) => {
         // find the hero block with the id of schoolPrograms in the schoolProgramsBlock
-        const newProgram: WithId<SchoolProgram> | undefined = state.homePageData.schoolProgramsBlock?.schoolPrograms?.find((hero) => hero._id.toString() === id.toString())
+        const newProgram: WithId<SchoolProgram> | undefined =
+            state.homePageData.schoolProgramsBlock?.schoolPrograms?.find((hero) => hero._id.toString() === id.toString())
         if (!newProgram) return state
         const newHero: Hero = {...newProgram.hero, headline: headline}
         // create the new schoolPrograms array with the updated hero block
@@ -276,7 +290,8 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
     }),
     setSchoolProgramHeroText: (id: ObjectId, text: string) => set((state) => {
         // find the hero block with the id of schoolPrograms in the schoolProgramsBlock
-        const newProgram: WithId<SchoolProgram> | undefined = state.homePageData.schoolProgramsBlock?.schoolPrograms?.find((hero) => hero._id.toString() === id.toString())
+        const newProgram: WithId<SchoolProgram> | undefined =
+            state.homePageData.schoolProgramsBlock?.schoolPrograms?.find((hero) => hero._id.toString() === id.toString())
         if (!newProgram) return state
         const newHero: Hero = {...newProgram.hero, text: text}
         // create the new schoolPrograms array with the updated hero block

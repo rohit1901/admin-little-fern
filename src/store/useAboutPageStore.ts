@@ -1,9 +1,10 @@
 import {AboutPageData} from "@admin/types";
 import {create} from "zustand";
+import {WithId} from "mongodb";
 
 type AboutPageStore = {
-    aboutPageData: AboutPageData,
-    setAboutPageData: (data: AboutPageData) => void,
+    aboutPageData: WithId<AboutPageData>,
+    setAboutPageData: (data: WithId<AboutPageData>) => void,
     setDescription: (description: string) => void,
     setTitle: (title: string) => void,
     setSubTitle: (subTitle: string) => void,
@@ -27,8 +28,8 @@ type AboutPageStore = {
     setValueDataDescription: (id: string, description: string) => void,
 }
 export const useAboutPageStore = create<AboutPageStore>((set) => ({
-    aboutPageData: {} as AboutPageData,
-    setAboutPageData: (data: AboutPageData) => set({aboutPageData: data}),
+    aboutPageData: {} as WithId<AboutPageData>,
+    setAboutPageData: (data: WithId<AboutPageData>) => set({aboutPageData: data}),
     setDescription: (description: string) => set((state) => ({aboutPageData: {...state.aboutPageData, description}})),
     setTitle: (title: string) => set((state) => ({aboutPageData: {...state.aboutPageData, title}})),
     setSubTitle: (subTitle: string) => set((state) => ({aboutPageData: {...state.aboutPageData, subTitle}})),

@@ -1,9 +1,10 @@
 import {GalleryPageData} from "@admin/types";
 import {create} from "zustand";
+import {WithId} from "mongodb";
 
 type GalleryPageStore = {
-    galleryPageData: GalleryPageData
-    setGalleryPageData: (data: GalleryPageData) => void
+    galleryPageData: WithId<GalleryPageData>
+    setGalleryPageData: (data: WithId<GalleryPageData>) => void
     setTextBlockHeadline: (headline: string) => void
     setTextBlockText: (text: string) => void
     setGalleryHeroTagline: (tagline: string) => void
@@ -12,7 +13,7 @@ type GalleryPageStore = {
     setGalleryItemTag: (id: string, tag: string) => void
 }
 export const useGalleryPageStore = create<GalleryPageStore>((set) => ({
-    galleryPageData: {} as GalleryPageData,
+    galleryPageData: {} as WithId<GalleryPageData>,
     setGalleryPageData: (data) => set({galleryPageData: data}),
     setTextBlockHeadline: (headline) => set((state) => ({
         galleryPageData: {

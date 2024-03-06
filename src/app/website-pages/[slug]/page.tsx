@@ -5,7 +5,7 @@ import {getAboutPageData} from "@admin/lib/aboutPage";
 import AboutPageComponent from "@admin/components/AboutPage";
 import {getGalleryPageData} from "@admin/lib/galleryPage";
 import GalleryPageComponent from "@admin/components/GalleryPage";
-import {WithId, WithoutId} from "mongodb";
+import {WithId} from "mongodb";
 import ParentsPageComponent from "@admin/components/ParentsPage";
 import ContactPageComponent from "@admin/components/ContactPage";
 import {getParentsPage} from "@admin/lib/parentsPage";
@@ -27,24 +27,24 @@ const getElems = async (slug: string) => {
         return <HomePageComponent pageData={plainHomePageData}/>
     }
     if (slug === 'About') {
-        const aboutPageData: WithoutId<AboutPageData> = await getAboutPageData()
+        const aboutPageData: WithId<AboutPageData> = await getAboutPageData()
         const plainAboutPageData: WithId<AboutPageData> = JSON.parse(JSON.stringify(aboutPageData));
         return <AboutPageComponent pageData={plainAboutPageData}/>
     }
     if (slug === 'Gallery') {
-        const galleryPageData: WithoutId<GalleryPageData> = await getGalleryPageData()
-        const plainGalleryPageData: GalleryPageData = JSON.parse(JSON.stringify(galleryPageData));
+        const galleryPageData: WithId<GalleryPageData> = await getGalleryPageData()
+        const plainGalleryPageData: WithId<GalleryPageData> = JSON.parse(JSON.stringify(galleryPageData));
         return <GalleryPageComponent pageData={plainGalleryPageData}/>
     }
     if (slug === 'Parents') {
-        const parentsPageData: WithoutId<ParentsPageData> = await getParentsPage()
-        const plainParentsPageData: ParentsPageData = JSON.parse(JSON.stringify(parentsPageData));
+        const parentsPageData: WithId<ParentsPageData> = await getParentsPage()
+        const plainParentsPageData: WithId<ParentsPageData> = JSON.parse(JSON.stringify(parentsPageData));
         return <ParentsPageComponent pageData={plainParentsPageData}/>
     }
     if (slug === 'Contact') {
-        const contactPageData: WithoutId<ContactPageData> = await getContactPageData()
-        const plainContactPageData: ContactPageData = JSON.parse(JSON.stringify(contactPageData));
-        return <ContactPageComponent contactPageData={plainContactPageData}/>
+        const contactPageData: WithId<ContactPageData> = await getContactPageData()
+        const plainContactPageData: WithId<ContactPageData> = JSON.parse(JSON.stringify(contactPageData));
+        return <ContactPageComponent pageData={plainContactPageData}/>
     }
     return null
 }

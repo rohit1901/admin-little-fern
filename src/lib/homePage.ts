@@ -18,10 +18,10 @@ export const getSchoolProgramsBlock = async () => {
 }
 export const getSchoolPrograms = async () => {
     const homePageData = await getHomePageData()
-    return homePageData?.schoolProgramsBlock.schoolPrograms
+    return homePageData?.schoolProgramsBlock?.schoolPrograms
 }
 export const getSchoolProgram = (slug: string, homePageData: HomePageData): WithId<SchoolProgram> | undefined => {
-    return homePageData?.schoolProgramsBlock.schoolPrograms?.find((program) => program.slug === slug)
+    return homePageData?.schoolProgramsBlock?.schoolPrograms?.find((program) => program.slug === slug)
 }
 export const getCallToAction = async () => {
     const homePageData = await getHomePageData()

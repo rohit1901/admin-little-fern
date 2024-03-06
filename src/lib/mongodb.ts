@@ -9,7 +9,7 @@ export async function getMongoClient(): Promise<MongoClient> {
      */
     // @ts-ignore
     if (!global.mongoClientPromise) {
-        const client = new MongoClient(process.env.MONGODB_URI ?? '')
+        const client = new MongoClient(process.env.NEXT_PUBLIC_MONGODB_URI ?? '')
         // client.connect() returns an instance of MongoClient when resolved
         // @ts-ignore
         global.mongoClientPromise = client.connect()
@@ -20,5 +20,5 @@ export async function getMongoClient(): Promise<MongoClient> {
 
 export async function getMongoDb() {
     const mongoClient = await getMongoClient()
-    return mongoClient.db('little_fern_db')
+    return mongoClient.db(process.env.NEXT_PUBLIC_DB_NAME)
 }

@@ -173,24 +173,8 @@ main {
 }
 
 /* width */
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: none;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: lightcyan;
-    border-radius: 5px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: lightcyan;
+.sidebar-items svg {
+    @apply text-cyan-900 dark:text-cyan-50;
 }
 
 /* feed styles */
