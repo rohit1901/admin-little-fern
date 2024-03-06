@@ -14,8 +14,8 @@ const getNonAuthElem = (session: Session | null, children: ReactNode, elemValue?
         return <Fragment>{elemValue && children}</Fragment>
     }
     return (
-        <Card className="max-w-sm dark:border-primary-50">
-            <p className="font-normal text-gray-700 dark:text-cyan-50">
+        <Card className="dark:border-primary-50 bg-gray-100">
+            <p className="text-sm text-cyan-800 dark:text-cyan-50">
                 {elemValue}
             </p>
         </Card>

@@ -9,7 +9,7 @@ import Image from "next/image";
 import {getImageUrl} from "@admin/lib";
 import Loader from "@admin/components/Loader";
 
-export default function LoginButton({children}: PropsWithChildren) {
+export default function LoginMask({children}: PropsWithChildren) {
     const {status} = useSession();
 
     if (status === "loading") {

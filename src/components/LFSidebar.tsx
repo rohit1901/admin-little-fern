@@ -1,11 +1,10 @@
 'use client';
 
 import {Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems} from 'flowbite-react';
-import {BiBuoy} from 'react-icons/bi';
-import {HiChartPie, HiInbox, HiOfficeBuilding, HiViewBoards} from 'react-icons/hi';
+import {BiSolidHelpCircle} from 'react-icons/bi';
+import {HiChartPie, HiOfficeBuilding} from 'react-icons/hi';
 import {HiCamera, HiHome, HiMiniDocument, HiMiniInformationCircle, HiPhone, HiUserGroup} from "react-icons/hi2";
 import {usePathname} from "next/navigation";
-import {SiSubstack} from "react-icons/si";
 
 const SidebarClasses = "fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full " +
     "bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
@@ -46,19 +45,10 @@ const LFSidebar = () => {
                         {page.name}
                     </SidebarItem>))}
                 </SidebarCollapse>
-                <SidebarItem href="http://email.littlefern.in" target='_blank' icon={HiInbox}>
-                    Inbox
-                </SidebarItem>
-                <SidebarItem href="https://littlefernnoida.substack.com/" target='_blank' icon={SiSubstack}>
-                    Newsletters
-                </SidebarItem>
             </SidebarItemGroup>
             <SidebarItemGroup>
-                <SidebarItem href="#" icon={HiViewBoards}>
+                <SidebarItem href="#" icon={BiSolidHelpCircle}>
                     Documentation
-                </SidebarItem>
-                <SidebarItem href="#" icon={BiBuoy}>
-                    Help
                 </SidebarItem>
             </SidebarItemGroup>
         </SidebarItems>

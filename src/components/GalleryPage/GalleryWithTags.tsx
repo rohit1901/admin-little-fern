@@ -14,13 +14,13 @@ const GalleryWithTags = () => {
         <LFFormSection sectionTitle={'Gallery Items'} isGallery>
             {galleryPageData?.gallery?.map((galleryItem) => {
                 return <div key={galleryItem._id.toString()} className="sm:w-1/2 px-4">
-                    <LFFormElement labelValue='Tag' labelName='gallery-tag' elemValue={galleryItem.tag}>
+                    <LFFormElement labelValue='Tag' labelName={`gallery-tag-${galleryItem._id.toString()}`} elemValue={galleryItem.tag}>
                         <div className="flex py-4">
                             <Badge color="green" icon={HiX} size='sm'
                                    onClick={(e) =>
                                        setGalleryItemTag(galleryItem._id.toString(), '')}>{galleryItem.tag}</Badge>
                         </div>
-                        <TextInput id="gallery-tag" placeholder="Tag for the Gallery Item"
+                        <TextInput id={`gallery-tag-${galleryItem._id.toString()}`} placeholder="Tag for the Gallery Item"
                                    value={galleryItem.tag} required
                                    onChange={(event) =>
                                        setGalleryItemTag(galleryItem._id.toString(), event.target.value)}/>

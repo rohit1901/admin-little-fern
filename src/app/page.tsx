@@ -58,14 +58,14 @@ export default function Home() {
     return (<main className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
         <div className='flex flex-row gap-4 mt-4 justify-center'>
             <Card className="max-w-sm dark:border-primary-50">
-                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">
                     <FaAws/>
                     <div className='flex flex-wrap items-center'><p>AWS S3 Status:</p> <p>{s3Status ?
                         <AiFillCheckCircle color='green'></AiFillCheckCircle> :
                         <AiFillCloseCircle color='red'></AiFillCloseCircle>}</p></div>
 
                 </h5>
-                <p className="font-normal text-gray-700 dark:text-gray-400">
+                <p className="font-normal text-cyan-700 dark:text-cyan-50">
                     Check AWS S3 status by clicking the button below. S3 is used for storing files and images in
                     the <a className='text-blue-500 hover:underline' href='https://www.littlefern.in'>Little
                     Fern</a> website.
@@ -79,16 +79,16 @@ export default function Home() {
                 </div>
             </Card>
             <Card className="max-w-sm dark:border-primary-50">
-                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">
                     <GrHeroku color='purple'/>
                     <div className='flex flex-wrap items-center'><p>Heroku Dyno Status:</p> <p>{herokuStatus ?
                         <AiFillCheckCircle color='green'></AiFillCheckCircle> :
                         <AiFillCloseCircle color='red'></AiFillCloseCircle>}</p></div>
 
                 </h5>
-                <p className="font-normal text-gray-700 dark:text-gray-400">
+                <p className="font-normal text-cyan-700 dark:text-cyan-50">
                     Check Heroku Dyno status by clicking the button below. Heroku is used for hosting the
-                    <a className='text-blue-500 hover:underline' href='https://www.littlefern.in'>Little
+                    <a className='text-blue-500 hover:underline' href='https://www.littlefern.in'> Little
                         Fern</a> website.
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -100,16 +100,16 @@ export default function Home() {
                 </div>
             </Card>
             <Card className="max-w-sm dark:border-primary-50">
-                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">
                     <DiMongodb color='green'/>
                     <div className='flex flex-wrap items-center'><p>Mongo DB:</p> <p>{mongoDBStatus ?
                         <AiFillCheckCircle color='green'></AiFillCheckCircle> :
                         <AiFillCloseCircle color='red'></AiFillCloseCircle>}</p></div>
 
                 </h5>
-                <p className="font-normal text-gray-700 dark:text-gray-400">
+                <p className="font-normal text-cyan-700 dark:text-cyan-50">
                     Check MongoDB status by clicking the button below. MongoDB is used for storing data in the
-                    <a className='text-blue-500 hover:underline' href='https://www.littlefern.in'>Little
+                    <a className='text-blue-500 hover:underline' href='https://www.littlefern.in'> Little
                         Fern</a> website.
                 </p>
                 <div className="flex flex-wrap gap-2">

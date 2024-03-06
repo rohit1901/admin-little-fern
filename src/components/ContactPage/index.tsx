@@ -38,12 +38,12 @@ const ContactPageComponent = ({pageData}: ContactPageProps) => {
         setContactPageData(pageData)
     }, [])
     return (
-        <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
+        <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
             <LFForm data={contactPageData} updateState={(data) => {
                 if (!isContactPageData(data)) return
                 setContactPageData(data)
             }}>
-                <LFFormSection sectionTitle={'Contact Page Text'}>
+                <LFFormSection sectionTitle={'Contact Page'}>
                     {/* Map */}
                     <div
                         className="lg:w-2/3 md:w-2/3 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
