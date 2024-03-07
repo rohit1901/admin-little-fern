@@ -9,6 +9,7 @@ import {Session} from "next-auth";
 import {SiSubstack} from "react-icons/si";
 import {FaSignOutAlt} from "react-icons/fa";
 import {IoSettings} from "react-icons/io5";
+import {BiSolidDashboard} from "react-icons/bi";
 
 const LFNavbar = () => {
     const {data: session} = useSession()
@@ -48,7 +49,7 @@ const LFNavbar = () => {
             <NavbarBrand href="https://www.littlefern.in" className='mr-2'>
                 <Logo className="mr-3 h-6 sm:h-9"/>
                 <span
-                    className="text-xl font-semibold text-cyan-800 dark:text-cyan-200">Little FERN Administration</span>
+                    className="text-xl font-semibold text-cyan-800 dark:text-cyan-50">Little FERN Administration</span>
             </NavbarBrand>
             {getUnauthorizedBanner(session)}
             <div className="flex items-center lg:order-2">
@@ -65,7 +66,7 @@ const LFNavbar = () => {
                         <span className="block text-sm">{session?.user.name}</span>
                         <span className="block truncate text-sm font-medium">{session?.user.email}</span>
                     </DropdownHeader>
-                    <DropdownItem icon={HiChartPie} href="/">Dashboard</DropdownItem>
+                    <DropdownItem icon={BiSolidDashboard} href="/">Dashboard</DropdownItem>
                     <DropdownItem as='a' href="http://email.littlefern.in" target='_blank' icon={HiInbox}>
                         Inbox
                     </DropdownItem>
