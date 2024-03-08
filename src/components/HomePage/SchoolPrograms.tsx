@@ -1,19 +1,19 @@
 'use client'
 import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
-import {useHomePageStore} from "@admin/store";
+import {useHomePageStore, useSchoolProgramsPageStore} from "@admin/store";
 import {ImageBlock} from "@admin/components/ImageBlock";
 
 const headingClasses = "container mx-auto flex px-5 md:flex-row flex-col items-center w-full " +
     "text-2xl font-bold text-gray-900 dark:text-white md:text-3xl lg:text-4xl"
 const SchoolPrograms = () => {
     const {
-        homePageData: {schoolProgramsBlock},
         setSchoolProgramsHeading,
         setSchoolProgramHeroHeadline,
         setSchoolProgramHeroTagline,
         setSchoolProgramHeroText
     } = useHomePageStore(state => state)
+    const {programs, heading} = useSchoolProgramsPageStore()
     return <section className="text-gray-600 body-font">
         <div className="pt-20">
             <h1 className={headingClasses}>
@@ -24,16 +24,16 @@ const SchoolPrograms = () => {
         <div className="container px-5 py-24 mx-auto">
             <div className="flex flex-col w-1/2 mb-20">
                 <LFFormElement labelValue="School Programs Heading" labelName='schoolProgramsHeading'
-                               elemValue={schoolProgramsBlock?.heading}>
+                               elemValue={heading}>
                     <Textarea id="schoolProgramsHeading" placeholder="School Programs Heading"
                               className='h-text-area'
-                              value={schoolProgramsBlock?.heading} required onChange={(event) => {
+                              value={heading} required onChange={(event) => {
                         setSchoolProgramsHeading(event.currentTarget.value)
                     }}/>
                 </LFFormElement>
             </div>
             <div className="flex flex-wrap -m-4">
-                {schoolProgramsBlock?.schoolPrograms?.slice(0, 3).map(({hero, _id}) => {
+                {programs?.slice(0, 3).map(({hero, _id}) => {
                     return (<div key={_id.toString()} className="sm:w-1/2 px-4">
                         <LFFormElement labelValue="Program Tagline" labelName={`programTagline${_id.toString()}`}
                                        elemValue={hero.tagline}>

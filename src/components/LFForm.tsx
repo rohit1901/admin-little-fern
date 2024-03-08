@@ -32,7 +32,8 @@ type LFFormProps = {
 }
 const handleProgramUpdate = async (data: WithId<SchoolProgram>[], homePageData: WithId<HomePageData>,
                                    pathname: string, setHomePageData: (data: WithId<HomePageData>) => void) => {
-    const newHomePageData: WithId<HomePageData> = {
+    console.log(data)
+    /*const newHomePageData: WithId<HomePageData> = {
         ...homePageData,
         schoolProgramsBlock: {...homePageData.schoolProgramsBlock, schoolPrograms: data}
     }
@@ -42,7 +43,7 @@ const handleProgramUpdate = async (data: WithId<SchoolProgram>[], homePageData: 
         }, body: JSON.stringify(newHomePageData)
     })
     const r = await res.json()
-    if (isHomePageData(r.body)) setHomePageData(JSON.parse(JSON.stringify(r.body)))
+    if (isHomePageData(r.body)) setHomePageData(JSON.parse(JSON.stringify(r.body)))*/
 }
 
 const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFormProps>) => {

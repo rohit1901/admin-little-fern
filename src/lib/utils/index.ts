@@ -1,6 +1,7 @@
 import {WithId} from "mongodb";
 import {AboutPageData, ContactPageData, GalleryItem, GalleryPageData, Hero, HomePageData, ParentsPageData, SchoolProgram} from "@admin/types";
 import {Session} from "next-auth";
+import {getHomePageData} from "@admin/lib/homePage";
 
 /**
  * Get the image url from the src
@@ -63,4 +64,7 @@ export const getS3UploadKey = (key: string) => {
 
 export const isEmailAuthorized = (session: Session | null) => {
     return session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAILS
+}
+export const getSchoolProgram = (slug: string, schoolPrograms?: WithId<SchoolProgram>[]): WithId<SchoolProgram> | undefined => {
+    return schoolPrograms?.find((program) => program.slug === slug)
 }

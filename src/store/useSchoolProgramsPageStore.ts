@@ -3,7 +3,9 @@ import {SchoolProgram} from "@admin/types";
 import {create} from "zustand";
 
 type SchoolProgramsPageStore = {
+    heading?: string,
     programs: WithId<SchoolProgram>[]
+    setHeading: (heading: string) => void
     setPrograms: (programs: WithId<SchoolProgram>[]) => void
     setProgramName: (id: string, name: string) => void
     setProgramHeroTagline: (id: string, tagline: string) => void
@@ -30,6 +32,7 @@ type SchoolProgramsPageStore = {
 }
 export const useSchoolProgramsPageStore = create<SchoolProgramsPageStore>((set) => ({
     programs: [] as WithId<SchoolProgram>[],
+    setHeading: (heading) => set({heading}),
     setPrograms: (programs) => set({programs}),
     setProgramName: (id, name) => set((state) => ({
         programs: state.programs.map((program) => program._id.toString() === id ? {
