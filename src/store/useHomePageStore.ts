@@ -1,7 +1,6 @@
 import {create} from 'zustand';
-import {Faq, Hero, HomeFeatureBlock, HomePageData, SchoolProgram, StaffDescription, StaffDetails} from "@admin/types";
+import {Faq, HomeFeatureBlock, HomePageData, StaffDescription, StaffDetails} from "@admin/types";
 import {ObjectId, WithId} from "mongodb";
-import {getNewSchoolPrograms} from "@admin/lib";
 
 type HomePageStore = {
     homePageData: WithId<HomePageData>;
@@ -23,10 +22,6 @@ type HomePageStore = {
     setStaffDetailsRole: (id: ObjectId, role: string) => void;
     setStaffAssurancesBlockHeading: (heading: string) => void;
     setStaffAssurancesBlockAssurances: (assurances: string) => void;
-    setSchoolProgramsHeading: (heading: string) => void;
-    setSchoolProgramHeroTagline: (id: ObjectId, tagline: string) => void;
-    setSchoolProgramHeroHeadline: (id: ObjectId, headline: string) => void;
-    setSchoolProgramHeroText: (id: ObjectId, text: string) => void;
     setFaqBlockHeading: (heading: string) => void;
     setFaqQuestion: (id: ObjectId, question: string) => void;
     setFaqAnswer: (id: ObjectId, answer: string) => void;
@@ -247,60 +242,6 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
                     ...state.homePageData.staff,
                     assurancesBlock: {...state.homePageData.staff.assurancesBlock, assurances: newAssurances}
                 }
-            }
-        }
-    }),
-    setSchoolProgramsHeading: (heading: string) => set((state) => ({
-        homePageData: {
-            ...state.homePageData,
-            schoolProgramsBlock: {...state.homePageData.schoolProgramsBlock, heading: heading}
-        }
-    })),
-    setSchoolProgramHeroTagline: (id: ObjectId, tagline: string) => set((state) => {
-        // find the hero block with the id of schoolPrograms in the schoolProgramsBlock
-        const newProgram: WithId<SchoolProgram> | undefined =
-            state.homePageData.schoolProgramsBlock?.schoolPrograms?.find((hero) => hero._id.toString() === id.toString())
-        if (!newProgram) return state
-        const newHero: Hero = {...newProgram.hero, tagline: tagline}
-        // create the new schoolPrograms array with the updated hero block
-        const newSchoolPrograms = getNewSchoolPrograms(id.toString(), newHero, state.homePageData.schoolProgramsBlock?.schoolPrograms)
-        if (!newSchoolPrograms) return state
-        return {
-            homePageData: {
-                ...state.homePageData,
-                schoolProgramsBlock: {...state.homePageData.schoolProgramsBlock, schoolPrograms: newSchoolPrograms}
-            }
-        }
-    }),
-    setSchoolProgramHeroHeadline: (id: ObjectId, headline: string) => set((state) => {
-        // find the hero block with the id of schoolPrograms in the schoolProgramsBlock
-        const newProgram: WithId<SchoolProgram> | undefined =
-            state.homePageData.schoolProgramsBlock?.schoolPrograms?.find((hero) => hero._id.toString() === id.toString())
-        if (!newProgram) return state
-        const newHero: Hero = {...newProgram.hero, headline: headline}
-        // create the new schoolPrograms array with the updated hero block
-        const newSchoolPrograms = getNewSchoolPrograms(id.toString(), newHero, state.homePageData.schoolProgramsBlock?.schoolPrograms)
-        if (!newSchoolPrograms) return state
-        return {
-            homePageData: {
-                ...state.homePageData,
-                schoolProgramsBlock: {...state.homePageData.schoolProgramsBlock, schoolPrograms: newSchoolPrograms}
-            }
-        }
-    }),
-    setSchoolProgramHeroText: (id: ObjectId, text: string) => set((state) => {
-        // find the hero block with the id of schoolPrograms in the schoolProgramsBlock
-        const newProgram: WithId<SchoolProgram> | undefined =
-            state.homePageData.schoolProgramsBlock?.schoolPrograms?.find((hero) => hero._id.toString() === id.toString())
-        if (!newProgram) return state
-        const newHero: Hero = {...newProgram.hero, text: text}
-        // create the new schoolPrograms array with the updated hero block
-        const newSchoolPrograms = getNewSchoolPrograms(id.toString(), newHero, state.homePageData.schoolProgramsBlock?.schoolPrograms)
-        if (!newSchoolPrograms) return state
-        return {
-            homePageData: {
-                ...state.homePageData,
-                schoolProgramsBlock: {...state.homePageData.schoolProgramsBlock, schoolPrograms: newSchoolPrograms}
             }
         }
     }),

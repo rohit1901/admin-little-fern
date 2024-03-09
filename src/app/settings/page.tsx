@@ -1,5 +1,5 @@
 import LFFormSection from "@admin/components/LFFormSection";
-import {deleteAllButLatestData, getAllButLatestPageData} from "@admin/lib/settings";
+import {deleteAllButLatestData} from "@admin/lib/settings";
 // Database Cleanup
 // This option could allow the user to delete old or unnecessary data from the database.
 export default async function Settings() {

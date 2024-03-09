@@ -1,4 +1,4 @@
-import {getHomePageData, getSchoolProgramsBlock} from "@admin/lib/homePage";
+import {getSchoolProgramsBlock} from "@admin/lib/homePage";
 import ProgramsPageWrapper from "@admin/components/ProgramsPage/ProgramsPageWrapper";
 
 export async function generateMetadata() {

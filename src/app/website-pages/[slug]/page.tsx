@@ -1,5 +1,5 @@
-import {AboutPageData, ContactPageData, GalleryPageData, HomePageData, ParentsPageData} from "@admin/types";
-import {getHomePageData} from "@admin/lib/homePage";
+import {AboutPageData, ContactPageData, GalleryPageData, HomePageData, ParentsPageData, SchoolProgramsBlock} from "@admin/types";
+import {getHomePageData, getSchoolProgramsBlock} from "@admin/lib/homePage";
 import HomePageComponent from "@admin/components/HomePage/HomePageComponent";
 import {getAboutPageData} from "@admin/lib/aboutPage";
 import AboutPageComponent from "@admin/components/AboutPage";
@@ -23,8 +23,10 @@ export async function generateMetadata() {
 const getElems = async (slug: string) => {
     if (slug === 'Home') {
         const homePageData: WithId<HomePageData> = await getHomePageData()
+        const schoolProgramsBlock: WithId<SchoolProgramsBlock> = await getSchoolProgramsBlock()
         const plainHomePageData: WithId<HomePageData> = JSON.parse(JSON.stringify(homePageData));
-        return <HomePageComponent pageData={plainHomePageData}/>
+        const plainSchoolProgramsBlock: WithId<SchoolProgramsBlock> = JSON.parse(JSON.stringify(schoolProgramsBlock));
+        return <HomePageComponent pageData={plainHomePageData} schoolProgramsBlockPageData={plainSchoolProgramsBlock}/>
     }
     if (slug === 'About') {
         const aboutPageData: WithId<AboutPageData> = await getAboutPageData()

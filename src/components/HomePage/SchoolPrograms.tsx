@@ -1,19 +1,13 @@
 'use client'
 import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
-import {useHomePageStore, useSchoolProgramsPageStore} from "@admin/store";
+import {useSchoolProgramsPageStore} from "@admin/store";
 import {ImageBlock} from "@admin/components/ImageBlock";
 
 const headingClasses = "container mx-auto flex px-5 md:flex-row flex-col items-center w-full " +
     "text-2xl font-bold text-gray-900 dark:text-white md:text-3xl lg:text-4xl"
 const SchoolPrograms = () => {
-    const {
-        setSchoolProgramsHeading,
-        setSchoolProgramHeroHeadline,
-        setSchoolProgramHeroTagline,
-        setSchoolProgramHeroText
-    } = useHomePageStore(state => state)
-    const {programs, heading} = useSchoolProgramsPageStore()
+    const {programs, heading, setHeading, setProgramHeroHeadline, setProgramHeroTagline, setProgramHeroText} = useSchoolProgramsPageStore()
     return <section className="text-gray-600 body-font">
         <div className="pt-20">
             <h1 className={headingClasses}>
@@ -28,7 +22,7 @@ const SchoolPrograms = () => {
                     <Textarea id="schoolProgramsHeading" placeholder="School Programs Heading"
                               className='h-text-area'
                               value={heading} required onChange={(event) => {
-                        setSchoolProgramsHeading(event.currentTarget.value)
+                        setHeading(event.currentTarget.value)
                     }}/>
                 </LFFormElement>
             </div>
@@ -40,21 +34,21 @@ const SchoolPrograms = () => {
                             <TextInput id={`programTagline${_id.toString()}`} type="text"
                                        placeholder="Program Tagline"
                                        value={hero.tagline} required
-                                       onChange={(event) => setSchoolProgramHeroTagline(_id, event.currentTarget.value)}/>
+                                       onChange={(event) => setProgramHeroTagline(_id.toString(), event.currentTarget.value)}/>
                         </LFFormElement>
                         <LFFormElement labelValue="Program Headline" labelName={`programHeadline${_id.toString()}`}
                                        elemValue={hero.headline}>
                             <TextInput id={`programHeadline${_id.toString()}`} type="text"
                                        placeholder="Program Headline"
                                        value={hero.headline} required
-                                       onChange={(event) => setSchoolProgramHeroHeadline(_id, event.currentTarget.value)}/>
+                                       onChange={(event) => setProgramHeroHeadline(_id.toString(), event.currentTarget.value)}/>
                         </LFFormElement>
                         <LFFormElement labelValue="Program Text" labelName={`programText${_id.toString()}`}
                                        elemValue={hero.text}>
                             <Textarea id={`programText${_id.toString()}`} placeholder="Program Text"
                                       className='h-text-area'
                                       value={hero.text} required
-                                      onChange={(event) => setSchoolProgramHeroText(_id, event.currentTarget.value)}/>
+                                      onChange={(event) => setProgramHeroText(_id.toString(), event.currentTarget.value)}/>
                         </LFFormElement>
                         <ImageBlock imagePath={hero.image?.src}/>
                     </div>)

@@ -190,6 +190,7 @@ export type TestimonialsBlock = {
 export type SchoolProgramsBlock = {
     heading?: string
     schoolPrograms?: WithId<SchoolProgram>[]
+    dateCreated: Date
 }
 export type HomeHeroBlock = {
     hero: Hero

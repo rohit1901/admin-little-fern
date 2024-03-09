@@ -1,7 +1,16 @@
 import {WithId} from "mongodb";
-import {AboutPageData, ContactPageData, GalleryItem, GalleryPageData, Hero, HomePageData, ParentsPageData, SchoolProgram} from "@admin/types";
+import {
+    AboutPageData,
+    ContactPageData,
+    GalleryItem,
+    GalleryPageData,
+    Hero,
+    HomePageData,
+    ParentsPageData,
+    SchoolProgram,
+    SchoolProgramsBlock
+} from "@admin/types";
 import {Session} from "next-auth";
-import {getHomePageData} from "@admin/lib/homePage";
 
 /**
  * Get the image url from the src
@@ -53,6 +62,10 @@ export const isSchoolProgramArray = (obj: any): obj is SchoolProgram[] => {
 export const isSchoolProgram = (obj: any): obj is SchoolProgram => {
     // Add your own checks based on the properties of SchoolProgram
     return obj && typeof obj === 'object' && 'name' in obj && 'hero' in obj;
+}
+
+export const isSchoolProgramsBlock = (obj: any): obj is WithId<SchoolProgramsBlock> => {
+    return obj && typeof obj === 'object' && 'heading' in obj && 'schoolPrograms' in obj;
 }
 
 export const getS3UploadKey = (key: string) => {
