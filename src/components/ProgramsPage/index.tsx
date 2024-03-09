@@ -32,10 +32,12 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
         setProgramPricingSectionPricing1Name,
         setProgramPricingSectionPricing1Price,
         setProgramPricingSectionPricing1ShortDescription,
+        setPricing1Feature,
         setProgramPricingSectionPricing2Interval,
         setProgramPricingSectionPricing2Name,
         setProgramPricingSectionPricing2Price,
-        setProgramPricingSectionPricing2ShortDescription
+        setProgramPricingSectionPricing2ShortDescription,
+        setPricing2Feature
     } = useSchoolProgramsPageStore()
     return <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
         <ProgramTabs programs={programs}/>
@@ -188,16 +190,18 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
                                        setProgramPricingSectionPricing1ShortDescription(schoolProgram?._id.toString(), event.target.value)}/>
                     </LFFormElement>
                 </div>
-                {/*TODO: Feature text - Think of changing the DB Schema to have a single pricing section with an array of features*/}
-                {/*{schoolProgram?.pricingSection?.pricing1?.features.map((feature, index) => {
-                    return <LFFormElement key={feature._id.toString()} labelValue={`Feature ${index + 1}`}
-                                          labelName={`program-pricing1-feature-${index}`}>
-                        <TextInput id={`program-pricing1-feature-${index}`} placeholder='Feature'
-                                   value={feature?.feature} required onChange={(event) => {
-                            // update the title
-                        }}/>
-                    </LFFormElement>
-                })}*/}
+                <div
+                    className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16">
+                    {schoolProgram?.pricingSection?.pricing1?.features.map((feature, index) => {
+                        return <LFFormElement key={feature._id.toString()} labelValue={`Feature ${index + 1}`}
+                                              labelName={`program-pricing1-feature-${feature._id.toString()}`} elemValue={feature.feature}>
+                            <TextInput id={`program-pricing1-feature-${feature._id.toString()}`} placeholder='Feature'
+                                       value={feature?.feature} required onChange={(event) => {
+                                setPricing1Feature(schoolProgram?.slug, feature._id.toString(), event.target.value)
+                            }}/>
+                        </LFFormElement>
+                    })}
+                </div>
                 <div
                     className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16">
                     <LFFormElement labelValue="Name" labelName="program-pricing2-name"
@@ -227,16 +231,18 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
                                        setProgramPricingSectionPricing2ShortDescription(schoolProgram?._id.toString(), event.target.value)}/>
                     </LFFormElement>
                 </div>
-                {/*TODO: Feature text - Think of changing the DB Schema to have a single pricing section with an array of features*/}
-                {/*{schoolProgram?.pricingSection?.pricing2?.features.map((feature, index) => {
-                    return <LFFormElement key={feature._id.toString()} labelValue={`Feature ${index + 1}`}
-                                          labelName={`program-pricing2-feature-${feature._id.toString()}`}>
-                        <TextInput id={`program-pricing2-feature-${feature._id.toString()}`} placeholder='Feature'
-                                   value={feature?.feature} required onChange={(event) => {
-                            // update the title
-                        }}/>
-                    </LFFormElement>
-                })}*/}
+                <div
+                    className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16">
+                    {schoolProgram?.pricingSection?.pricing2?.features.map((feature, index) => {
+                        return <LFFormElement key={feature._id.toString()} labelValue={`Feature ${index + 1}`}
+                                              labelName={`program-pricing2-feature-${feature._id.toString()}`} elemValue={feature.feature}>
+                            <TextInput id={`program-pricing2-feature-${feature._id.toString()}`} placeholder='Feature'
+                                       value={feature?.feature} required onChange={(event) => {
+                                setPricing2Feature(schoolProgram?.slug, feature._id.toString(), event.target.value)
+                            }}/>
+                        </LFFormElement>
+                    })}
+                </div>
             </LFFormSection>
         </LFForm>
     </div>

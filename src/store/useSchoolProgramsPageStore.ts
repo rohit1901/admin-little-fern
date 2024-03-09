@@ -25,10 +25,12 @@ type SchoolProgramsPageStore = {
     setProgramPricingSectionPricing1Price: (id: string, price: string) => void
     setProgramPricingSectionPricing1Interval: (id: string, interval: string) => void
     setProgramPricingSectionPricing1ShortDescription: (id: string, shortDescription: string) => void
+    setPricing1Feature: (programSlug: string, id: string, feature: string) => void
     setProgramPricingSectionPricing2Name: (id: string, name: string) => void
     setProgramPricingSectionPricing2Price: (id: string, price: string) => void
     setProgramPricingSectionPricing2Interval: (id: string, interval: string) => void
     setProgramPricingSectionPricing2ShortDescription: (id: string, shortDescription: string) => void
+    setPricing2Feature: (programSlug: string, id: string, feature: string) => void
 }
 export const useSchoolProgramsPageStore = create<SchoolProgramsPageStore>((set) => ({
     programs: [] as WithId<SchoolProgram>[],
@@ -131,6 +133,19 @@ export const useSchoolProgramsPageStore = create<SchoolProgramsPageStore>((set) 
             }
         } : program)
     })),
+    setPricing1Feature: (programSlug, id, feature) => set((state) => {
+        const features = state.programs.find((program) => program.slug === programSlug)?.pricingSection.pricing1.features || []
+        const newFeatures = features.map((f) => f._id.toString() === id ? {...f, feature} : f)
+        return {
+            programs: state.programs.map((program) => program.slug === programSlug ? {
+                ...program,
+                pricingSection: {
+                    ...program.pricingSection,
+                    pricing1: {...program.pricingSection.pricing1, features: newFeatures}
+                }
+            } : program)
+        }
+    }),
     setProgramPricingSectionPricing2Name: (id, name) => set((state) => ({
         programs: state.programs.map((program) => program._id.toString() === id ? {
             ...program,
@@ -158,4 +173,17 @@ export const useSchoolProgramsPageStore = create<SchoolProgramsPageStore>((set) 
             }
         } : program)
     })),
+    setPricing2Feature: (programSlug, id, feature) => set((state) => {
+        const features = state.programs.find((program) => program.slug === programSlug)?.pricingSection.pricing2.features || []
+        const newFeatures = features.map((f) => f._id.toString() === id ? {...f, feature} : f)
+        return {
+            programs: state.programs.map((program) => program.slug === programSlug ? {
+                ...program,
+                pricingSection: {
+                    ...program.pricingSection,
+                    pricing2: {...program.pricingSection.pricing2, features: newFeatures}
+                }
+            } : program)
+        }
+    }),
 }))
