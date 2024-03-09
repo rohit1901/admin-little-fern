@@ -1,3 +1,4 @@
+'use client'
 import {WithId} from "mongodb";
 import {SchoolProgram} from "@admin/types";
 import {Button} from "flowbite-react";
