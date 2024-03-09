@@ -1,13 +1,13 @@
 'use client'
 import {Checkbox, Label, Tooltip} from "flowbite-react";
-import {HomePageData} from "@admin/types";
+import {HomePageData, SchoolProgramsBlock} from "@admin/types";
 import LFForm from "@admin/components/LFForm";
 import HomeHero from "@admin/components/HomePage/HomeHero";
 import SchoolFeaturesText from "@admin/components/HomePage/SchoolFeaturesText";
 import SchoolFeaturesItems from "@admin/components/HomePage/SchoolFeaturesItems";
 import Staff from "@admin/components/HomePage/Staff";
 import SchoolPrograms from "@admin/components/HomePage/SchoolPrograms";
-import {useHomePageStore} from "@admin/store";
+import {useHomePageStore, useSchoolProgramsPageStore} from "@admin/store";
 import {useEffect} from "react";
 import {WithId} from "mongodb";
 import FAQsBlock from "@admin/components/HomePage/FAQsBlock";
@@ -15,14 +15,18 @@ import {isHomePageData} from "@admin/lib";
 
 type HomePageDataProps = {
     pageData: WithId<HomePageData>
+    schoolProgramsBlockPageData: WithId<SchoolProgramsBlock>
 }
-const HomePageComponent = ({pageData}: HomePageDataProps) => {
+const HomePageComponent = ({pageData, schoolProgramsBlockPageData}: HomePageDataProps) => {
     const {
         homePageData,
         setHomePageData
     } = useHomePageStore()
+    const {setPrograms, setHeading} = useSchoolProgramsPageStore()
     useEffect(() => {
         setHomePageData(pageData)
+        setPrograms(schoolProgramsBlockPageData?.schoolPrograms ?? [])
+        setHeading(schoolProgramsBlockPageData?.heading ?? '')
     }, [])
 
     return (homePageData && <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>

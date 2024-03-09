@@ -4,7 +4,7 @@ import Logo from "@admin/components/Logo";
 import {getImageUrl, isEmailAuthorized} from "@admin/lib";
 import {signOut, useSession} from "next-auth/react";
 import {MdInfo} from "react-icons/md";
-import {HiArrowRight, HiChartPie, HiInbox, HiX} from "react-icons/hi";
+import {HiArrowRight, HiInbox, HiX} from "react-icons/hi";
 import {Session} from "next-auth";
 import {SiSubstack} from "react-icons/si";
 import {FaSignOutAlt} from "react-icons/fa";

@@ -1,6 +1,5 @@
 import {getMongoDb} from '@admin/lib/mongodb'
-import {HomePageData, SchoolProgram} from '@admin/types'
-import {WithId} from "mongodb";
+import {HomePageData, SchoolProgramsBlock} from '@admin/types'
 
 export const getHomePageData = async () => {
     const db = await getMongoDb()
@@ -13,21 +12,16 @@ export const getHomePageData = async () => {
     return homePageData[0]
 }
 export const getSchoolProgramsBlock = async () => {
-    const homePageData = await getHomePageData()
-    return homePageData?.schoolProgramsBlock
+    const db = await getMongoDb()
+    const schoolProgramsBlock = await db
+        ?.collection<SchoolProgramsBlock>('school_programs')
+        .find()
+        .sort({dateCreated: -1})
+        .limit(1)
+        .toArray()
+    return schoolProgramsBlock[0]
 }
 export const getSchoolPrograms = async () => {
-    const homePageData = await getHomePageData()
-    return homePageData?.schoolProgramsBlock?.schoolPrograms
-}
-export const getSchoolProgram = (slug: string, homePageData: HomePageData): WithId<SchoolProgram> | undefined => {
-    return homePageData?.schoolProgramsBlock?.schoolPrograms?.find((program) => program.slug === slug)
-}
-export const getCallToAction = async () => {
-    const homePageData = await getHomePageData()
-    return homePageData?.callToActionBlock
-}
-export const getSchoolFeatures = async () => {
-    const homePageData = await getHomePageData()
-    return homePageData?.schoolFeatures
+    const schoolProgramsBlock = await getSchoolProgramsBlock()
+    return schoolProgramsBlock?.schoolPrograms
 }

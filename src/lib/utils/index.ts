@@ -1,5 +1,15 @@
 import {WithId} from "mongodb";
-import {AboutPageData, ContactPageData, GalleryItem, GalleryPageData, Hero, HomePageData, ParentsPageData, SchoolProgram} from "@admin/types";
+import {
+    AboutPageData,
+    ContactPageData,
+    GalleryItem,
+    GalleryPageData,
+    Hero,
+    HomePageData,
+    ParentsPageData,
+    SchoolProgram,
+    SchoolProgramsBlock
+} from "@admin/types";
 import {Session} from "next-auth";
 
 /**
@@ -54,6 +64,10 @@ export const isSchoolProgram = (obj: any): obj is SchoolProgram => {
     return obj && typeof obj === 'object' && 'name' in obj && 'hero' in obj;
 }
 
+export const isSchoolProgramsBlock = (obj: any): obj is WithId<SchoolProgramsBlock> => {
+    return obj && typeof obj === 'object' && 'heading' in obj && 'schoolPrograms' in obj;
+}
+
 export const getS3UploadKey = (key: string) => {
     if (process.env.NODE_ENV === 'development') {
         return `dev/${key}`
@@ -63,4 +77,7 @@ export const getS3UploadKey = (key: string) => {
 
 export const isEmailAuthorized = (session: Session | null) => {
     return session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAILS
+}
+export const getSchoolProgram = (slug: string, schoolPrograms?: WithId<SchoolProgram>[]): WithId<SchoolProgram> | undefined => {
+    return schoolPrograms?.find((program) => program.slug === slug)
 }

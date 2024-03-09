@@ -2,8 +2,8 @@
 
 import {Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems} from 'flowbite-react';
 import {BiSolidDashboard, BiSolidHelpCircle, BiSolidPhoneCall} from 'react-icons/bi';
-import {HiChartPie, HiOfficeBuilding} from 'react-icons/hi';
-import {HiCamera, HiHome, HiMiniDocument, HiMiniInformationCircle, HiPhone, HiUserGroup} from "react-icons/hi2";
+import {HiOfficeBuilding} from 'react-icons/hi';
+import {HiMiniInformationCircle} from "react-icons/hi2";
 import {usePathname} from "next/navigation";
 import {TbUsersGroup} from "react-icons/tb";
 import {IoDocuments} from "react-icons/io5";

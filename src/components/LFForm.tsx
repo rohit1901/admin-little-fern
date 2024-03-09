@@ -2,10 +2,9 @@ import {Fragment, PropsWithChildren, useState} from "react";
 import {Button, Modal, Spinner} from "flowbite-react";
 import {usePathname} from "next/navigation";
 import {WithId} from "mongodb";
-import {AboutPageData, ContactPageData, GalleryPageData, HomePageData, ParentsPageData, SchoolProgram} from "@admin/types";
-import {isEmailAuthorized, isHomePageData} from "@admin/lib";
+import {AboutPageData, ContactPageData, GalleryPageData, HomePageData, ParentsPageData, SchoolProgram, SchoolProgramsBlock} from "@admin/types";
+import {isEmailAuthorized, isSchoolProgramsBlock} from "@admin/lib";
 import {useSession} from "next-auth/react";
-import {useHomePageStore} from "@admin/store";
 import {useSchoolProgramsPageStore} from "@admin/store/";
 import {HiOutlineExclamationCircle} from "react-icons/hi";
 import {IoIosSave} from "react-icons/io";
@@ -21,8 +20,8 @@ const pathnameMappping: PathnameMapping = {
     '/website-pages/Parents': '/api/parents/update',
     '/website-pages/Gallery': '/api/gallery/update',
 }
-const getApiPath = (path: string) => {
-    if (!pathnameMappping[path] && path.includes('programs')) return '/api/home/update'
+const getApiPath = (path: string, shouldUpdatePrograms?: boolean) => {
+    if (shouldUpdatePrograms) return '/api/programs/update'
     return pathnameMappping[path]
 }
 type LFFormProps = {
@@ -30,26 +29,35 @@ type LFFormProps = {
     updateState?: (data: WithId<HomePageData | ParentsPageData | GalleryPageData | ContactPageData | AboutPageData>) => void
     isProgram?: boolean
 }
-const handleProgramUpdate = async (data: WithId<SchoolProgram>[], homePageData: WithId<HomePageData>,
-                                   pathname: string, setHomePageData: (data: WithId<HomePageData>) => void) => {
-    const newHomePageData: WithId<HomePageData> = {
-        ...homePageData,
-        schoolProgramsBlock: {...homePageData.schoolProgramsBlock, schoolPrograms: data}
+const handleProgramUpdate = async (programs: WithId<SchoolProgram>[], heading: string,
+                                   pathname: string, setPrograms: (data: WithId<SchoolProgram>[]) => void,
+                                   setHeading: (data: string) => void) => {
+    // NOTE: this function executes only if the pathname is /website-pages/Home or /programs
+    // which means that the request is to update the school programs block
+    if (pathname === '/website-pages/Home' || pathname.includes('/programs')) {
+        const newSchoolProgramsBlock: SchoolProgramsBlock = {
+            heading,
+            schoolPrograms: programs,
+            dateCreated: new Date(),
+        }
+        const res = await fetch(getApiPath(pathname, true), {
+            method: 'POST', headers: {
+                'Content-Type': 'application/json',
+            }, body: JSON.stringify(newSchoolProgramsBlock)
+        })
+        const r = await res.json()
+        if (isSchoolProgramsBlock(r.body)) {
+            setPrograms(r.body.schoolPrograms)
+            setHeading(r.body.heading)
+        }
     }
-    const res = await fetch(getApiPath(pathname), {
-        method: 'POST', headers: {
-            'Content-Type': 'application/json',
-        }, body: JSON.stringify(newHomePageData)
-    })
-    const r = await res.json()
-    if (isHomePageData(r.body)) setHomePageData(JSON.parse(JSON.stringify(r.body)))
+    return
 }
 
 const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFormProps>) => {
     const {data: session} = useSession()
     const pathname = usePathname()
-    const {programs} = useSchoolProgramsPageStore()
-    const {homePageData, setHomePageData} = useHomePageStore()
+    const {programs, heading, setHeading, setPrograms} = useSchoolProgramsPageStore()
     const [loading, setLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false);
     return (<Fragment>
@@ -79,7 +87,8 @@ const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFo
                         })
                         const r = await res.json()
                         updateState && updateState(r.body)
-                    } else await handleProgramUpdate(programs, homePageData, pathname, setHomePageData)
+                    }
+                    await handleProgramUpdate(programs, heading ?? '', pathname, setPrograms, setHeading)
                     setLoading(false)
                 }} outline>{loading ? <Spinner/> : 'Update'}</Button>
                 <Button color="gray" onClick={() => setOpenModal(false)}>
