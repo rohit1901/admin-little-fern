@@ -61,7 +61,7 @@ const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFo
     const [loading, setLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false);
     return (<Fragment>
-        <form className='divide-y-2 divide-slate-200'>
+        <form>
             {children}
         </form>
         <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>

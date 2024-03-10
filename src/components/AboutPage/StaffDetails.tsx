@@ -14,7 +14,7 @@ const StaffDetails = () => {
         setStaffBlockRole
     } = useAboutPageStore()
     return (
-        <LFFormSection sectionTitle='Staff Details'>
+        <LFFormSection sectionTitle='Staff Details' addElemButton>
             <div className="lg:flex-grow md:w-1/2 pr-4">
                 <LFFormElement labelValue="Heading" labelName='staffHeading' elemValue={staffBlock?.heading}>
                     <TextInput id="staffHeading" type="text" placeholder="Staff heading"
