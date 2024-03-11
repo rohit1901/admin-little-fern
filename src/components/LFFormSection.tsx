@@ -27,17 +27,15 @@ const LFFormSection = ({children, sectionTitle, isGallery, addElemButton}: Props
                 </Modal>
                 <Accordion.Panel>
                     <Accordion.Title>
-                        <div className="flex items-center">
-                            {addElemButton &&
-                                <Button onClick={() => setOpenModal(true)} className="dark:bg-cyan-50">
-                                    <IoAdd className="w-5 h-5 dark:text-cyan-800"/>
-                                </Button>}
-                            <p className={HeadingClasses}>
-                                {sectionTitle}
-                            </p>
-                        </div>
+                        <p className={HeadingClasses}>
+                            {sectionTitle}
+                        </p>
                     </Accordion.Title>
                     <Accordion.Content>
+                        {addElemButton &&
+                            <Button onClick={() => setOpenModal(true)} className="dark:bg-cyan-50">
+                                <IoAdd className="w-5 h-5 dark:text-cyan-800"/>
+                            </Button>}
                         <div
                             className={`container mx-auto flex px-5 py-14 w-full ${isGallery ? 'flex-wrap' : 'md:flex-row flex-col'}`}>
                             {children}

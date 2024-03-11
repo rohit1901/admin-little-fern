@@ -5,6 +5,7 @@ import {WithId} from "mongodb";
  */
 export type TextBlock = {
     headline: string
+    subHeading?: string
     text: string
 }
 export type Rating = {
@@ -42,7 +43,8 @@ export type StaffDetails = {
     image: string
     featured: boolean
     portraitImage: string
-    social: Social[]
+    social: Social[],
+    description?: string
 }
 export type StaffDescription = {
     name: string
@@ -213,9 +215,13 @@ export type StatsBlock = {
 }
 export type StaffBlock = {
     staffDetails: WithId<StaffDetails>[]
-    heading: string
-    subHeading: string
 }
+export type StaffPageData = {
+    assurancesBlock: StaffAssurancesBlock
+    homeTextBlock: TextBlock
+    aboutTextBlock: TextBlock
+    dateCreated: Date
+} & StaffBlock
 export type HomePageData = {
     homeHero: WithId<HomeHeroBlock>
     ratings: Rating[]

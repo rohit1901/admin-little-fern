@@ -1,5 +1,5 @@
-import {AboutPageData, ContactPageData, GalleryPageData, HomePageData, ParentsPageData, SchoolProgramsBlock} from "@admin/types";
-import {getHomePageData, getSchoolProgramsBlock} from "@admin/lib/homePage";
+import {AboutPageData, ContactPageData, GalleryPageData, HomePageData, ParentsPageData, SchoolProgramsBlock, StaffPageData} from "@admin/types";
+import {getHomePageData, getSchoolProgramsBlock, getStaff} from "@admin/lib/homePage";
 import HomePageComponent from "@admin/components/HomePage/HomePageComponent";
 import {getAboutPageData} from "@admin/lib/aboutPage";
 import AboutPageComponent from "@admin/components/AboutPage";
@@ -15,8 +15,7 @@ import {Suspense} from "react";
 
 export async function generateMetadata() {
     return {
-        title: `Pages - Little FERN Admin`,
-        description: `Admin Dashboard for Little FERN Website to manage content for individual pages.`
+        title: `Pages - Little FERN Admin`, description: `Admin Dashboard for Little FERN Website to manage content for individual pages.`
     }
 }
 
@@ -24,14 +23,19 @@ const getElems = async (slug: string) => {
     if (slug === 'Home') {
         const homePageData: WithId<HomePageData> = await getHomePageData()
         const schoolProgramsBlock: WithId<SchoolProgramsBlock> = await getSchoolProgramsBlock()
+        const staffPageData: WithId<StaffPageData> = await getStaff()
         const plainHomePageData: WithId<HomePageData> = JSON.parse(JSON.stringify(homePageData));
         const plainSchoolProgramsBlock: WithId<SchoolProgramsBlock> = JSON.parse(JSON.stringify(schoolProgramsBlock));
-        return <HomePageComponent pageData={plainHomePageData} schoolProgramsBlockPageData={plainSchoolProgramsBlock}/>
+        const plainStaffPageData: WithId<StaffPageData> = JSON.parse(JSON.stringify(staffPageData));
+        return <HomePageComponent pageData={plainHomePageData} schoolProgramsBlockPageData={plainSchoolProgramsBlock}
+                                  staffPageData={plainStaffPageData}/>
     }
     if (slug === 'About') {
         const aboutPageData: WithId<AboutPageData> = await getAboutPageData()
+        const staffPageData: WithId<StaffPageData> = await getStaff()
+        const plainStaffPageData: WithId<StaffPageData> = JSON.parse(JSON.stringify(staffPageData));
         const plainAboutPageData: WithId<AboutPageData> = JSON.parse(JSON.stringify(aboutPageData));
-        return <AboutPageComponent pageData={plainAboutPageData}/>
+        return <AboutPageComponent pageData={plainAboutPageData} staffPageData={plainStaffPageData}/>
     }
     if (slug === 'Gallery') {
         const galleryPageData: WithId<GalleryPageData> = await getGalleryPageData()
