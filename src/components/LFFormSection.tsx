@@ -4,15 +4,15 @@ import {IoAdd} from "react-icons/io5";
 import {Accordion, Button, Modal} from "flowbite-react";
 
 type LFFormSectionProps = {
-    sectionTitle: string; isGallery?: boolean; addElemButton?: boolean;
+    sectionTitle: string; isGallery?: boolean; addElemButton?: boolean; alwaysOpen?: boolean
 }
 const HeadingClasses = "container mx-auto flex px-5 md:flex-row flex-col "
     + "text-2xl font-bold text-cyan-700 dark:text-white md:text-3xl lg:text-4xl";
-const LFFormSection = ({children, sectionTitle, isGallery, addElemButton}: PropsWithChildren<LFFormSectionProps>) => {
+const LFFormSection = ({children, sectionTitle, isGallery, addElemButton, alwaysOpen}: PropsWithChildren<LFFormSectionProps>) => {
     const [openModal, setOpenModal] = useState(false)
     return (
         <div className="pt-20">
-            <Accordion>
+            <Accordion alwaysOpen={alwaysOpen}>
                 <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
                     <Modal.Header>
                         <h1 className="font-bold text-cyan-700 dark:text-white">

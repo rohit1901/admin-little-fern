@@ -11,13 +11,9 @@ const Staff = () => {
         staffDetails,
         staffAssurancesBlock,
         homeTextBlock,
-        aboutTextBlock,
         setHomeTextHeadline,
         setHomePageText,
         setHomeSubHeading,
-        setAboutTextHeadline,
-        setAboutPageText,
-        setAboutSubHeading,
         setStaffDetailsName,
         setStaffDetailsDescription,
         setStaffDetailsRole,
@@ -30,28 +26,28 @@ const Staff = () => {
                 className="w-full md:pr-12 md:py-8 md:border-b-0 mb-10 md:mb-0 pb-10 border-b border-gray-200">
                 <LFFormElement labelValue="Featured Staff Block Heading"
                                labelName='featuredStaffBlockHeading'
-                               elemValue={homeTextBlock.headline}>
+                               elemValue={homeTextBlock?.headline}>
                     <Textarea id="featuredStaffBlockHeading" className='h-text-area'
                               placeholder="Featured Staff Block Heading"
-                              value={homeTextBlock.headline} required
+                              value={homeTextBlock?.headline} required
                               onChange={(event) => {
                                   setHomeTextHeadline(event.currentTarget.value)
                               }}/>
                 </LFFormElement>
                 <LFFormElement labelValue="Featured Staff Block Subheading"
                                labelName='featuredStaffBlockSubHeading'
-                               elemValue={homeTextBlock.subHeading}>
+                               elemValue={homeTextBlock?.subHeading}>
                     <TextInput id="featuredStaffBlockSubHeading" type="text" placeholder="Featured Staff Block Subheading"
-                               value={homeTextBlock.subHeading} required onChange={(event) => {
+                               value={homeTextBlock?.subHeading} required onChange={(event) => {
                         setHomeSubHeading(event.currentTarget.value)
                     }}/>
                 </LFFormElement>
                 <LFFormElement labelValue="Featured Staff Block Text"
                                labelName='featuredStaffBlockText'
-                               elemValue={homeTextBlock.text}>
+                               elemValue={homeTextBlock?.text}>
                     <Textarea id="featuredStaffBlockText" placeholder="Featured Staff Block Text"
                               className='h-text-area'
-                              value={homeTextBlock.text} required onChange={(event) => {
+                              value={homeTextBlock?.text} required onChange={(event) => {
                         setHomePageText(event.currentTarget.value)
                     }}/>
                 </LFFormElement>

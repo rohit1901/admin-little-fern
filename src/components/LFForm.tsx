@@ -2,13 +2,23 @@ import {Fragment, PropsWithChildren, useState} from "react";
 import {Button, Modal, Spinner} from "flowbite-react";
 import {usePathname} from "next/navigation";
 import {WithId} from "mongodb";
-import {AboutPageData, ContactPageData, GalleryPageData, HomePageData, ParentsPageData, SchoolProgram, SchoolProgramsBlock} from "@admin/types";
-import {isEmailAuthorized, isSchoolProgramsBlock} from "@admin/lib";
+import {
+    AboutPageData,
+    ContactPageData,
+    GalleryPageData,
+    HomePageData,
+    ParentsPageData,
+    SchoolProgram,
+    SchoolProgramsBlock,
+    StaffPageData
+} from "@admin/types";
+import {isEmailAuthorized, isPathnameAbout, isPathnameHome, isPathnamePrograms, isSchoolProgramsBlock} from "@admin/lib";
 import {useSession} from "next-auth/react";
 import {useSchoolProgramsPageStore} from "@admin/store/";
 import {HiOutlineExclamationCircle} from "react-icons/hi";
 import {IoIosSave} from "react-icons/io";
 import {IoReload} from "react-icons/io5";
+import {useStaffStore} from "@admin/store/useStaffStore";
 
 type PathnameMapping = {
     [key: string]: string
@@ -20,8 +30,14 @@ const pathnameMappping: PathnameMapping = {
     '/website-pages/Parents': '/api/parents/update',
     '/website-pages/Gallery': '/api/gallery/update',
 }
+const API_PROGRAMS_UPDATE = '/api/programs/update'
+const API_STAFF_UPDATE = '/api/staff/update'
+
+const PATHNAME_HOME = '/website-pages/Home'
+const PATHNAME_PROGRAMS = '/programs'
+const PATHNAME_ABOUT = '/website-pages/About'
 const getApiPath = (path: string, shouldUpdatePrograms?: boolean) => {
-    if (shouldUpdatePrograms) return '/api/programs/update'
+    if (shouldUpdatePrograms) return API_PROGRAMS_UPDATE
     return pathnameMappping[path]
 }
 type LFFormProps = {
@@ -34,7 +50,7 @@ const handleProgramUpdate = async (programs: WithId<SchoolProgram>[], heading: s
                                    setHeading: (data: string) => void) => {
     // NOTE: this function executes only if the pathname is /website-pages/Home or /programs
     // which means that the request is to update the school programs block
-    if (pathname === '/website-pages/Home' || pathname.includes('/programs')) {
+    if (isPathnameHome(pathname) || isPathnamePrograms(pathname)) {
         const newSchoolProgramsBlock: SchoolProgramsBlock = {
             heading,
             schoolPrograms: programs,
@@ -58,6 +74,10 @@ const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFo
     const {data: session} = useSession()
     const pathname = usePathname()
     const {programs, heading, setHeading, setPrograms} = useSchoolProgramsPageStore()
+    const {
+        staffDetails, homeTextBlock, aboutTextBlock, staffAssurancesBlock,
+        setStaffDetails, setAboutTextBlock, setHomeTextBlock, setStaffAssurancesBlock
+    } = useStaffStore()
     const [loading, setLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false);
     return (<Fragment>
@@ -86,7 +106,31 @@ const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFo
                             }, body: JSON.stringify(data)
                         })
                         const r = await res.json()
-                        updateState && updateState(r.body)
+                        if (updateState) {
+                            // NOTE: this block of code executes only if the pathname is /website-pages/Home or /website-pages/About
+                            // and updates the staff page data
+                            // after updating the staff page data, the new data is set in the store
+                            if (isPathnameHome(pathname) || isPathnameAbout(pathname)) {
+                                const newStaffPageData: Omit<StaffPageData, 'dateCreated'> = {
+                                    staffDetails,
+                                    homeTextBlock,
+                                    aboutTextBlock,
+                                    assurancesBlock: staffAssurancesBlock,
+                                }
+                                console.log(newStaffPageData)
+                                const res = await fetch(API_STAFF_UPDATE, {
+                                    method: 'POST', headers: {
+                                        'Content-Type': 'application/json',
+                                    }, body: JSON.stringify(newStaffPageData)
+                                })
+                                const r: StaffPageData = await res.json()
+                                setStaffDetails(r.staffDetails)
+                                setAboutTextBlock(r.aboutTextBlock)
+                                setHomeTextBlock(r.homeTextBlock)
+                                setStaffAssurancesBlock(r.assurancesBlock)
+                            }
+                            updateState(r.body)
+                        }
                     }
                     await handleProgramUpdate(programs, heading ?? '', pathname, setPrograms, setHeading)
                     setLoading(false)

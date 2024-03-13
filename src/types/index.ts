@@ -216,6 +216,7 @@ export type StatsBlock = {
 export type StaffBlock = {
     staffDetails: WithId<StaffDetails>[]
 }
+/* Pages */
 export type StaffPageData = {
     assurancesBlock: StaffAssurancesBlock
     homeTextBlock: TextBlock
@@ -226,7 +227,6 @@ export type HomePageData = {
     homeHero: WithId<HomeHeroBlock>
     ratings: Rating[]
     schoolFeatures: SchoolFeatures
-    staff: Staff
     schoolProgramsBlock: SchoolProgramsBlock
     testimonialsBlock: TestimonialsBlock
     faqBlock: FAQBlock
@@ -242,7 +242,6 @@ export type AboutPageData = {
     description?: string
     alternatingFeatures: AlternatingFeaturesData
     statsBlock: StatsBlock
-    staffBlock: StaffBlock
     valueData: ValueData
     dateCreated: Date
 }

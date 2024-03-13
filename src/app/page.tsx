@@ -39,9 +39,11 @@ export default function Home() {
     }
     const checkMongoDBStatus = async () => {
         setCheckingMongoDBStatus(true)
-        await fetch('/api/status/get').then((v) => {
+        await fetch('/api/mongo/status').then((v) => {
+            console.log("MongoDB is connected.")
             setMongoDBStatus(true)
         }).catch((e) => {
+            console.log("Error fetching MongoDB status", e);
             setMongoDBStatus(false)
         }).finally(() => setCheckingMongoDBStatus(false))
     }

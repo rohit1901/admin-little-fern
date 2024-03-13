@@ -34,7 +34,6 @@ export const DeleteCard = () => {
                 setIsDeleting(true)
                 await fetch('/api/settings/delete')
                 setIsDeleting(false)
-
             }}>
                 {isDeleting ? <Spinner/> : <div className='flex flex-wrap items-center'>
                     <RiDeleteBin6Fill className="mr-2 h-4 w-4 text-cyan-50 dark:text-cyan-800"/>

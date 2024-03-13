@@ -43,7 +43,7 @@ const ContactPageComponent = ({pageData}: ContactPageProps) => {
                 if (!isContactPageData(data)) return
                 setContactPageData(data)
             }}>
-                <LFFormSection sectionTitle={'Contact Page'}>
+                <LFFormSection sectionTitle={'Contact Page'} alwaysOpen>
                     {/* Map */}
                     <div
                         className="lg:w-2/3 md:w-2/3 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
