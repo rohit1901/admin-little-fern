@@ -1,13 +1,13 @@
 'use client'
 import {Fragment, PropsWithChildren, useState} from "react";
-import {IoAdd} from "react-icons/io5";
 import {Accordion, Button, Modal} from "flowbite-react";
+import {MdOutlineAddReaction} from "react-icons/md";
 
 type LFFormSectionProps = {
     sectionTitle: string; isGallery?: boolean; addElemButton?: boolean;
 }
 const HeadingClasses = "container mx-auto flex px-5 md:flex-row flex-col "
-    + "text-2xl font-bold text-cyan-700 dark:text-white";
+    + "text-2xl font-bold text-cyan-800 dark:text-cyan-50";
 const LFFormSection = ({children, sectionTitle, isGallery, addElemButton}: PropsWithChildren<LFFormSectionProps>) => {
     const [openModal, setOpenModal] = useState(false)
     return (
@@ -34,7 +34,7 @@ const LFFormSection = ({children, sectionTitle, isGallery, addElemButton}: Props
                                 </Modal.Footer>
                             </Modal>
                             <Button onClick={() => setOpenModal(true)} outline>
-                                <IoAdd className="w-5 h-5 mr-2 dark:text-cyan-800"/>
+                                <MdOutlineAddReaction className="w-5 h-5 mr-2 dark:text-cyan-800"/>
                                 <p>Add new Staff</p>
                             </Button>
                         </Fragment>

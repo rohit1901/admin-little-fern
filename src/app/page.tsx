@@ -9,6 +9,7 @@ import {AiFillCheckCircle, AiFillCloseCircle} from "react-icons/ai";
 import {GrHeroku} from "react-icons/gr";
 import {HerokuStatusResponseType} from "@admin/types";
 import {DiMongodb} from "react-icons/di";
+import {PageHeader} from "@admin/components/PageHeader";
 
 export default function Home() {
     const [s3Status, setS3Status] = useState(false)
@@ -57,8 +58,9 @@ export default function Home() {
         }
         setCheckingS3Status(false)
     }
-    return (<main className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
-        <div className='flex flex-row gap-4 mt-4 justify-center'>
+    return (<main className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
+        <PageHeader title="Dashboard"/>
+        <div className='flex flex-row gap-4 mt-4 justify-between'>
             <Card className="max-w-sm dark:border-primary-50">
                 <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">
                     <FaAws/>
