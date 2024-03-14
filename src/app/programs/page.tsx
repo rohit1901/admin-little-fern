@@ -1,9 +1,6 @@
 import type {Metadata} from "next";
-import {Noto_Sans} from "next/font/google";
 import {getSchoolPrograms} from "@admin/lib/homePage";
 import {ProgramTabs} from "@admin/components/ProgramTabs";
-
-const notoFont = Noto_Sans({subsets: ["latin"]});
 
 export const metadata: Metadata = {
     title: "Admin - Little Fern", description: "An admin dashboard for Little Fern Website to manage content",

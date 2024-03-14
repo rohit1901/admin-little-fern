@@ -6,7 +6,7 @@ import {isEmailAuthorized} from "@admin/lib";
 
 type LFFormElementProps = {
     labelValue?: string;
-    labelName: string;
+    labelName?: string;
     elemValue?: string;
 }
 const getNonAuthElem = (session: Session | null, children: ReactNode, elemValue?: string) => {

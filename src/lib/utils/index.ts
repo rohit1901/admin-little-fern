@@ -93,3 +93,31 @@ export const isEmailAuthorized = (session: Session | null) => {
 export const getSchoolProgram = (slug: string, schoolPrograms?: WithId<SchoolProgram>[]): WithId<SchoolProgram> | undefined => {
     return schoolPrograms?.find((program) => program.slug === slug)
 }
+
+export const createDate = (fromDate?: string, toDate?: string) => {
+    if (fromDate && toDate) {
+        return `${fromDate} - ${toDate}`
+    }
+    return fromDate
+}
+
+export const formatDate = (date: Date) => {
+    const month = date.toLocaleString('default', {month: 'short'})
+    return `${month}. ${date.getDate()}`
+}
+
+export const parseDateFromString = (dateString: string) => {
+    const [fromDate, toDate] = dateString.split('-')
+    return {
+        fromDate, toDate
+    }
+}
+
+export const parseScheduleString = (scheduleString: string) => {
+    const [dayString, timeString] = scheduleString.split("from")
+    const [fromDay, toDay] = dayString?.split('-')
+    const [fromTime, toTime] = '2AM - 5 PM'.split('-')//timeString?.split('-')
+    return {
+        fromDay, toDay, fromTime, toTime
+    }
+}

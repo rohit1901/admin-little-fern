@@ -9,6 +9,8 @@ import {WithId} from "mongodb";
 import {ImageBlock} from "@admin/components/ImageBlock";
 import {ProgramTabs} from "@admin/components/ProgramTabs";
 import {PageHeader} from "@admin/components/PageHeader";
+import {LFDates} from "@admin/components/LFDates";
+import {LFSchedule} from "@admin/components/LFSchedule";
 
 type ProgramsPageProps = {
     schoolProgram: WithId<SchoolProgram>
@@ -94,17 +96,15 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
                                    value={schoolProgram?.infoSection?.ages} required
                                    onChange={(event) => setProgramInfoSectionAges(schoolProgram?._id.toString(), event.target.value)}/>
                     </LFFormElement>
-                    <LFFormElement labelValue="Dates" labelName="program-info-dates"
+                    <LFFormElement labelValue="Dates"
                                    elemValue={schoolProgram?.infoSection?.dates}>
-                        <TextInput id="program-info-dates" placeholder="Dates for the Info Block"
-                                   value={schoolProgram?.infoSection?.dates} required
-                                   onChange={(event) => setProgramInfoSectionDates(schoolProgram?._id.toString(), event.target.value)}/>
+                        <LFDates dateString={schoolProgram?.infoSection?.dates}
+                                 action={(dates) => setProgramInfoSectionDates(schoolProgram?._id.toString(), dates)}/>
                     </LFFormElement>
-                    <LFFormElement labelValue="Schedule" labelName="program-info-schedule"
+                    <LFFormElement labelValue="Schedule"
                                    elemValue={schoolProgram?.infoSection?.schedule}>
-                        <TextInput id="program-info-schedule" placeholder="Schedule for the Info Block"
-                                   value={schoolProgram?.infoSection?.schedule} required
-                                   onChange={(event) => setProgramInfoSectionSchedule(schoolProgram?._id.toString(), event.target.value)}/>
+                        <LFSchedule scheduleString={schoolProgram?.infoSection?.schedule}
+                                    action={(scheduleString) => setProgramInfoSectionSchedule(schoolProgram?._id.toString(), scheduleString)}/>
                     </LFFormElement>
                     <LFFormElement labelValue="Class Size" labelName="program-info-class-size"
                                    elemValue={schoolProgram?.infoSection?.classSize}>

@@ -15,7 +15,7 @@ const AboutValueData = () => {
         setValueDataDescription
     } = useAboutPageStore()
     return (
-        <LFFormSection sectionTitle={'Value Data'}>
+        <LFFormSection sectionTitle={'Values'}>
             <div className="lg:flex-grow md:w-1/3 pr-4">
                 <LFFormElement labelValue='Heading' labelName='value-heading' elemValue={valueData?.heading}>
                     <TextInput id="value-heading" placeholder="Title for the Hero Block"
