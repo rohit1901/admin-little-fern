@@ -1,8 +1,16 @@
 import {WithId} from "mongodb";
-
-/**
- * Global Types used across the application
- */
+/* Unused Types */
+export type EmailPayload = {
+    to: string
+    subject: string
+    html: string
+}
+export type SocialLinkProps = {
+    className?: string
+    href: string
+    icon: string
+}
+/* Global Types used across the application */
 export type TextBlock = {
     headline: string
     subHeading?: string
@@ -11,11 +19,6 @@ export type TextBlock = {
 export type Rating = {
     label: string
     stars: number
-}
-export type EmailPayload = {
-    to: string
-    subject: string
-    html: string
 }
 
 export interface Testimonial {
@@ -46,22 +49,10 @@ export type StaffDetails = {
     social: Social[],
     description?: string
 }
-export type StaffDescription = {
-    name: string
-    description: string
-}
 export type StaffAssurancesBlock = {
     assurances?: string[]
     heading?: string
     action?: Action
-}
-export type Staff = {
-    assurancesBlock?: StaffAssurancesBlock
-    staffDetails?: WithId<StaffDetails>[]
-    featuredStaffDescription?: WithId<StaffDescription>[]
-    heading?: string
-    pageTitle?: string
-    subHeading?: string
 }
 export type SchoolFeatures = {
     featureBlocks?: WithId<HomeFeatureBlock>[]
@@ -264,11 +255,7 @@ export type ContactPageData = {
     contactInformation: ContactInformationItem
     dateCreated: Date
 }
-export type SocialLinkProps = {
-    className?: string
-    href: string
-    icon: string
-}
+/* Heroku Types */
 type Status = {
     system: string;
     status: string;
@@ -282,7 +269,7 @@ type Scheduled = {
     // Define properties for Scheduled here
 };
 
-export type HerokuStatuaResponseType = {
+export type HerokuStatusResponseType = {
     status: Status[];
     incidents: Incident[];
     scheduled: Scheduled[];

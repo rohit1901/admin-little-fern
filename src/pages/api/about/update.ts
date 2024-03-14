@@ -18,5 +18,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
     } catch (e) {
         console.error(e);
+        res.status(500).json({message: 'Error updating about page', error: e});
     }
 }

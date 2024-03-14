@@ -14,5 +14,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(200).json({message: 'success', body: homePageData[0]});
     } catch (e) {
         console.error(e);
+        res.status(500).json({message: 'Error connecting to MongoDB'});
     }
 }

@@ -7,7 +7,7 @@ import * as AWS from "aws-sdk";
 import {FaAws} from "react-icons/fa";
 import {AiFillCheckCircle, AiFillCloseCircle} from "react-icons/ai";
 import {GrHeroku} from "react-icons/gr";
-import {HerokuStatuaResponseType} from "@admin/types";
+import {HerokuStatusResponseType} from "@admin/types";
 import {DiMongodb} from "react-icons/di";
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
         setCheckingHerokuStatus(true)
         await fetch('https://status.heroku.com/api/v4/current-status')
             .then(r => r.json())
-            .then((v: HerokuStatuaResponseType) => {
+            .then((v: HerokuStatusResponseType) => {
                 setHerokuStatus(v?.status?.find(s => s.system === 'Apps')?.status === 'green') // 'green' or 'red
             }).catch((e: string) => {
                 setHerokuStatus(false)
