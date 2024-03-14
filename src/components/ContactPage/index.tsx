@@ -43,7 +43,7 @@ const ContactPageComponent = ({pageData}: ContactPageProps) => {
                 if (!isContactPageData(data)) return
                 setContactPageData(data)
             }}>
-                <LFFormSection sectionTitle={'Contact Page'} alwaysOpen>
+                <LFFormSection sectionTitle={'Contact Page'}>
                     {/* Map */}
                     <div
                         className="lg:w-2/3 md:w-2/3 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
@@ -75,7 +75,7 @@ const ContactPageComponent = ({pageData}: ContactPageProps) => {
                     </div>
                     {/* Properties */}
                     <div
-                        className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0 dark:bg-gray-800">
+                        className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0 dark:bg-gray-900">
                         <LFFormElement labelValue="Tagline" labelName="contact-hero-tagline"
                                        elemValue={contactPageData?.contactInformation?.hero?.tagline}>
                             <TextInput id="contact-hero-tagline" placeholder="Tagline for the Hero Block"

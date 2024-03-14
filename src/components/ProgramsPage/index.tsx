@@ -42,7 +42,7 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
     return <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
         <ProgramTabs programs={programs}/>
         <LFForm isProgram>
-            <LFFormSection sectionTitle={`${schoolProgram?.name} Program`} alwaysOpen>
+            <LFFormSection sectionTitle={`${schoolProgram?.name} Program`}>
                 <div
                     className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16">
                     <ImageBlock imagePath={schoolProgram?.hero?.image?.src}/>
