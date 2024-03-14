@@ -11,8 +11,9 @@ export const LFTimepickerLabel = ({time}: { time?: string }) =>
 type LFTimepickerProps = {
     fromTimeString?: string;
     toTimeString?: string;
+    action: (scheduleString: string) => void;
 }
-export const LFTimepicker = ({fromTimeString, toTimeString}: LFTimepickerProps) => {
+export const LFTimepicker = ({fromTimeString, toTimeString, action}: LFTimepickerProps) => {
     const [fromTime, setFromTime] = useState(fromTimeString ? fromTimeString.split('AM')[0] : TIMES[0])
     const [toTime, setToTime] = useState(toTimeString ? toTimeString.split('PM')[0] : TIMES[0])
     const [ampmFrom, setAmpmFrom] = useState('AM')
@@ -21,23 +22,41 @@ export const LFTimepicker = ({fromTimeString, toTimeString}: LFTimepickerProps) 
         <Dropdown label={<LFTimepickerLabel time={fromTime}/>} id="time" className="w-32" value={fromTime} arrowIcon={false}>
             {TIMES.map((time, index) =>
                 <Dropdown.Item key={index} className="dropdown-item"
-                               icon={MdOutlineAccessTime} type="button" value={time} onClick={() => setFromTime(time)}>{time}</Dropdown.Item>)
+                               icon={MdOutlineAccessTime} type="button" value={time} onClick={() => {
+                    setFromTime(time)
+                    action(`${time} ${ampmFrom}-${toTime} ${ampmTo}`)
+                }}>{time}</Dropdown.Item>)
             }
         </Dropdown>
         <Dropdown label={ampmFrom ? ampmFrom : "Select AM/PM"} id="ampm" className="w-32" value={ampmFrom}>
-            <Dropdown.Item className="dropdown-item" type="button" value="AM" onClick={() => setAmpmFrom("AM")}>AM</Dropdown.Item>
-            <Dropdown.Item className="dropdown-item" type="button" value="PM" onClick={() => setAmpmFrom("PM")}>PM</Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" type="button" value="AM" onClick={() => {
+                setAmpmFrom("AM")
+                action(`${fromTime} AM-${toTime} ${ampmTo}`)
+            }}>AM</Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" type="button" value="PM" onClick={() => {
+                setAmpmFrom("PM")
+                action(`${fromTime} PM-${toTime} ${ampmTo}`)
+            }}>PM</Dropdown.Item>
         </Dropdown>
         <BsDash className="text-2xl text-gray-500"/>
         <Dropdown label={<LFTimepickerLabel time={toTime}/>} id="time" className="w-32" value={toTime} arrowIcon={false}>
             {TIMES.map((time, index) =>
                 <Dropdown.Item key={index} className="dropdown-item"
-                               icon={MdOutlineAccessTime} type="button" value={time} onClick={() => setToTime(time)}>{time}</Dropdown.Item>)
+                               icon={MdOutlineAccessTime} type="button" value={time} onClick={() => {
+                    setToTime(time)
+                    action(`${fromTime} ${ampmFrom}-${time} ${ampmTo}`)
+                }}>{time}</Dropdown.Item>)
             }
         </Dropdown>
         <Dropdown label={ampmTo ? ampmTo : "Select AM/PM"} id="ampm" className="w-32" value={ampmTo}>
-            <Dropdown.Item className="dropdown-item" type="button" value="AM" onClick={() => setAmpmTo("AM")}>AM</Dropdown.Item>
-            <Dropdown.Item className="dropdown-item" type="button" value="PM" onClick={() => setAmpmTo("PM")}>PM</Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" type="button" value="AM" onClick={() => {
+                setAmpmTo("AM")
+                action(`${fromTime} ${ampmFrom}-${toTime} AM`)
+            }}>AM</Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" type="button" value="PM" onClick={() => {
+                setAmpmTo("PM")
+                action(`${fromTime} ${ampmFrom}-${toTime} PM`)
+            }}>PM</Dropdown.Item>
         </Dropdown>
     </div>
 }
