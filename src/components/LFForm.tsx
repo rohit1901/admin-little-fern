@@ -96,7 +96,7 @@ const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFo
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button disabled={loading} type="submit" onClick={async () => {
+                <Button disabled={loading} onClick={async () => {
                     if (!pathname) return
                     setLoading(true)
                     if (!isProgram) {

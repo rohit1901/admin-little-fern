@@ -74,7 +74,7 @@ export default function Home() {
                 </p>
                 <div className="flex flex-wrap gap-2">
                     <Button
-                        className='dark:bg-primary-50 dark:text-cyan-900 dark:hover:bg-cyan-800 dark:hover:text-white'
+                        outline
                         disabled={checkingS3Status} onClick={async () => checkS3Status()}>
                         {checkingS3Status ? <Spinner/> : 'Check S3 Status'}
                     </Button>
@@ -95,7 +95,7 @@ export default function Home() {
                 </p>
                 <div className="flex flex-wrap gap-2">
                     <Button
-                        className='dark:bg-primary-50 dark:text-cyan-900 dark:hover:bg-cyan-800 dark:hover:text-white'
+                        outline
                         disabled={checkingHerokuStatus} onClick={async () => checkHerokuStatus()}>
                         {checkingHerokuStatus ? <Spinner/> : 'Check Heroku Status'}
                     </Button>
@@ -116,7 +116,7 @@ export default function Home() {
                 </p>
                 <div className="flex flex-wrap gap-2">
                     <Button
-                        className='dark:bg-primary-50 dark:text-cyan-900 dark:hover:bg-cyan-800 dark:hover:text-white'
+                        outline
                         disabled={checkingMongoDBStatus} onClick={async () => checkMongoDBStatus()}>
                         {checkingMongoDBStatus ? <Spinner/> : 'Check MongoDB Status'}
                     </Button>

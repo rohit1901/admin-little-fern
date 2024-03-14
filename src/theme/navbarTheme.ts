@@ -7,13 +7,9 @@ const ToggleBase = 'inline-flex items-center rounded-lg p-2 text-sm text-gray-50
     'focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden'
 export const navbarTheme: DeepPartial<FlowbiteNavbarTheme> = {
     root: {
-        base: 'px-2 py-2.5 bg-purple-50 dark:bg-gray-800 sm:px-4',
+        base: 'px-2 py-2.5 bg-white dark:bg-gray-800 sm:px-4',
         rounded: {
             on: '',
-            off: '',
-        },
-        bordered: {
-            on: 'border-b border-gray-200 dark:border-purple-800',
             off: '',
         },
         inner: {

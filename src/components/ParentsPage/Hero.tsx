@@ -15,7 +15,7 @@ const ParentsHero = () => {
         setHeroText
     } = useParentsPageStore()
     return <Fragment>
-        <LFFormSection sectionTitle={'Parents Page'}>
+        <LFFormSection sectionTitle={'Headings'}>
             <div className="lg:flex-grow md:w-1/2 pr-4">
                 <LFFormElement labelValue="Tagline" labelName="parents-hero-tagline"
                                elemValue={parentsPageData?.hero?.tagline}>

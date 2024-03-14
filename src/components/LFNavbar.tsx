@@ -25,7 +25,7 @@ const LFNavbar = () => {
                         <p className="flex items-center text-sm font-normal text-cyan-900">
                             <MdInfo className="h-5 w-5 mr-2 ml-5"/>
                             <span className="[&_p]:inline">
-                                You are not authorized to edit this information. For more information, please contact your administrator.
+                                You are not authorized to edit anything. For more information, please contact your administrator.
                                 <Button
                                     onClick={() => signOut()}
                                     className="inline-flex items-center justify-center ml-0 md:ml-1 md:inline-flex dark:text-cyan-50"

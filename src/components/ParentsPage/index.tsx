@@ -7,6 +7,7 @@ import {useParentsPageStore} from "@admin/store/";
 import {useEffect} from "react";
 import {isParentsPageData} from "@admin/lib";
 import {WithId} from "mongodb";
+import {PageHeader} from "@admin/components/PageHeader";
 
 type ParentsPageProps = {
     pageData: WithId<ParentsPageData>
@@ -16,11 +17,12 @@ const ParentsPageComponent = ({pageData}: ParentsPageProps) => {
     useEffect(() => {
         setParentsPageData(pageData)
     }, [])
-    return <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
+    return <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
         <LFForm data={parentsPageData} updateState={(data) => {
             if (!isParentsPageData(data)) return
             setParentsPageData(data)
         }}>
+            <PageHeader title='Parents Page'/>
             <ParentsHero/>
             <ParentsEvents/>
         </LFForm>

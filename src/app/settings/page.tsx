@@ -4,7 +4,7 @@ import {PageHeader} from "@admin/components/PageHeader";
 // This option could allow the user to delete old data from the database.
 export default async function Settings() {
     return (
-        <main className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
+        <main className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
             <PageHeader title={'Settings'}/>
             <div className='flex flex-row gap-4 mt-4'>
                 <DeleteCard/>

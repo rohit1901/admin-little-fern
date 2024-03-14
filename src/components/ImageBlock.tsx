@@ -23,7 +23,7 @@ export const ImageBlock = ({imagePath}: ImageBlockProps) => {
                        src={getImageUrl(imagePath)}/>
             </div>}
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-                <Dropzone imagePath={imagePath} withPopover/>
+                <Dropzone imagePath={imagePath}/>
             </div>
             {isEmailAuthorized(session) && <div className="flex">
                 <Button disabled={uploading}

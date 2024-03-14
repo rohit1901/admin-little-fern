@@ -13,6 +13,7 @@ import {WithId} from "mongodb";
 import FAQsBlock from "@admin/components/HomePage/FAQsBlock";
 import {isHomePageData} from "@admin/lib";
 import {useStaffStore} from "@admin/store/useStaffStore";
+import {PageHeader} from "@admin/components/PageHeader";
 
 type HomePageDataProps = {
     pageData: WithId<HomePageData>
@@ -45,6 +46,7 @@ const HomePageComponent = ({pageData, schoolProgramsBlockPageData, staffPageData
             <LFForm data={homePageData} updateState={(data) => {
                 if (isHomePageData(data)) setHomePageData(data)
             }}>
+                <PageHeader title={'Home Page'}/>
                 {/* Hero Block */}
                 <HomeHero image={homePageData.homeHero?.hero.image} tagline={homePageData.homeHero?.hero.tagline}
                           headline={homePageData.homeHero?.hero.headline} text={homePageData.homeHero?.hero.text}

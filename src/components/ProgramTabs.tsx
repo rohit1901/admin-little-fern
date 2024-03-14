@@ -38,7 +38,7 @@ export const ProgramTabs = ({programs}: ProgramTabsProps) => {
     }, []);
     return <div className="flex justify-center">
         {programs?.map((program: SchoolProgram, index) => {
-            return (<Button key={program.slug} href={`/programs/${program.slug}`} className='m-2 bg-cyan-800 dark:bg-cyan-50' outline>
+            return (<Button key={program.slug} href={`/programs/${program.slug}`} className='m-2' outline>
                 {randomIcons[index]} {removeProgramText(program.name)}
             </Button>);
         })}

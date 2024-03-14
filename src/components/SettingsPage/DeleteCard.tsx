@@ -29,7 +29,8 @@ export const DeleteCard = () => {
         </Banner>
         <div className="flex flex-wrap">
             <Button
-                className='m-0 dark:bg-cyan-50 dark:hover:bg-cyan-50'
+                className='m-0'
+                outline
                 disabled={isDeleting} onClick={async () => {
                 setIsDeleting(true)
                 await fetch('/api/settings/delete')

@@ -4,7 +4,6 @@ import {Checkbox, Label, Textarea, TextInput} from "flowbite-react";
 import LFFormSection from "@admin/components/LFFormSection";
 import {ImageBlock} from "@admin/components/ImageBlock";
 import {useStaffStore} from "@admin/store/useStaffStore";
-import {Fragment} from "react";
 
 const StaffDetails = () => {
     const {
@@ -52,13 +51,13 @@ const StaffDetails = () => {
                                        value={role} required
                                        onChange={(event) => setStaffDetailsRole(_id.toString(), event.target.value)}/>
                         </LFFormElement>
-                        <Fragment>
-                            <Checkbox id={`staffFeatured-${_id.toString()}`} checked={featured}
+                        <div className="flex pt-4">
+                            <Checkbox id={`staffFeatured-${_id.toString()}`} checked={featured} className="mr-2"
                                       onChange={(event) => setStaffDetailsFeatured(_id.toString(), event.target.checked)}/>
                             <Label htmlFor={`staffFeatured-${_id.toString()}`} className="flex" disabled>
                                 Show as Featured Staff on the website homepage?
                             </Label>
-                        </Fragment>
+                        </div>
                         <ImageBlock imagePath={portraitImage}/>
                         <ImageBlock imagePath={image}/>
                     </div>
