@@ -1,13 +1,14 @@
-import LFFormSection from "@admin/components/LFFormSection";
 import {DeleteCard} from "@admin/components/SettingsPage/DeleteCard";
+import {PageHeader} from "@admin/components/PageHeader";
 // Database Cleanup
 // This option could allow the user to delete old data from the database.
 export default async function Settings() {
     return (
-        <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
-            <LFFormSection sectionTitle="Settings">
+        <main className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
+            <PageHeader title={'Settings'}/>
+            <div className='flex flex-row gap-4 mt-4'>
                 <DeleteCard/>
-            </LFFormSection>
-        </div>
+            </div>
+        </main>
     );
 }

@@ -1,5 +1,5 @@
 import {getMongoDb} from '@admin/lib/mongodb'
-import {HomePageData, SchoolProgramsBlock} from '@admin/types'
+import {HomePageData, SchoolProgramsBlock, StaffPageData} from '@admin/types'
 
 export const getHomePageData = async () => {
     const db = await getMongoDb()
@@ -24,4 +24,14 @@ export const getSchoolProgramsBlock = async () => {
 export const getSchoolPrograms = async () => {
     const schoolProgramsBlock = await getSchoolProgramsBlock()
     return schoolProgramsBlock?.schoolPrograms
+}
+export const getStaff = async () => {
+    const db = await getMongoDb()
+    const staffPageData = await db
+        ?.collection<StaffPageData>('staff')
+        .find()
+        .sort({dateCreated: -1})
+        .limit(1)
+        .toArray()
+    return staffPageData[0]
 }

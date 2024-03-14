@@ -1,20 +1,24 @@
 import {WithId} from "mongodb";
-
-/**
- * Global Types used across the application
- */
+/* Unused Types */
+export type EmailPayload = {
+    to: string
+    subject: string
+    html: string
+}
+export type SocialLinkProps = {
+    className?: string
+    href: string
+    icon: string
+}
+/* Global Types used across the application */
 export type TextBlock = {
     headline: string
+    subHeading?: string
     text: string
 }
 export type Rating = {
     label: string
     stars: number
-}
-export type EmailPayload = {
-    to: string
-    subject: string
-    html: string
 }
 
 export interface Testimonial {
@@ -42,24 +46,13 @@ export type StaffDetails = {
     image: string
     featured: boolean
     portraitImage: string
-    social: Social[]
-}
-export type StaffDescription = {
-    name: string
-    description: string
+    social: Social[],
+    description?: string
 }
 export type StaffAssurancesBlock = {
     assurances?: string[]
     heading?: string
     action?: Action
-}
-export type Staff = {
-    assurancesBlock?: StaffAssurancesBlock
-    staffDetails?: WithId<StaffDetails>[]
-    featuredStaffDescription?: WithId<StaffDescription>[]
-    heading?: string
-    pageTitle?: string
-    subHeading?: string
 }
 export type SchoolFeatures = {
     featureBlocks?: WithId<HomeFeatureBlock>[]
@@ -213,14 +206,18 @@ export type StatsBlock = {
 }
 export type StaffBlock = {
     staffDetails: WithId<StaffDetails>[]
-    heading: string
-    subHeading: string
 }
+/* Pages */
+export type StaffPageData = {
+    assurancesBlock: StaffAssurancesBlock
+    homeTextBlock: TextBlock
+    aboutTextBlock: TextBlock
+    dateCreated: Date
+} & StaffBlock
 export type HomePageData = {
     homeHero: WithId<HomeHeroBlock>
     ratings: Rating[]
     schoolFeatures: SchoolFeatures
-    staff: Staff
     schoolProgramsBlock: SchoolProgramsBlock
     testimonialsBlock: TestimonialsBlock
     faqBlock: FAQBlock
@@ -236,7 +233,6 @@ export type AboutPageData = {
     description?: string
     alternatingFeatures: AlternatingFeaturesData
     statsBlock: StatsBlock
-    staffBlock: StaffBlock
     valueData: ValueData
     dateCreated: Date
 }
@@ -259,11 +255,7 @@ export type ContactPageData = {
     contactInformation: ContactInformationItem
     dateCreated: Date
 }
-export type SocialLinkProps = {
-    className?: string
-    href: string
-    icon: string
-}
+/* Heroku Types */
 type Status = {
     system: string;
     status: string;
@@ -277,7 +269,7 @@ type Scheduled = {
     // Define properties for Scheduled here
 };
 
-export type HerokuStatuaResponseType = {
+export type HerokuStatusResponseType = {
     status: Status[];
     incidents: Incident[];
     scheduled: Scheduled[];

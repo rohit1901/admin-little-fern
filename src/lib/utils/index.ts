@@ -35,6 +35,18 @@ export const getUniqueTags = (galleryItems: GalleryItem[]) => {
     return Array.from(set)
 }
 
+export const isPathnameHome = (pathname: string) => {
+    return pathname === '/website-pages/Home'
+}
+
+export const isPathnameAbout = (pathname: string) => {
+    return pathname === '/website-pages/About'
+}
+
+export const isPathnamePrograms = (pathname: string) => {
+    return pathname.includes('/programs')
+}
+
 export const isHomePageData = (data: any): data is HomePageData => {
     return (data && typeof data === 'object' && 'homeHero' in data
         && 'schoolFeatures' in data && 'staff' in data && 'schoolProgramsBlock' in data

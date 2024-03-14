@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {Faq, HomeFeatureBlock, HomePageData, StaffDescription, StaffDetails} from "@admin/types";
+import {Faq, HomeFeatureBlock, HomePageData} from "@admin/types";
 import {ObjectId, WithId} from "mongodb";
 
 type HomePageStore = {
@@ -16,12 +16,6 @@ type HomePageStore = {
     setFeatureTagline: (id: ObjectId, tagline: string) => void;
     setFeatureHeadline: (id: ObjectId, headline: string) => void;
     setFeatureText: (id: ObjectId, text: string) => void;
-    setFeaturedStaffName: (id: ObjectId, name: string) => void;
-    setFeaturedStaffDescription: (id: ObjectId, description: string) => void;
-    setStaffDetailsName: (id: ObjectId, name: string) => void;
-    setStaffDetailsRole: (id: ObjectId, role: string) => void;
-    setStaffAssurancesBlockHeading: (heading: string) => void;
-    setStaffAssurancesBlockAssurances: (assurances: string) => void;
     setFaqBlockHeading: (heading: string) => void;
     setFaqQuestion: (id: ObjectId, question: string) => void;
     setFaqAnswer: (id: ObjectId, answer: string) => void;
@@ -140,108 +134,6 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
             homePageData: {
                 ...state.homePageData,
                 schoolFeatures: {...state.homePageData.schoolFeatures, featureBlocks: newFeatureBlocks}
-            }
-        }
-    }),
-    setFeaturedStaffName: (id: ObjectId, name: string) => set((state) => {
-        const nStaff: WithId<StaffDescription> | undefined =
-            state.homePageData.staff?.featuredStaffDescription?.find((staff) => staff._id.toString() === id.toString())
-        if (!nStaff) return state
-        const newStaff: WithId<StaffDescription> = {...nStaff, name: name}
-        const newStaffDetails =
-            state.homePageData.staff?.featuredStaffDescription?.map((staff) => {
-                if (staff._id === nStaff?._id) {
-                    return newStaff
-                }
-                return staff
-            })
-        if (!newStaffDetails) return state
-        return {
-            homePageData: {
-                ...state.homePageData,
-                staff: {...state.homePageData.staff, featuredStaffDescription: newStaffDetails}
-            }
-        }
-    }),
-    setFeaturedStaffDescription: (id: ObjectId, description: string) => set((state) => {
-        const nStaff: WithId<StaffDescription> | undefined =
-            state.homePageData.staff?.featuredStaffDescription?.find((staff) => staff._id.toString() === id.toString())
-        if (!nStaff) return state
-        const newStaff: WithId<StaffDescription> = {...nStaff, description: description}
-        const newStaffDetails =
-            state.homePageData.staff?.featuredStaffDescription?.map((staff) => {
-                if (staff._id === nStaff?._id) {
-                    return newStaff
-                }
-                return staff
-            })
-        if (!newStaffDetails) return state
-        return {
-            homePageData: {
-                ...state.homePageData,
-                staff: {...state.homePageData.staff, featuredStaffDescription: newStaffDetails}
-            }
-        }
-    }),
-    setStaffDetailsName: (id: ObjectId, name: string) => set((state) => {
-        const nStaff: WithId<StaffDetails> | undefined =
-            state.homePageData.staff?.staffDetails?.find((staff) => staff._id.toString() === id.toString())
-        if (!nStaff) return state
-        const newStaff: WithId<StaffDetails> = {...nStaff, name: name}
-        const newStaffDetails =
-            state.homePageData.staff?.staffDetails?.map((staff) => {
-                if (staff._id === nStaff?._id) {
-                    return newStaff
-                }
-                return staff
-            })
-        if (!newStaffDetails) return state
-        return {
-            homePageData: {
-                ...state.homePageData,
-                staff: {...state.homePageData.staff, staffDetails: newStaffDetails}
-            }
-        }
-    }),
-    setStaffDetailsRole: (id: ObjectId, role: string) => set((state) => {
-        const nStaff: WithId<StaffDetails> | undefined =
-            state.homePageData.staff?.staffDetails?.find((staff) => staff._id.toString() === id.toString())
-        if (!nStaff) return state
-        const newStaff: WithId<StaffDetails> = {...nStaff, role: role}
-        const newStaffDetails =
-            state.homePageData.staff?.staffDetails?.map((staff) => {
-                if (staff._id === nStaff?._id) {
-                    return newStaff
-                }
-                return staff
-            })
-        if (!newStaffDetails) return state
-        return {
-            homePageData: {
-                ...state.homePageData,
-                staff: {...state.homePageData.staff, staffDetails: newStaffDetails}
-            }
-        }
-    }),
-    setStaffAssurancesBlockHeading: (heading: string) => set((state) => ({
-        homePageData: {
-            ...state.homePageData,
-            staff: {
-                ...state.homePageData.staff,
-                assurancesBlock: {...state.homePageData.staff.assurancesBlock, heading: heading}
-            }
-        }
-    })),
-    setStaffAssurancesBlockAssurances: (assurances: string) => set((state) => {
-        //split the string into an array of strings by comma
-        const newAssurances = assurances.split(',')
-        return {
-            homePageData: {
-                ...state.homePageData,
-                staff: {
-                    ...state.homePageData.staff,
-                    assurancesBlock: {...state.homePageData.staff.assurancesBlock, assurances: newAssurances}
-                }
             }
         }
     }),

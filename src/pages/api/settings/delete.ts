@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from 'next';
 import {getMongoDb} from "@admin/lib/mongodb";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const documentNames = ['home_page', 'about_page', 'contact_page', 'parents_page', 'school_programs', 'gallery_page']
+    const documentNames = ['home_page', 'about_page', 'contact_page', 'parents_page', 'school_programs', 'gallery_page', 'staff']
     try {
         const db = await getMongoDb();
         let totalDeleted = 0;
