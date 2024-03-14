@@ -8,6 +8,7 @@ import {useContactPageStore} from "@admin/store/";
 import {useEffect} from "react";
 import {isContactPageData} from "@admin/lib";
 import {WithId} from "mongodb";
+import {PageHeader} from "@admin/components/PageHeader";
 
 type ContactPageProps = {
     pageData: WithId<ContactPageData>
@@ -43,7 +44,8 @@ const ContactPageComponent = ({pageData}: ContactPageProps) => {
                 if (!isContactPageData(data)) return
                 setContactPageData(data)
             }}>
-                <LFFormSection sectionTitle={'Contact Page'}>
+                <PageHeader title={'Contact Page'}/>
+                <LFFormSection sectionTitle={'Map and Contact Details'}>
                     {/* Map */}
                     <div
                         className="lg:w-2/3 md:w-2/3 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">

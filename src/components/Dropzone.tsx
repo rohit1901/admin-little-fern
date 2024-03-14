@@ -1,19 +1,20 @@
 import {FileInput, Label} from 'flowbite-react';
-import {getImageUrl} from "@admin/lib";
+import {getImageUrl, isEmailAuthorized} from "@admin/lib";
 import Link from "next/link";
 import {Fragment} from "react";
 import {Popover} from "@admin/components/Popover";
 import {HiMiniCloudArrowUp} from "react-icons/hi2";
 import Image from "next/image";
+import {useSession} from "next-auth/react";
 
 type DropzoneProps = {
     imagePath?: string
-    withPopover?: boolean
 }
 const LabelClassName = "dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center " +
     "justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 " +
     "hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-const Dropzone = ({imagePath, withPopover}: DropzoneProps) => {
+const Dropzone = ({imagePath}: DropzoneProps) => {
+    const {data: session} = useSession();
     return (<div className="flex w-full items-center justify-center">
         <Label
             htmlFor={`dropzone-file-${imagePath}`}
@@ -48,7 +49,7 @@ const Dropzone = ({imagePath, withPopover}: DropzoneProps) => {
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (Max. 800x400px)</p>
             </div>
-            <FileInput id={`dropzone-file-${imagePath}`} className="hidden" onChange={(event) => {
+            <FileInput disabled={!isEmailAuthorized(session)} id={`dropzone-file-${imagePath}`} className="hidden" onChange={(event) => {
                 if (event.target.files?.length === 0) return;
                 const file = event.target.files?.[0];
                 if (file) {

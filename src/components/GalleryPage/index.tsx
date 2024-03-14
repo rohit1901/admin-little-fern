@@ -8,6 +8,7 @@ import {useGalleryPageStore} from "@admin/store/";
 import GalleryTextBlock from "@admin/components/GalleryPage/GalleryTextBlock";
 import {isGalleryPageData} from "@admin/lib";
 import {WithId} from "mongodb";
+import {PageHeader} from "@admin/components/PageHeader";
 
 type GalleryPageProps = {
     pageData: WithId<GalleryPageData>
@@ -22,6 +23,7 @@ const GalleryPageComponent = ({pageData}: GalleryPageProps) => {
             if (!isGalleryPageData(data)) return
             setGalleryPageData(data)
         }}>
+            <PageHeader title="Gallery Page"/>
             <GalleryTextBlock/>
             <GalleryHero/>
             <GalleryWithTags/>

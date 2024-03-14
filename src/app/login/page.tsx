@@ -18,7 +18,7 @@ export default function LoginPage() {
             <p className="font-normal text-gray-700 dark:text-gray-400 text-center">
                 You will be redirected to a secure sign in page where you can sign in with your AWS Cognito account.
             </p>
-            <Button onClick={() => signIn()}>
+            <Button onClick={() => signIn()} outline>
                 Sign in
             </Button>
         </Card>

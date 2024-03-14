@@ -12,7 +12,7 @@ const AboutTitle = () => {
         setTitle,
         setParagraph
     } = useAboutPageStore()
-    return <LFFormSection sectionTitle={'About Page'}>
+    return <LFFormSection sectionTitle={'Headings'}>
         <div className="lg:flex-grow md:w-1/2 pr-4">
             <LFFormElement labelValue='Title' labelName="tagline" elemValue={title}>
                 <TextInput id="tagline" type="text" placeholder="Tagline for the Hero Block"

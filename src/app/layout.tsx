@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {Noto_Sans} from "next/font/google";
+import {Outfit} from "next/font/google";
 import "./globals.css";
 import {ThemeModeScript} from "flowbite-react";
 import {ReactNode, Suspense} from "react";
@@ -7,7 +7,7 @@ import Providers from "@admin/app/providers";
 import LoginMask from "@admin/components/LoginMask";
 import Loader from "@admin/components/Loader";
 
-const notoFont = Noto_Sans({subsets: ["latin"]});
+const customFont = Outfit({subsets: ["latin"]});
 
 export const metadata: Metadata = {
     title: "Admin - Little Fern",
@@ -23,7 +23,7 @@ export default async function RootLayout({
         <head>
             <ThemeModeScript/><title>{metadata.title?.toString()}</title>
         </head>
-        <body className={`bg-white dark:bg-gray-800 ${notoFont.className}`}>
+        <body className={`bg-white dark:bg-gray-800 ${customFont.className}`}>
         <Providers>
             <Suspense
                 fallback={<Loader/>}>

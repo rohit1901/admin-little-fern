@@ -15,11 +15,11 @@ const GalleryWithTags = () => {
             {galleryPageData?.gallery?.map((galleryItem) => {
                 return <div key={galleryItem._id.toString()} className="sm:w-1/2 px-4">
                     <LFFormElement labelValue='Tag' labelName={`gallery-tag-${galleryItem._id.toString()}`} elemValue={galleryItem.tag}>
-                        <div className="flex py-4">
+                        {galleryItem.tag && <div className="flex py-4">
                             <Badge color="green" icon={HiX} size='sm'
                                    onClick={(e) =>
                                        setGalleryItemTag(galleryItem._id.toString(), '')}>{galleryItem.tag}</Badge>
-                        </div>
+                        </div>}
                         <TextInput id={`gallery-tag-${galleryItem._id.toString()}`} placeholder="Tag for the Gallery Item"
                                    value={galleryItem.tag} required
                                    onChange={(event) =>

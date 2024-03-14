@@ -13,6 +13,7 @@ import {ImageBlock} from "@admin/components/ImageBlock";
 import {isAboutPageData} from "@admin/lib";
 import {WithId} from "mongodb";
 import {useStaffStore} from "@admin/store/useStaffStore";
+import {PageHeader} from "@admin/components/PageHeader";
 
 type AboutPageComponentProps = {
     pageData: WithId<AboutPageData>,
@@ -40,6 +41,7 @@ const AboutPageComponent = ({pageData, staffPageData}: AboutPageComponentProps) 
                 if (!isAboutPageData(data)) return
                 setAboutPageData(data)
             }}>
+                <PageHeader title={'About Page'}/>
                 <AboutTitle/>
                 <LFFormSection sectionTitle={'Hero Block Images'} isGallery>
                     {aboutPageData?.aboutHero?.map((hero) => <div className="m-4 text-center" key={hero?._id.toString()}>

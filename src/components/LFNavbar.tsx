@@ -3,13 +3,12 @@ import {Avatar, Banner, Button, DarkThemeToggle, Dropdown, DropdownDivider, Drop
 import Logo from "@admin/components/Logo";
 import {getImageUrl, isEmailAuthorized} from "@admin/lib";
 import {signOut, useSession} from "next-auth/react";
-import {MdInfo} from "react-icons/md";
+import {MdInfo, MdInsertChart} from "react-icons/md";
 import {HiArrowRight, HiInbox, HiX} from "react-icons/hi";
 import {Session} from "next-auth";
 import {SiSubstack} from "react-icons/si";
 import {FaSignOutAlt} from "react-icons/fa";
 import {IoSettings} from "react-icons/io5";
-import {BiSolidDashboard} from "react-icons/bi";
 
 const LFNavbar = () => {
     const {data: session} = useSession()
@@ -25,7 +24,7 @@ const LFNavbar = () => {
                         <p className="flex items-center text-sm font-normal text-cyan-900">
                             <MdInfo className="h-5 w-5 mr-2 ml-5"/>
                             <span className="[&_p]:inline">
-                                You are not authorized to edit this information. For more information, please contact your administrator.
+                                You are not authorized to edit anything. For more information, please contact your administrator.
                                 <Button
                                     onClick={() => signOut()}
                                     className="inline-flex items-center justify-center ml-0 md:ml-1 md:inline-flex dark:text-cyan-50"
@@ -66,7 +65,7 @@ const LFNavbar = () => {
                         <span className="block text-sm">{session?.user.name}</span>
                         <span className="block truncate text-sm font-medium">{session?.user.email}</span>
                     </DropdownHeader>
-                    <DropdownItem icon={BiSolidDashboard} href="/">Dashboard</DropdownItem>
+                    <DropdownItem icon={MdInsertChart} href="/">Dashboard</DropdownItem>
                     <DropdownItem as='a' href="http://email.littlefern.in" target='_blank' icon={HiInbox}>
                         Inbox
                     </DropdownItem>
