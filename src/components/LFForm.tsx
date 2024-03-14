@@ -141,7 +141,7 @@ const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFo
             </Modal.Footer>
         </Modal>
         {isEmailAuthorized(session) && <div className="flex flex-wrap gap-2 mt-2">
-            <Button disabled={loading} outline onClick={() => {
+            <Button className="m-0" disabled={loading} outline onClick={() => {
                 window.location.reload()
             }}>
                 <div className="flex items-center">
@@ -149,7 +149,7 @@ const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFo
                     <p>Reset</p>
                 </div>
             </Button>
-            <Button disabled={loading} type="submit" onClick={() => setOpenModal(true)} outline>{loading ? <Spinner/> :
+            <Button className="m-0" disabled={loading} type="submit" onClick={() => setOpenModal(true)} outline>{loading ? <Spinner/> :
                 <div className="flex items-center">
                     <IoIosSave className="mr-2 h-5 w-5"/>
                     <p>Update</p>

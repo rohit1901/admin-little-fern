@@ -18,10 +18,6 @@ type AboutPageStore = {
     setStatsBlockSubHeading: (subHeading: string) => void,
     setStatsBlockStatLabel: (id: string, label: string) => void,
     setStatsBlockStatValue: (id: string, value: string) => void,
-    setStaffBlockHeading: (heading: string) => void,
-    setStaffBlockSubHeading: (subHeading: string) => void,
-    setStaffBlockName: (id: string, name: string) => void,
-    setStaffBlockRole: (id: string, role: string) => void,
     setValueDataHeading: (heading: string) => void,
     setValueDataSubHeading: (subHeading: string) => void,
     setValueDataValue: (id: string, value: string) => void,
@@ -124,46 +120,6 @@ export const useAboutPageStore = create<AboutPageStore>((set) => ({
                         return {...stat, value}
                     }
                     return stat
-                })
-            }
-        }
-    })),
-    setStaffBlockHeading: (heading: string) => set((state) => ({
-        aboutPageData: {
-            ...state.aboutPageData,
-            staffBlock: {...state.aboutPageData.staffBlock, heading}
-        }
-    })),
-    setStaffBlockSubHeading: (subHeading: string) => set((state) => ({
-        aboutPageData: {
-            ...state.aboutPageData,
-            staffBlock: {...state.aboutPageData.staffBlock, subHeading}
-        }
-    })),
-    setStaffBlockName: (id: string, name: string) => set((state) => ({
-        aboutPageData: {
-            ...state.aboutPageData,
-            staffBlock: {
-                ...state.aboutPageData.staffBlock,
-                staffDetails: state.aboutPageData.staffBlock.staffDetails.map((staff) => {
-                    if (staff._id.toString() === id) {
-                        return {...staff, name}
-                    }
-                    return staff
-                })
-            }
-        }
-    })),
-    setStaffBlockRole: (id: string, role: string) => set((state) => ({
-        aboutPageData: {
-            ...state.aboutPageData,
-            staffBlock: {
-                ...state.aboutPageData.staffBlock,
-                staffDetails: state.aboutPageData.staffBlock.staffDetails.map((staff) => {
-                    if (staff._id.toString() === id) {
-                        return {...staff, role}
-                    }
-                    return staff
                 })
             }
         }
