@@ -75,7 +75,7 @@ const ContactPageComponent = ({pageData}: ContactPageProps) => {
                     </div>
                     {/* Properties */}
                     <div
-                        className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0 dark:bg-gray-800">
+                        className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0 dark:bg-gray-900">
                         <LFFormElement labelValue="Tagline" labelName="contact-hero-tagline"
                                        elemValue={contactPageData?.contactInformation?.hero?.tagline}>
                             <TextInput id="contact-hero-tagline" placeholder="Tagline for the Hero Block"

@@ -11,7 +11,8 @@ type LFFormElementProps = {
 }
 const getNonAuthElem = (session: Session | null, children: ReactNode, elemValue?: string) => {
     if (isEmailAuthorized(session)) {
-        return <Fragment>{elemValue && children}</Fragment>
+        if (elemValue === undefined || elemValue === null) return null
+        return <Fragment>{children}</Fragment>
     }
     return (
         <Card className="dark:border-primary-50 bg-gray-100">

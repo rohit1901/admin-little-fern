@@ -3,19 +3,14 @@ import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
 import {useSchoolProgramsPageStore} from "@admin/store";
 import {ImageBlock} from "@admin/components/ImageBlock";
+import LFFormSection from "@admin/components/LFFormSection";
 
 const headingClasses = "container mx-auto flex px-5 md:flex-row flex-col items-center w-full " +
     "text-2xl font-bold text-gray-900 dark:text-white md:text-3xl lg:text-4xl"
 const SchoolPrograms = () => {
     const {programs, heading, setHeading, setProgramHeroHeadline, setProgramHeroTagline, setProgramHeroText} = useSchoolProgramsPageStore()
-    return <section className="text-gray-600 body-font">
-        <div className="pt-20">
-            <h1 className={headingClasses}>
-                <span
-                    className="text-transparent bg-clip-text bg-cyan-800 dark:text-cyan-200">School Programs</span>
-            </h1>
-        </div>
-        <div className="container px-5 py-24 mx-auto">
+    return <LFFormSection sectionTitle="School Programs">
+        <div className="container px-5">
             <div className="flex flex-col w-1/2 mb-20">
                 <LFFormElement labelValue="School Programs Heading" labelName='schoolProgramsHeading'
                                elemValue={heading}>
@@ -55,6 +50,6 @@ const SchoolPrograms = () => {
                 })}
             </div>
         </div>
-    </section>
+    </LFFormSection>
 }
 export default SchoolPrograms;
