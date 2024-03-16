@@ -15,22 +15,24 @@ const AboutValueData = () => {
         setValueDataDescription
     } = useAboutPageStore()
     return (
-        <LFFormSection sectionTitle={'Value Data'}>
-            <div className="lg:flex-grow md:w-1/3 pr-4">
-                <LFFormElement labelValue='Heading' labelName='value-heading' elemValue={valueData?.heading}>
+        <LFFormSection sectionTitle={'Values'} column>
+            <div className="flex flex-row">
+                <LFFormElement labelValue='Heading' labelName='value-heading' elemValue={valueData?.heading} className="w-1/3 mr-2">
                     <TextInput id="value-heading" placeholder="Title for the Hero Block"
                                value={valueData?.heading} required
                                onChange={(event) => setValueDataHeading(event.target.value)}/>
                 </LFFormElement>
-                <LFFormElement labelValue='Sub-heading' labelName='value-sub-heading' elemValue={valueData?.subHeading}>
+                <LFFormElement labelValue='Sub-heading' labelName='value-sub-heading' elemValue={valueData?.subHeading} className="w-1/3 mr-2">
                     <Textarea id="value-sub-heading" placeholder="sub-heading for the Hero Block"
                               className="h-text-area"
                               value={valueData?.subHeading} required
                               onChange={(event) => setValueDataSubHeading(event.target.value)}/>
                 </LFFormElement>
-                <ImageBlock imagePath={valueData?.image.src}/>
+                <div className="w-1/3">
+                    <ImageBlock imagePath={valueData?.image.src}/>
+                </div>
             </div>
-            <div className="lg:flex-grow md:w-2/3 pr-4">
+            <div>
                 {valueData?.values.map((value) => {
                     return (<Fragment key={value._id.toString()}>
                         <LFFormElement labelValue='Value' labelName={`value-value-${value._id.toString()}`}
@@ -43,7 +45,7 @@ const AboutValueData = () => {
                         <LFFormElement labelValue='Description' labelName={`value-description-${value._id.toString()}`}
                                        elemValue={value.description}>
                             <Textarea id={`value-description-${value._id.toString()}`} placeholder="Description"
-                                      className="h-text-area"
+                                      className="h-text-area-2"
                                       value={value.description} required
                                       onChange={(event) =>
                                           setValueDataDescription(value._id.toString(), event.target.value)}/>

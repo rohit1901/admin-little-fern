@@ -1,7 +1,8 @@
 import {FlowbiteTextInputTheme} from "flowbite-react";
 import {DeepPartial} from "flowbite-react/lib/esm/types";
+import {FlowbiteTextInputColors} from "flowbite-react/lib/esm/components/TextInput/TextInput";
 
-const Colors = {
+const Colors: DeepPartial<FlowbiteTextInputColors> = {
     gray: 'text-cyan-800 border-gray-200 focus:border-cyan-500 focus:ring-cyan-500 dark:border-cyan-50 ' +
         'dark:focus:border-cyan-50 dark:focus:ring-cyan-50 dark:text-cyan-50 dark:bg-gray-700',
 }
@@ -11,6 +12,7 @@ export const textInputTheme: DeepPartial<FlowbiteTextInputTheme> = {
         base: 'relative w-full',
         icon: {
             base: 'pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3',
+            svg: "text-cyan-800 dark:text-cyan-50"
         },
         rightIcon: {
             base: 'pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3',

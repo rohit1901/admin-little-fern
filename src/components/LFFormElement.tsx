@@ -6,8 +6,9 @@ import {isEmailAuthorized} from "@admin/lib";
 
 type LFFormElementProps = {
     labelValue?: string;
-    labelName: string;
+    labelName?: string;
     elemValue?: string;
+    className?: string;
 }
 const getNonAuthElem = (session: Session | null, children: ReactNode, elemValue?: string) => {
     if (isEmailAuthorized(session)) {
@@ -22,11 +23,11 @@ const getNonAuthElem = (session: Session | null, children: ReactNode, elemValue?
         </Card>
     )
 }
-const LFFormElement = ({labelValue, labelName, elemValue, children}: PropsWithChildren<LFFormElementProps>) => {
+const LFFormElement = ({labelValue, labelName, elemValue, className, children}: PropsWithChildren<LFFormElementProps>) => {
     const {data} = useSession()
 
     return (
-        <div>
+        <div className={className}>
             <div className="my-2 block">
                 {labelValue && <Label className="text-cyan-800" htmlFor={labelName} value={labelValue}/>}
                 <div

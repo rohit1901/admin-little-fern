@@ -11,6 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const newSchoolProgramsBlock: WithId<SchoolProgramsBlock> = {
                 ...block,
                 _id: new ObjectId(),
+                dateCreated: new Date(),
             }
             await db.collection('school_programs').insertOne(newSchoolProgramsBlock);
             res.status(200).json({message: 'success', body: newSchoolProgramsBlock});

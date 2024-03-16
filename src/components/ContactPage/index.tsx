@@ -45,10 +45,10 @@ const ContactPageComponent = ({pageData}: ContactPageProps) => {
                 setContactPageData(data)
             }}>
                 <PageHeader title={'Contact Page'}/>
-                <LFFormSection sectionTitle={'Map and Contact Details'}>
+                <LFFormSection sectionTitle={'Map and Contact Details'} row>
                     {/* Map */}
                     <div
-                        className="lg:w-2/3 md:w-2/3 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
+                        className="w-2/3 bg-gray-300 rounded-lg overflow-hidden p-10 mr-4 flex items-end justify-start relative">
                         <MapsIframe/>
                         <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md dark:bg-gray-800">
                             <div className="lg:w-1/2 px-6">
@@ -59,7 +59,7 @@ const ContactPageComponent = ({pageData}: ContactPageProps) => {
                                               onChange={(event) => setContactInformationAddress(event.target.value)}/>
                                 </LFFormElement>
                             </div>
-                            <div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
+                            <div className="px-6 mt-4">
                                 <LFFormElement labelValue="Phone" labelName="contact-phone"
                                                elemValue={contactPageData?.contactInformation?.phone}>
                                     <TextInput id="contact-phone" placeholder="Phone"
@@ -77,7 +77,7 @@ const ContactPageComponent = ({pageData}: ContactPageProps) => {
                     </div>
                     {/* Properties */}
                     <div
-                        className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0 dark:bg-gray-900">
+                        className="bg-white flex flex-col md:ml-auto w-1/3 mt-8 dark:bg-gray-900">
                         <LFFormElement labelValue="Tagline" labelName="contact-hero-tagline"
                                        elemValue={contactPageData?.contactInformation?.hero?.tagline}>
                             <TextInput id="contact-hero-tagline" placeholder="Tagline for the Hero Block"

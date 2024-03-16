@@ -11,7 +11,7 @@ const GalleryWithTags = () => {
     const {galleryPageData, setGalleryItemTag} = useGalleryPageStore()
 
     return <Fragment>
-        <LFFormSection sectionTitle={'Gallery Items'} isGallery>
+        <LFFormSection sectionTitle={'Gallery Items'} wrap>
             {galleryPageData?.gallery?.map((galleryItem) => {
                 return <div key={galleryItem._id.toString()} className="sm:w-1/2 px-4">
                     <LFFormElement labelValue='Tag' labelName={`gallery-tag-${galleryItem._id.toString()}`} elemValue={galleryItem.tag}>
