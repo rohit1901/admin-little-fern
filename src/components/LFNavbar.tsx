@@ -9,21 +9,20 @@ import {Session} from "next-auth";
 import {SiSubstack} from "react-icons/si";
 import {FaSignOutAlt} from "react-icons/fa";
 import {IoSettings} from "react-icons/io5";
+import {LFNotification} from "@admin/components/LFNotification";
 
-const LFNavbar = () => {
-    const {data: session} = useSession()
-    const getUnauthorizedBanner = (session: Session | null) => {
-        if (isEmailAuthorized(session)) {
-            return null
-        }
-        return (
-            <Banner>
-                <div
-                    className="flex w-full justify-between border-b border-gray-200 bg-gray-50 dark:border-cyan-50 dark:bg-cyan-50">
-                    <div className="mx-auto flex items-center">
-                        <p className="flex items-center text-sm font-normal text-cyan-900">
-                            <MdInfo className="h-5 w-5 mr-2 ml-5"/>
-                            <span className="[&_p]:inline">
+const getUnauthorizedBanner = (session: Session | null) => {
+    if (isEmailAuthorized(session)) {
+        return null
+    }
+    return (
+        <Banner>
+            <div
+                className="flex w-full justify-between border-b border-gray-200 bg-gray-50 dark:border-cyan-50 dark:bg-cyan-50">
+                <div className="mx-auto flex items-center">
+                    <p className="flex items-center text-sm font-normal text-cyan-900">
+                        <MdInfo className="h-5 w-5 mr-2 ml-5"/>
+                        <span className="[&_p]:inline">
                                 You are not authorized to edit anything. For more information, please contact your administrator.
                                 <Button
                                     onClick={() => signOut()}
@@ -33,16 +32,19 @@ const LFNavbar = () => {
                                     <HiArrowRight className="ml-2 h-4 w-4"/>
                                 </Button>
                             </span>
-                        </p>
-                    </div>
-                    <Banner.CollapseButton color="gray"
-                                           className="border-0 bg-transparent text-gray-500 dark:text-gray-400">
-                        <HiX className="h-4 w-4"/>
-                    </Banner.CollapseButton>
+                    </p>
                 </div>
-            </Banner>
-        )
-    }
+                <Banner.CollapseButton color="gray"
+                                       className="border-0 bg-transparent text-gray-500 dark:text-gray-400">
+                    <HiX className="h-4 w-4"/>
+                </Banner.CollapseButton>
+            </div>
+        </Banner>
+    )
+}
+
+const LFNavbar = () => {
+    const {data: session} = useSession()
     return (
         <Navbar fluid rounded border className='fixed top-0 w-full z-50'>
             <NavbarBrand href="https://www.littlefern.in" className='mr-2'>
@@ -52,7 +54,8 @@ const LFNavbar = () => {
             </NavbarBrand>
             {getUnauthorizedBanner(session)}
             <div className="flex items-center lg:order-2">
-                <DarkThemeToggle className='p-2 mr-2'/>
+                <DarkThemeToggle className='p-2 mr-5 text-cyan-800 dark:text-yellow-200'/>
+                <LFNotification/>
                 <Dropdown
                     arrowIcon={false}
                     inline
