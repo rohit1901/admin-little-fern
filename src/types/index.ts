@@ -11,6 +11,14 @@ export type SocialLinkProps = {
     icon: string
 }
 /* Global Types used across the application */
+
+export type LFScheduleData = {
+    fromDay?: string;
+    toDay?: string;
+    days?: string[];
+    fromTime: string;
+    toTime: string;
+}
 export type TextBlock = {
     headline: string
     subHeading?: string
@@ -274,3 +282,6 @@ export type HerokuStatusResponseType = {
     incidents: Incident[];
     scheduled: Scheduled[];
 };
+export type PathnameMappingType = {
+    [key: string]: string
+}

@@ -19,32 +19,18 @@ import {HiOutlineExclamationCircle} from "react-icons/hi";
 import {IoIosSave} from "react-icons/io";
 import {IoReload} from "react-icons/io5";
 import {useStaffStore} from "@admin/store/useStaffStore";
+import {API_PROGRAMS_UPDATE, API_STAFF_UPDATE, PATHNAME_MAPPING} from "@admin/lib/constants";
 
-type PathnameMapping = {
-    [key: string]: string
-}
-const pathnameMappping: PathnameMapping = {
-    '/website-pages/Home': '/api/home/update',
-    '/website-pages/About': '/api/about/update',
-    '/website-pages/Contact': '/api/contact/update',
-    '/website-pages/Parents': '/api/parents/update',
-    '/website-pages/Gallery': '/api/gallery/update',
-}
-const API_PROGRAMS_UPDATE = '/api/programs/update'
-const API_STAFF_UPDATE = '/api/staff/update'
-
-const PATHNAME_HOME = '/website-pages/Home'
-const PATHNAME_PROGRAMS = '/programs'
-const PATHNAME_ABOUT = '/website-pages/About'
 const getApiPath = (path: string, shouldUpdatePrograms?: boolean) => {
     if (shouldUpdatePrograms) return API_PROGRAMS_UPDATE
-    return pathnameMappping[path]
+    return PATHNAME_MAPPING[path]
 }
 type LFFormProps = {
     data?: WithId<HomePageData | ParentsPageData | GalleryPageData | ContactPageData | AboutPageData>
     updateState?: (data: WithId<HomePageData | ParentsPageData | GalleryPageData | ContactPageData | AboutPageData>) => void
     isProgram?: boolean
 }
+
 const handleProgramUpdate = async (programs: WithId<SchoolProgram>[], heading: string,
                                    pathname: string, setPrograms: (data: WithId<SchoolProgram>[]) => void,
                                    setHeading: (data: string) => void) => {
@@ -117,7 +103,6 @@ const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFo
                                     aboutTextBlock,
                                     assurancesBlock: staffAssurancesBlock,
                                 }
-                                console.log(newStaffPageData)
                                 const res = await fetch(API_STAFF_UPDATE, {
                                     method: 'POST', headers: {
                                         'Content-Type': 'application/json',

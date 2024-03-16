@@ -1,33 +1,40 @@
 import {Dropdown} from "flowbite-react";
 import {useState} from "react";
 import {BsDash} from "react-icons/bs";
+import {LFScheduleData} from "@admin/types";
+import {DAYS_OF_WEEK} from "@admin/lib/constants";
 
-const DAYS = ['Sun', 'M', 'Tue', 'W', 'Thu', 'F', 'Sat'];
 type LFDayRangePickerProps = {
-    fromDayString?: string;
-    toDayString?: string;
-    action: (scheduleString: string) => void;
+    fromDay?: string;
+    toDay?: string;
+    action: (scheduleData: Partial<LFScheduleData>) => void;
 }
-export const LFDayRangePicker = ({fromDayString, toDayString, action}: LFDayRangePickerProps) => {
-    const [fromDay, setFromDay] = useState(fromDayString ?? DAYS[0])
-    const [toDay, setToDay] = useState(toDayString ?? DAYS[0])
+export const LFDayRangePicker = ({fromDay, toDay, action}: LFDayRangePickerProps) => {
+    const [selectedFromDay, setSelectedFromDay] = useState(fromDay ?? DAYS_OF_WEEK[0])
+    const [selectedToDay, setSelectedToDay] = useState(toDay ?? DAYS_OF_WEEK[0])
     return <div className="flex flex-wrap justify-between mb-2 items-center">
-        <Dropdown label={fromDay} id="from-day" className="w-32" value={fromDay} arrowIcon={false}>
-            {DAYS.map((day, index) =>
+        <Dropdown label={selectedFromDay} id="from-day" className="w-32" value={selectedFromDay} arrowIcon={false}>
+            {DAYS_OF_WEEK.map((day, index) =>
                 <Dropdown.Item key={index} className="dropdown-item"
                                type="button" value={day} onClick={() => {
-                    setFromDay(day)
-                    action(`${day}-${toDay}`)
+                    setSelectedFromDay(day)
+                    action({
+                        fromDay: day,
+                        toDay: selectedToDay
+                    })
                 }}>{day}</Dropdown.Item>)
             }
         </Dropdown>
         <BsDash className="text-2xl text-gray-500"/>
         <Dropdown label={toDay} id="to-day" className="w-32" value={toDay} arrowIcon={false}>
-            {DAYS.map((day, index) =>
+            {DAYS_OF_WEEK.map((day, index) =>
                 <Dropdown.Item key={index} className="dropdown-item"
                                type="button" value={day} onClick={() => {
-                    setToDay(day)
-                    action(`${fromDay}-${day}`)
+                    setSelectedToDay(day)
+                    action({
+                        fromDay: selectedFromDay,
+                        toDay: day
+                    })
                 }}>{day}</Dropdown.Item>)
             }
         </Dropdown>

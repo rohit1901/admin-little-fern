@@ -177,6 +177,18 @@ main {
     @apply text-cyan-900 dark:text-cyan-50 hover:text-cyan-700 dark:hover:text-cyan-300 !important;
 }
 
+.react-select .select__menu {
+    @apply text-cyan-800 dark:text-cyan-50 !important;
+}
+
+.react-select .select__menu .select__option {
+    @apply dark:text-cyan-50 dark:hover:text-cyan-800 !important;
+}
+
+.react-select .select__menu .select__option--is-focused {
+    @apply dark:text-cyan-800 !important;
+}
+
 /* feed styles */
 
 @media (min-width: 1280px) {

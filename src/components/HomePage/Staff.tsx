@@ -21,12 +21,11 @@ const Staff = () => {
         setStaffAssurancesBlockAssurances, setStaffDetailsFeatured
     } = useStaffStore()
     return <Fragment>
-        <LFFormSection sectionTitle='Featured Staff Block'>
-            <div
-                className="w-full md:pr-12 md:py-8 md:border-b-0 mb-10 md:mb-0 pb-10 border-b border-gray-200">
+        <LFFormSection sectionTitle='Featured Staff Block' column>
+            <div className="flex flex-row">
                 <LFFormElement labelValue="Featured Staff Block Heading"
                                labelName='featuredStaffBlockHeading'
-                               elemValue={homeTextBlock?.headline}>
+                               elemValue={homeTextBlock?.headline} className="w-full mr-2">
                     <Textarea id="featuredStaffBlockHeading" className='h-text-area'
                               placeholder="Featured Staff Block Heading"
                               value={homeTextBlock?.headline} required
@@ -36,7 +35,7 @@ const Staff = () => {
                 </LFFormElement>
                 <LFFormElement labelValue="Featured Staff Block Subheading"
                                labelName='featuredStaffBlockSubHeading'
-                               elemValue={homeTextBlock?.subHeading}>
+                               elemValue={homeTextBlock?.subHeading} className="w-full mr-2">
                     <TextInput id="featuredStaffBlockSubHeading" type="text" placeholder="Featured Staff Block Subheading"
                                value={homeTextBlock?.subHeading} required onChange={(event) => {
                         setHomeSubHeading(event.currentTarget.value)
@@ -44,38 +43,38 @@ const Staff = () => {
                 </LFFormElement>
                 <LFFormElement labelValue="Featured Staff Block Text"
                                labelName='featuredStaffBlockText'
-                               elemValue={homeTextBlock?.text}>
+                               elemValue={homeTextBlock?.text} className="w-full">
                     <Textarea id="featuredStaffBlockText" placeholder="Featured Staff Block Text"
                               className='h-text-area'
                               value={homeTextBlock?.text} required onChange={(event) => {
                         setHomePageText(event.currentTarget.value)
                     }}/>
                 </LFFormElement>
-                {staffDetails?.filter(s => s.featured)?.map(({name, description, _id}) => {
-                    return (
-                        <Fragment key={_id.toString()}>
-                            <LFFormElement labelValue="Featured staff name"
-                                           labelName={`featuredStaffName${_id.toString()}`} elemValue={name}>
-                                <TextInput id={`featuredStaffName${_id.toString()}`}
-                                           placeholder="Featured staff name"
-                                           value={name} required onChange={(event) => {
-                                    setStaffDetailsName(_id.toString(), event.currentTarget.value)
-                                }}/>
-                            </LFFormElement>
-                            <LFFormElement labelValue="Featured staff description"
-                                           labelName={`featuredStaffDescription${_id.toString()}`}
-                                           elemValue={description}>
-                                <Textarea id={`featuredStaffDescription${_id.toString()}`}
-                                          placeholder="Featured staff description"
-                                          className='h-text-area'
-                                          value={description} required onChange={(event) => {
-                                    setStaffDetailsDescription(_id.toString(), event.currentTarget.value)
-                                }}/>
-                            </LFFormElement>
-                        </Fragment>
-                    )
-                })}
             </div>
+            {staffDetails?.filter(s => s.featured)?.map(({name, description, _id}) => {
+                return (
+                    <div className="flex flex-row" key={_id.toString()}>
+                        <LFFormElement labelValue="Featured staff name"
+                                       labelName={`featuredStaffName${_id.toString()}`} elemValue={name} className="w-full mr-2">
+                            <TextInput id={`featuredStaffName${_id.toString()}`}
+                                       placeholder="Featured staff name"
+                                       value={name} required onChange={(event) => {
+                                setStaffDetailsName(_id.toString(), event.currentTarget.value)
+                            }}/>
+                        </LFFormElement>
+                        <LFFormElement labelValue="Featured staff description"
+                                       labelName={`featuredStaffDescription${_id.toString()}`}
+                                       elemValue={description} className="w-full">
+                            <Textarea id={`featuredStaffDescription${_id.toString()}`}
+                                      placeholder="Featured staff description"
+                                      className='h-text-area'
+                                      value={description} required onChange={(event) => {
+                                setStaffDetailsDescription(_id.toString(), event.currentTarget.value)
+                            }}/>
+                        </LFFormElement>
+                    </div>
+                )
+            })}
         </LFFormSection>
         {/*Staff Details*/}
         <LFFormSection sectionTitle='Featured Staff Details'>

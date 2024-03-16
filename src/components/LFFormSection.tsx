@@ -4,11 +4,20 @@ import {Accordion, Button, Modal} from "flowbite-react";
 import {MdOutlineAddReaction} from "react-icons/md";
 
 type LFFormSectionProps = {
-    sectionTitle: string; isGallery?: boolean; addElemButton?: boolean;
+    sectionTitle: string;
+    wrap?: boolean;
+    row?: boolean;
+    column?: boolean;
+    addElemButton?: boolean;
 }
 const HeadingClasses = "container mx-auto flex px-5 md:flex-row flex-col "
     + "text-2xl font-bold text-cyan-800 dark:text-cyan-50";
-const LFFormSection = ({children, sectionTitle, isGallery, addElemButton}: PropsWithChildren<LFFormSectionProps>) => {
+const getDisplayClasses = (wrap?: boolean, row?: boolean, column?: boolean) => {
+    if (row) return 'flex-row'
+    if (column) return 'flex-col'
+    return 'flex-wrap'
+}
+const LFFormSection = ({children, sectionTitle, wrap, row, column, addElemButton}: PropsWithChildren<LFFormSectionProps>) => {
     const [openModal, setOpenModal] = useState(false)
     return (
         <Accordion className="mb-5">
@@ -40,7 +49,7 @@ const LFFormSection = ({children, sectionTitle, isGallery, addElemButton}: Props
                         </Fragment>
                     }
                     <div
-                        className={`container mx-auto flex px-5 w-full ${isGallery ? 'flex-wrap' : 'md:flex-row flex-col'}`}>
+                        className={`container mx-auto flex px-5 w-full ${getDisplayClasses(wrap, row, column)}`}>
                         {children}
                     </div>
                 </Accordion.Content>

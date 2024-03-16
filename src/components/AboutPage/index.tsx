@@ -43,7 +43,7 @@ const AboutPageComponent = ({pageData, staffPageData}: AboutPageComponentProps) 
             }}>
                 <PageHeader title={'About Page'}/>
                 <AboutTitle/>
-                <LFFormSection sectionTitle={'Hero Block Images'} isGallery>
+                <LFFormSection sectionTitle={'Hero Block Images'} wrap>
                     {aboutPageData?.aboutHero?.map((hero) => <div className="m-4 text-center" key={hero?._id.toString()}>
                         <ImageBlock imagePath={hero?.src}/></div>)}
                 </LFFormSection>

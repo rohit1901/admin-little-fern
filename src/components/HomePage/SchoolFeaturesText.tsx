@@ -11,28 +11,25 @@ const SchoolFeaturesText = () => {
         setSchoolFeaturesSubHeading,
         setSchoolFeaturesFeatures
     } = useHomePageStore(state => state)
-    return <LFFormSection sectionTitle='School Features'>
-        <div
-            className="md:w-1/2 md:pr-12 md:py-8 md:border-b-0 mb-10 md:mb-0 pb-10 border-b border-gray-200">
-            <LFFormElement labelValue="School features heading" labelName="sfh"
-                           elemValue={homePageData.schoolFeatures?.heading}>
-                <TextInput id="sfh" type="text" placeholder="School features heading"
-                           value={homePageData.schoolFeatures?.heading} required
-                           onChange={(event) => setSchoolFeaturesHeading(event.currentTarget.value)}/>
-            </LFFormElement>
-            <LFFormElement labelValue="School features sub-heading" labelName="sfsh"
-                           elemValue={homePageData.schoolFeatures?.subHeading}>
-                <Textarea id="sfsh" className='h-text-area' placeholder="School features  sub-heading"
-                          value={homePageData.schoolFeatures?.subHeading} required
-                          onChange={(event) => setSchoolFeaturesSubHeading(event.currentTarget.value)}/>
-            </LFFormElement>
-            <LFFormElement labelValue="School features" labelName="sff"
-                           elemValue={homePageData.schoolFeatures?.features?.toString()}>
-                <Textarea id="sff" className='h-text-area' placeholder="School features"
-                          value={homePageData.schoolFeatures?.features?.toString()} required
-                          onChange={(event) => setSchoolFeaturesFeatures(event.currentTarget.value)}/>
-            </LFFormElement>
-        </div>
+    return <LFFormSection sectionTitle='School Features' row>
+        <LFFormElement labelValue="School features heading" labelName="sfh"
+                       elemValue={homePageData.schoolFeatures?.heading} className="w-full mr-2">
+            <TextInput id="sfh" type="text" placeholder="School features heading"
+                       value={homePageData.schoolFeatures?.heading} required
+                       onChange={(event) => setSchoolFeaturesHeading(event.currentTarget.value)}/>
+        </LFFormElement>
+        <LFFormElement labelValue="School features sub-heading" labelName="sfsh"
+                       elemValue={homePageData.schoolFeatures?.subHeading} className="w-full mr-2">
+            <Textarea id="sfsh" className='h-text-area' placeholder="School features  sub-heading"
+                      value={homePageData.schoolFeatures?.subHeading} required
+                      onChange={(event) => setSchoolFeaturesSubHeading(event.currentTarget.value)}/>
+        </LFFormElement>
+        <LFFormElement labelValue="School features" labelName="sff"
+                       elemValue={homePageData.schoolFeatures?.features?.toString()} className="w-full">
+            <Textarea id="sff" className='h-text-area' placeholder="School features"
+                      value={homePageData.schoolFeatures?.features?.toString()} required
+                      onChange={(event) => setSchoolFeaturesFeatures(event.currentTarget.value)}/>
+        </LFFormElement>
     </LFFormSection>
 }
 export default SchoolFeaturesText;
