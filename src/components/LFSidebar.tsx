@@ -3,11 +3,12 @@
 import {Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems} from 'flowbite-react';
 import {BiSolidCopyAlt} from 'react-icons/bi';
 import {usePathname} from "next/navigation";
-import {IoCall, IoPeopleCircle} from "react-icons/io5";
+import {IoCall} from "react-icons/io5";
 import {RiHomeHeartFill} from "react-icons/ri";
-import {MdInfo, MdInsertChart} from "react-icons/md";
+import {MdAddReaction, MdInfo, MdInsertChart} from "react-icons/md";
 import {IoMdSchool} from "react-icons/io";
-import {FaImages, FaLaptopCode} from "react-icons/fa";
+import {FaImages, FaLaptopCode, FaPlus, FaUsers} from "react-icons/fa";
+import {GiGraduateCap} from "react-icons/gi";
 
 const SidebarClasses = "fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full " +
     "bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
@@ -22,7 +23,7 @@ const pages = [{
 }, {
     name: 'Contact', href: '/website-pages/Contact', icon: IoCall,
 }, {
-    name: 'Parents', href: '/website-pages/Parents', icon: IoPeopleCircle,
+    name: 'Parents', href: '/website-pages/Parents', icon: FaUsers,
 }]
 const setActive = (href: string, slug: string | null) => {
     // set active to true if the slug includes '/programs'
@@ -31,6 +32,15 @@ const setActive = (href: string, slug: string | null) => {
     }
     return slug === href
 }
+const ADD_ICON_CLASS =
+    "absolute inline-flex items-center justify-center w-2.5 h-2.5 -top-0.5 -right-1 -end-2"
+const AddGraduate = () => {
+    return <div className="relative inline-flex">
+        <GiGraduateCap className="text-cyan-800 dark:text-cyan-50 h-6 w-6"></GiGraduateCap>
+        <FaPlus className={ADD_ICON_CLASS}/>
+    </div>
+}
+
 const LFSidebar = () => {
     const slug = usePathname()
     return (<Sidebar
@@ -48,6 +58,14 @@ const LFSidebar = () => {
                         {page.name}
                     </SidebarItem>))}
                 </SidebarCollapse>
+            </SidebarItemGroup>
+            <SidebarItemGroup>
+                <SidebarItem href="#" icon={MdAddReaction}>
+                    Staff
+                </SidebarItem>
+                <SidebarItem href="#" icon={AddGraduate}>
+                    Program
+                </SidebarItem>
             </SidebarItemGroup>
             <SidebarItemGroup>
                 <SidebarItem href="#" icon={FaLaptopCode}>

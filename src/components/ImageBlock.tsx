@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Dropzone from "@admin/components/Dropzone";
 import {getImageUrl, getS3UploadKey, isEmailAuthorized} from "@admin/lib";
-import {Button, Spinner} from "flowbite-react";
+import {Button, FileInput, Spinner} from "flowbite-react";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {uploadToS3} from "@admin/lib/s3";
@@ -10,8 +10,15 @@ import {HiMiniCloudArrowUp} from "react-icons/hi2";
 
 type ImageBlockProps = {
     imagePath?: string
+    dropzone?: boolean
 }
-export const ImageBlock = ({imagePath}: ImageBlockProps) => {
+const ImageUploader = ({imagePath, dropzone = true}: ImageBlockProps) => {
+    if (dropzone) {
+        return <Dropzone imagePath={imagePath}/>
+    }
+    return <div className="mt-1 mb-2"><FileInput id="file-upload-helper-text" is="button"/></div>
+}
+export const ImageBlock = ({imagePath, dropzone}: ImageBlockProps) => {
     const [uploading, setUploading] = useState(false);
     const router = useRouter();
     const {data: session} = useSession()
@@ -23,7 +30,7 @@ export const ImageBlock = ({imagePath}: ImageBlockProps) => {
                        src={getImageUrl(imagePath)}/>
             </div>}
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-                <Dropzone imagePath={imagePath}/>
+                <ImageUploader imagePath={imagePath} dropzone={dropzone}/>
             </div>
             {isEmailAuthorized(session) && <div className="flex">
                 <Button disabled={uploading}

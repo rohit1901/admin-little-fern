@@ -2,6 +2,7 @@
 import {Fragment, PropsWithChildren, useState} from "react";
 import {Accordion, Button, Modal} from "flowbite-react";
 import {MdOutlineAddReaction} from "react-icons/md";
+import {NewStaff} from "@admin/components/AboutPage/NewStaff";
 
 type LFFormSectionProps = {
     sectionTitle: string;
@@ -30,13 +31,14 @@ const LFFormSection = ({children, sectionTitle, wrap, row, column, addElemButton
                 <Accordion.Content>
                     {addElemButton &&
                         <Fragment>
-                            <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
+                            <Modal dismissible show={openModal} onClose={() => setOpenModal(false)} size="4-xl">
                                 <Modal.Header>
                                     <h1 className="font-bold text-cyan-700 dark:text-white">
-                                        Add New Element
+                                        Add New {sectionTitle}
                                     </h1>
                                 </Modal.Header>
                                 <Modal.Body>
+                                    <NewStaff/>
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button onClick={() => setOpenModal(false)} className="dark:bg-cyan-50">Close</Button>
