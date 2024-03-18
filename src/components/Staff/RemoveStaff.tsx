@@ -1,10 +1,10 @@
 import {Button, Checkbox, Modal, ModalBody, ModalFooter, ModalHeader, Spinner, Table} from "flowbite-react";
-import {FaUserMinus} from "react-icons/fa";
 import {useStaffStore} from "@admin/store/useStaffStore";
 import {useEffect, useState} from "react";
 import {API_STAFF_GET, API_STAFF_UPDATE} from "@admin/lib/constants";
 import {ObjectId, WithId} from "mongodb";
 import {StaffPageData} from "@admin/types";
+import {RiEmotionSadLine} from "react-icons/ri";
 
 type RemoveStaffProps = {
     openModal: boolean;
@@ -29,8 +29,8 @@ export const RemoveStaff = ({openModal, setOpenModal}: RemoveStaffProps) => {
         <Modal dismissible show={openModal} onClose={() => setOpenModal(false)} size="sm">
             <ModalHeader>
                 <div className="font-bold text-cyan-700 dark:text-white flex flex-row items-center">
-                    <FaUserMinus color="#E02424"/>
-                    <span className="ml-2 text-red-600">Remove Staff</span>
+                    <RiEmotionSadLine size="25"/>
+                    <span className="ml-2">Remove Staff</span>
                 </div>
             </ModalHeader>
             <ModalBody>
@@ -87,7 +87,7 @@ export const RemoveStaff = ({openModal, setOpenModal}: RemoveStaffProps) => {
                         setOpenModal(false)
                     })
                 }} color="failure" disabled={selectedStaff === undefined}>
-                    {loading ? <Spinner/> : <span className="text-cyan-800 dark:text-cyan-50">Remove</span>}
+                    {loading ? <Spinner size="sm"/> : <span className="text-white">Remove</span>}
                 </Button>
             </ModalFooter>
         </Modal>

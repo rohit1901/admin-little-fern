@@ -4,7 +4,7 @@ import {ImageBlock} from "@admin/components/ImageBlock";
 import {useEffect, useState} from "react";
 import {StaffDetails, StaffPageData} from "@admin/types";
 import {useStaffStore} from "@admin/store/useStaffStore";
-import {FaFacebook, FaInstagram, FaLinkedin, FaUserPlus} from "react-icons/fa";
+import {FaFacebook, FaInstagram, FaLinkedin} from "react-icons/fa";
 import {WithId} from "mongodb";
 import {
     API_STAFF_GET,
@@ -14,6 +14,7 @@ import {
     STAFF_IMAGE_FILENAME_PREFIX,
     STAFF_PORTRAIT_IMAGE_FILENAME_PREFIX
 } from "@admin/lib/constants";
+import {MdOutlineAddReaction} from "react-icons/md";
 
 const buildStaffImageFilename = (index: number, isPortrait: boolean) => {
     // index should be 0-padded to 1 digit
@@ -77,7 +78,7 @@ export const NewStaff = ({openModal, setOpenModal}: NewStaffProps) => {
         <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
             <Modal.Header>
                 <div className="font-bold text-cyan-700 dark:text-white flex flex-row items-center">
-                    <FaUserPlus/>
+                    <MdOutlineAddReaction size="25"/>
                     <span className="ml-2">Add New Staff</span>
                 </div>
             </Modal.Header>
@@ -186,7 +187,7 @@ export const NewStaff = ({openModal, setOpenModal}: NewStaffProps) => {
                         </div>
                     </div>
                     <div className="flex flex-row w-1/4 justify-between mt-4">
-                        <Button type="submit" className="dark:bg-cyan-50">Add</Button>
+                        <Button type="submit">Add</Button>
                         <Button onClick={() => setOpenModal(false)} className="dark:bg-cyan-50">Close</Button>
                     </div>
                 </form>
