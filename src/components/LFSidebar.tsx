@@ -5,7 +5,7 @@ import {BiCopyAlt} from 'react-icons/bi';
 import {usePathname} from "next/navigation";
 import {RiEmotionSadLine, RiHomeHeartLine} from "react-icons/ri";
 import {MdInsertChartOutlined, MdOutlineAddReaction, MdOutlineFolder, MdOutlineFolderDelete} from "react-icons/md";
-import {FaImages, FaLaptopCode} from "react-icons/fa";
+import {FaLaptopCode, FaRegImages} from "react-icons/fa";
 import {NewStaff} from "@admin/components/Staff/NewStaff";
 import {useState} from "react";
 import {PATHNAME_ABOUT, PATHNAME_CONTACT, PATHNAME_GALLERY, PATHNAME_HOME, PATHNAME_PARENTS, PATHNAME_PROGRAMS} from "@admin/lib/constants";
@@ -19,7 +19,7 @@ const pages = [{
 }, {
     name: 'About', href: PATHNAME_ABOUT, icon: IoMdInformationCircleOutline,
 }, {
-    name: 'Gallery', href: PATHNAME_GALLERY, icon: FaImages,
+    name: 'Gallery', href: PATHNAME_GALLERY, icon: FaRegImages,
 }, {
     name: 'Programs', href: '/programs/play-group', icon: MdOutlineFolder,
 }, {
