@@ -41,19 +41,19 @@ export default function Home() {
     const checkMongoDBStatus = async () => {
         setCheckingMongoDBStatus(true)
         await fetch('/api/mongo/status').then((v) => {
-            console.log("MongoDB is connected.")
+            console.info("MongoDB is connected.")
             setMongoDBStatus(true)
         }).catch((e) => {
-            console.log("Error fetching MongoDB status", e);
+            console.error("Error fetching MongoDB status", e);
             setMongoDBStatus(false)
         }).finally(() => setCheckingMongoDBStatus(false))
     }
     const callback = (err: AWSError, data: AWS.S3.Types.HeadBucketOutput) => {
         if (err) {
-            console.log("Error fetching S3 status", err);
+            console.error("Error fetching S3 status", err);
             setS3Status(false)
         } else {
-            console.log("Successfully fetched S3 status");
+            console.info("Successfully fetched S3 status");
             setS3Status(true)
         }
         setCheckingS3Status(false)

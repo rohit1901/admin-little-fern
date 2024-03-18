@@ -5,7 +5,6 @@ import ParentsHero from "@admin/components/ParentsPage/Hero";
 import ParentsEvents from "@admin/components/ParentsPage/Events";
 import {useParentsPageStore} from "@admin/store/";
 import {useEffect} from "react";
-import {isParentsPageData} from "@admin/lib";
 import {WithId} from "mongodb";
 import {PageHeader} from "@admin/components/PageHeader";
 
@@ -18,10 +17,7 @@ const ParentsPageComponent = ({pageData}: ParentsPageProps) => {
         setParentsPageData(pageData)
     }, [])
     return <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
-        <LFForm data={parentsPageData} updateState={(data) => {
-            if (!isParentsPageData(data)) return
-            setParentsPageData(data)
-        }}>
+        <LFForm data={parentsPageData}>
             <PageHeader title='Parents Page'/>
             <ParentsHero/>
             <ParentsEvents/>

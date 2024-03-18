@@ -17,11 +17,17 @@ import {PATHNAME_ABOUT, PATHNAME_HOME, PATHNAME_PROGRAMS} from "@admin/lib/const
 
 /**
  * Get the image url from the src
+ * Fetch from cloudfront in production and from dev in development
  * NOTE: the src should always have a leading slash
  * @param src {string} - the src of the image
  */
 export const getImageUrl = (src?: string) => {
-    return src ? `${process.env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}${src}` : ''
+    if (!src) {
+        return '';
+    }
+    const isDev = process.env.NODE_ENV === 'development';
+    const basePath = process.env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL;
+    return isDev ? `${basePath}/dev${src}` : `${basePath}${src}`;
 }
 export const getNewSchoolPrograms = (id: string, newHero: Hero, schoolPrograms?: WithId<SchoolProgram>[]) => {
     return schoolPrograms?.map((program) => {
@@ -85,7 +91,7 @@ export const isSchoolProgramsBlock = (obj: any): obj is WithId<SchoolProgramsBlo
 
 export const getS3UploadKey = (key: string) => {
     if (process.env.NODE_ENV === 'development') {
-        return `dev/${key}`
+        return `dev${key}`
     }
     return key
 }

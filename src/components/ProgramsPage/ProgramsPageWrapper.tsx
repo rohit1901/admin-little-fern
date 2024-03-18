@@ -12,8 +12,9 @@ type ProgramsPageWrapperProps = {
     slug: string
 }
 const ProgramsPageWrapper = ({schoolProgramsBlock, slug}: ProgramsPageWrapperProps) => {
-    const {programs, setPrograms} = useSchoolProgramsPageStore()
+    const {programs, setPrograms, setHeading} = useSchoolProgramsPageStore()
     useEffect(() => {
+        setHeading(schoolProgramsBlock?.heading ?? '')
         setPrograms(schoolProgramsBlock?.schoolPrograms ?? [])
     }, [])
     const program = getSchoolProgram(slug, programs)

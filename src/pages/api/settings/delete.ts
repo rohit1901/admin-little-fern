@@ -16,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             if (latestDocument.length > 0) {
                 // Delete all documents where dateCreated is less than the dateCreated of the latest document
                 const result = await collection.deleteMany({dateCreated: {$lt: latestDocument[0].dateCreated}});
-                console.log(`Deleted ${result.deletedCount} documents from ${documentName}.`);
+                console.info(`Deleted ${result.deletedCount} documents from ${documentName}.`);
                 totalDeleted += result.deletedCount;
             }
         }

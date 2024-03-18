@@ -6,7 +6,6 @@ import {Textarea, TextInput} from "flowbite-react";
 import LFFormSection from "@admin/components/LFFormSection";
 import {useContactPageStore} from "@admin/store/";
 import {useEffect} from "react";
-import {isContactPageData} from "@admin/lib";
 import {WithId} from "mongodb";
 import {PageHeader} from "@admin/components/PageHeader";
 
@@ -40,10 +39,7 @@ const ContactPageComponent = ({pageData}: ContactPageProps) => {
     }, [])
     return (
         <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
-            <LFForm data={contactPageData} updateState={(data) => {
-                if (!isContactPageData(data)) return
-                setContactPageData(data)
-            }}>
+            <LFForm data={contactPageData}>
                 <PageHeader title={'Contact Page'}/>
                 <LFFormSection sectionTitle={'Map and Contact Details'} row>
                     {/* Map */}

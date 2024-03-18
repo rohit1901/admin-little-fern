@@ -56,7 +56,7 @@ const StaffDetails = () => {
                                 <Checkbox id={`staffFeatured-${_id.toString()}`} checked={featured} className="mr-2"
                                           onChange={(event) => setStaffDetailsFeatured(_id.toString(), event.target.checked)}/>
                                 <Label htmlFor={`staffFeatured-${_id.toString()}`} className="flex" disabled>
-                                    Show as Featured Staff on the website homepage?
+                                    Show as Featured Staff on the homepage?
                                 </Label>
                             </div>
                         </div>
