@@ -2,16 +2,18 @@ import LFFormElement from "@admin/components/LFFormElement";
 import {Button, Checkbox, Label, Modal, Textarea, TextInput} from "flowbite-react";
 import {ImageBlock} from "@admin/components/ImageBlock";
 import {useEffect, useState} from "react";
-import {StaffDetails} from "@admin/types";
+import {StaffDetails, StaffPageData} from "@admin/types";
 import {useStaffStore} from "@admin/store/useStaffStore";
-import {MdAddReaction} from "react-icons/md";
-import {FaFacebook, FaInstagram, FaLinkedin} from "react-icons/fa";
-import {ObjectId, WithId} from "mongodb";
-import {API_STAFF_GET, API_STAFF_UPDATE} from "@admin/lib/constants";
-
-const STAFF_IMAGE_FILENAME_PREFIX = "/images/stock/staff/staff-";
-const STAFF_PORTRAIT_IMAGE_FILENAME_PREFIX = "/images/stock/about/about-team-";
-const IMAGE_FILE_EXTENSION = ".jpg";
+import {FaFacebook, FaInstagram, FaLinkedin, FaUserPlus} from "react-icons/fa";
+import {WithId} from "mongodb";
+import {
+    API_STAFF_GET,
+    API_STAFF_UPDATE,
+    IMAGE_FILE_EXTENSION,
+    INITIAL_NEW_STAFF_DETAILS,
+    STAFF_IMAGE_FILENAME_PREFIX,
+    STAFF_PORTRAIT_IMAGE_FILENAME_PREFIX
+} from "@admin/lib/constants";
 
 const buildStaffImageFilename = (index: number, isPortrait: boolean) => {
     // index should be 0-padded to 1 digit
@@ -22,24 +24,17 @@ type NewStaffProps = {
     openModal: boolean;
     setOpenModal: (open: boolean) => void;
 }
-const INITIAL_NEW_STAFF_DETAILS: StaffDetails = {
-    name: "",
-    role: "",
-    description: "",
-    featured: false,
-    image: "",
-    portraitImage: "",
-    social: []
-}
 const areImagesUploaded = (staffImageUploaded: boolean, staffPortraitImageUploaded: boolean) => {
     return staffImageUploaded && staffPortraitImageUploaded
 }
 export const NewStaff = ({openModal, setOpenModal}: NewStaffProps) => {
     const [newStaffDetails, setNewStaffDetails] = useState<StaffDetails>(INITIAL_NEW_STAFF_DETAILS)
-    const [id, setId] = useState<ObjectId>()
     const [staffImageUploaded, setStaffImageUploaded] = useState(false)
     const [staffPortraitImageUploaded, setStaffPortraitImageUploaded] = useState(false)
-    const {staffDetails, setStaffDetails, setStaffAssurancesBlock, setHomeTextBlock, setAboutTextBlock} = useStaffStore()
+    const {
+        staffDetails, staffPageDataId,
+        setStaffDetails, setStaffAssurancesBlock, setHomeTextBlock, setAboutTextBlock, setStaffPageDataId
+    } = useStaffStore()
     const addNewStaff = (staffDetails: WithId<StaffDetails>[]) => {
         if (!areImagesUploaded(staffImageUploaded, staffPortraitImageUploaded)) {
             alert("Please upload both images before adding new staff")
@@ -52,7 +47,7 @@ export const NewStaff = ({openModal, setOpenModal}: NewStaffProps) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                _id: id,
+                _id: staffPageDataId,
                 staffDetails: newStaff
             })
         }).then(r => r.json()).then((response) => {
@@ -67,12 +62,12 @@ export const NewStaff = ({openModal, setOpenModal}: NewStaffProps) => {
     useEffect(() => {
         if (!staffDetails || staffDetails?.length === 0) {
             fetch(API_STAFF_GET).then(r => r.json()).then((response) => {
-                const staff = response.body
+                const staff: WithId<StaffPageData> = response.body
                 setStaffDetails(staff?.staffDetails ?? [])
                 setStaffAssurancesBlock(staff?.assurancesBlock ?? {})
                 setHomeTextBlock(staff?.homeTextBlock ?? {})
                 setAboutTextBlock(staff?.aboutTextBlock ?? {})
-                setId(staff?._id)
+                setStaffPageDataId(staff?._id)
             }).catch((error) => {
                 console.error("Error fetching staff details", error)
             })
@@ -82,8 +77,8 @@ export const NewStaff = ({openModal, setOpenModal}: NewStaffProps) => {
         <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
             <Modal.Header>
                 <div className="font-bold text-cyan-700 dark:text-white flex flex-row items-center">
-                    <MdAddReaction/>
-                    <div>Add New Staff</div>
+                    <FaUserPlus/>
+                    <span className="ml-2">Add New Staff</span>
                 </div>
             </Modal.Header>
             <Modal.Body>

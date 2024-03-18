@@ -3,7 +3,7 @@ import {AboutPageData, StaffPageData} from "@admin/types";
 import LFForm from "@admin/components/LFForm";
 import LFFormSection from "@admin/components/LFFormSection";
 import {useEffect} from "react";
-import StaffDetails from "@admin/components/AboutPage/StaffDetails";
+import StaffDetails from "@admin/components/Staff/StaffDetails";
 import AboutValueData from "@admin/components/AboutPage/AboutValueData";
 import AboutTitle from "@admin/components/AboutPage/AboutTitle";
 import AlternatingFeatures from "@admin/components/AboutPage/AlternatingFeatures";

@@ -10,6 +10,7 @@ import {GrHeroku} from "react-icons/gr";
 import {HerokuStatusResponseType} from "@admin/types";
 import {DiMongodb} from "react-icons/di";
 import {PageHeader} from "@admin/components/PageHeader";
+import {IoMdRefresh} from "react-icons/io";
 
 export default function Home() {
     const [s3Status, setS3Status] = useState(false)
@@ -78,7 +79,10 @@ export default function Home() {
                     <Button
                         outline
                         disabled={checkingS3Status} onClick={async () => checkS3Status()}>
-                        {checkingS3Status ? <Spinner/> : 'Check S3 Status'}
+                        {checkingS3Status ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
+                            <IoMdRefresh/>
+                            <span>Check S3 Status</span>
+                        </div>}
                     </Button>
                 </div>
             </Card>
@@ -99,7 +103,10 @@ export default function Home() {
                     <Button
                         outline
                         disabled={checkingHerokuStatus} onClick={async () => checkHerokuStatus()}>
-                        {checkingHerokuStatus ? <Spinner/> : 'Check Heroku Status'}
+                        {checkingHerokuStatus ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
+                            <IoMdRefresh/>
+                            <span>Check Heroku Status</span>
+                        </div>}
                     </Button>
                 </div>
             </Card>
@@ -120,7 +127,10 @@ export default function Home() {
                     <Button
                         outline
                         disabled={checkingMongoDBStatus} onClick={async () => checkMongoDBStatus()}>
-                        {checkingMongoDBStatus ? <Spinner/> : 'Check MongoDB Status'}
+                        {checkingMongoDBStatus ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
+                            <IoMdRefresh/>
+                            <span>Check MongoDB Status</span>
+                        </div>}
                     </Button>
                 </div>
             </Card>

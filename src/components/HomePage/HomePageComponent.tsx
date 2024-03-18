@@ -5,7 +5,7 @@ import LFForm from "@admin/components/LFForm";
 import HomeHero from "@admin/components/HomePage/HomeHero";
 import SchoolFeaturesText from "@admin/components/HomePage/SchoolFeaturesText";
 import SchoolFeaturesItems from "@admin/components/HomePage/SchoolFeaturesItems";
-import Staff from "@admin/components/HomePage/Staff";
+import Staff from "@admin/components/Staff/Staff";
 import SchoolPrograms from "@admin/components/HomePage/SchoolPrograms";
 import {useHomePageStore, useSchoolProgramsPageStore} from "@admin/store";
 import {useEffect} from "react";
@@ -26,6 +26,7 @@ const HomePageComponent = ({pageData, schoolProgramsBlockPageData, staffPageData
     } = useHomePageStore()
     const {setPrograms, setHeading} = useSchoolProgramsPageStore()
     const {
+        setStaffPageDataId,
         setStaffDetails,
         setStaffAssurancesBlock,
         setHomeTextBlock,
@@ -39,6 +40,7 @@ const HomePageComponent = ({pageData, schoolProgramsBlockPageData, staffPageData
         setStaffAssurancesBlock(staffPageData?.assurancesBlock ?? {})
         setHomeTextBlock(staffPageData?.homeTextBlock ?? {})
         setAboutTextBlock(staffPageData?.aboutTextBlock ?? {})
+        setStaffPageDataId(staffPageData?._id)
     }, [])
 
     return (homePageData && <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>

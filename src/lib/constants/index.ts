@@ -1,4 +1,4 @@
-import {PathnameMappingType} from "@admin/types";
+import {PathnameMappingType, StaffDetails} from "@admin/types";
 
 /**
  * The days of the week
@@ -32,3 +32,18 @@ export const API_STAFF_GET = '/api/staff/get'
 export const PATHNAME_HOME = '/website-pages/Home'
 export const PATHNAME_PROGRAMS = '/programs'
 export const PATHNAME_ABOUT = '/website-pages/About'
+export const PATHNAME_CONTACT = '/website-pages/Contact'
+export const PATHNAME_PARENTS = '/website-pages/Parents'
+export const PATHNAME_GALLERY = '/website-pages/Gallery'
+export const STAFF_IMAGE_FILENAME_PREFIX = "/images/stock/staff/staff-";
+export const STAFF_PORTRAIT_IMAGE_FILENAME_PREFIX = "/images/stock/about/about-team-";
+export const IMAGE_FILE_EXTENSION = ".jpg";
+export const INITIAL_NEW_STAFF_DETAILS: StaffDetails = {
+    name: "",
+    role: "",
+    description: "",
+    featured: false,
+    image: "",
+    portraitImage: "",
+    social: []
+}

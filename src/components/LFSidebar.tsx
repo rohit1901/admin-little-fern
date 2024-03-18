@@ -5,32 +5,35 @@ import {BiSolidCopyAlt} from 'react-icons/bi';
 import {usePathname} from "next/navigation";
 import {IoCall} from "react-icons/io5";
 import {RiHomeHeartFill} from "react-icons/ri";
-import {MdAddReaction, MdInfo, MdInsertChart} from "react-icons/md";
+import {MdInfo, MdInsertChart} from "react-icons/md";
 import {IoMdSchool} from "react-icons/io";
-import {FaImages, FaLaptopCode, FaPlus, FaUsers} from "react-icons/fa";
+import {FaImages, FaLaptopCode, FaMinus, FaPlus, FaUserMinus, FaUserPlus, FaUsers} from "react-icons/fa";
 import {GiGraduateCap} from "react-icons/gi";
-import {NewStaff} from "@admin/components/AboutPage/NewStaff";
+import {NewStaff} from "@admin/components/Staff/NewStaff";
 import {useState} from "react";
+import {PATHNAME_ABOUT, PATHNAME_CONTACT, PATHNAME_GALLERY, PATHNAME_HOME, PATHNAME_PARENTS, PATHNAME_PROGRAMS} from "@admin/lib/constants";
+import {RemoveStaff} from "@admin/components/Staff/RemoveStaff";
 
-const SidebarClasses = "fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full " +
-    "bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+const DeleteUser = () => {
+    return <FaUserMinus className="h-6 w-6 text-red-600"/>
+}
 const pages = [{
-    name: 'Home', href: '/website-pages/Home', icon: RiHomeHeartFill,
+    name: 'Home', href: PATHNAME_HOME, icon: RiHomeHeartFill,
 }, {
-    name: 'About', href: '/website-pages/About', icon: MdInfo,
+    name: 'About', href: PATHNAME_ABOUT, icon: MdInfo,
 }, {
-    name: 'Gallery', href: '/website-pages/Gallery', icon: FaImages,
+    name: 'Gallery', href: PATHNAME_GALLERY, icon: FaImages,
 }, {
     name: 'Programs', href: '/programs/play-group', icon: IoMdSchool,
 }, {
-    name: 'Contact', href: '/website-pages/Contact', icon: IoCall,
+    name: 'Contact', href: PATHNAME_CONTACT, icon: IoCall,
 }, {
-    name: 'Parents', href: '/website-pages/Parents', icon: FaUsers,
+    name: 'Parents', href: PATHNAME_PARENTS, icon: FaUsers,
 }]
 const setActive = (href: string, slug: string | null) => {
     // set active to true if the slug includes '/programs'
-    if (href.includes('/programs')) {
-        return slug?.includes('/programs')
+    if (href.includes(PATHNAME_PROGRAMS)) {
+        return slug?.includes(PATHNAME_PROGRAMS)
     }
     return slug === href
 }
@@ -38,18 +41,25 @@ const ADD_ICON_CLASS =
     "absolute inline-flex items-center justify-center w-2 h-2 -top-0.5 -right-1 -end-2"
 const AddGraduate = () => {
     return <div className="relative inline-flex">
-        <GiGraduateCap className="text-cyan-800 dark:text-cyan-50 h-6 w-6"></GiGraduateCap>
+        <GiGraduateCap className="h-6 w-6"></GiGraduateCap>
         <FaPlus className={ADD_ICON_CLASS}/>
+    </div>
+}
+const RemoveGraduate = () => {
+    return <div className="relative inline-flex">
+        <GiGraduateCap className="h-6 w-6 text-red-600"></GiGraduateCap>
+        <FaMinus className={`${ADD_ICON_CLASS} text-red-600`}/>
     </div>
 }
 
 const LFSidebar = () => {
     const slug = usePathname()
-    const [openModal, setOpenModal] = useState(false)
-    return (<Sidebar
-        className={SidebarClasses}>
-        <NewStaff openModal={openModal} setOpenModal={setOpenModal}/>
-        <SidebarItems className="sidebar-items">
+    const [openAddStaffModal, setOpenAddStaffModal] = useState(false)
+    const [openRemoveStaffModal, setOpenRemoveStaffModal] = useState(false)
+    return (<Sidebar>
+        <NewStaff openModal={openAddStaffModal} setOpenModal={setOpenAddStaffModal}/>
+        <RemoveStaff openModal={openRemoveStaffModal} setOpenModal={setOpenRemoveStaffModal}/>
+        <SidebarItems>
             <SidebarItemGroup>
                 <SidebarItem href="/" icon={MdInsertChart} active={setActive('/', slug)}>
                     Dashboard
@@ -64,11 +74,17 @@ const LFSidebar = () => {
                 </SidebarCollapse>
             </SidebarItemGroup>
             <SidebarItemGroup>
-                <SidebarItem as="button" icon={MdAddReaction} onClick={() => setOpenModal(true)}>
+                <SidebarItem as="button" icon={FaUserPlus} onClick={() => setOpenAddStaffModal(true)}>
                     Add Staff
+                </SidebarItem>
+                <SidebarItem as="button" onClick={() => setOpenRemoveStaffModal(true)} icon={DeleteUser}>
+                    <span className="text-red-600">Remove Staff</span>
                 </SidebarItem>
                 <SidebarItem href="#" icon={AddGraduate}>
                     Add Program
+                </SidebarItem>
+                <SidebarItem href="#" icon={RemoveGraduate}>
+                    <span className="text-red-600">Remove Program</span>
                 </SidebarItem>
             </SidebarItemGroup>
             <SidebarItemGroup>
