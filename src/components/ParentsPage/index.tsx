@@ -1,21 +1,33 @@
 'use client'
-import {ParentsPageData} from "@admin/types";
 import LFForm from "@admin/components/LFForm";
 import ParentsHero from "@admin/components/ParentsPage/Hero";
 import ParentsEvents from "@admin/components/ParentsPage/Events";
 import {useParentsPageStore} from "@admin/store/";
 import {useEffect} from "react";
-import {WithId} from "mongodb";
 import {PageHeader} from "@admin/components/PageHeader";
+import {API_PARENTS_GET} from "@admin/lib/constants";
 
-type ParentsPageProps = {
-    pageData: WithId<ParentsPageData>
-}
-const ParentsPageComponent = ({pageData}: ParentsPageProps) => {
+const ParentsPageComponent = () => {
     const {parentsPageData, setParentsPageData} = useParentsPageStore()
     useEffect(() => {
-        setParentsPageData(pageData)
+        if (!parentsPageData || !parentsPageData._id) {
+            fetch(API_PARENTS_GET, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    setParentsPageData(data.body)
+                }).catch((error) => {
+                console.error('Error:', error);
+
+            })
+        }
     }, [])
+    if (!parentsPageData || !parentsPageData._id) {
+        return null
+    }
     return <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
         <LFForm data={parentsPageData}>
             <PageHeader title='Parents Page'/>
