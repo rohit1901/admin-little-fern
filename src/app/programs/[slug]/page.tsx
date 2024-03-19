@@ -1,4 +1,3 @@
-import {getSchoolProgramsBlock} from "@admin/lib/homePage";
 import ProgramsPageWrapper from "@admin/components/ProgramsPage/ProgramsPageWrapper";
 
 export async function generateMetadata() {
@@ -11,8 +10,7 @@ export async function generateMetadata() {
 export default async function ProgramPage({params: {slug}}: {
     params: { slug: string }
 }) {
-    const schoolProgramsBlock = await getSchoolProgramsBlock()
-    return <ProgramsPageWrapper schoolProgramsBlock={JSON.parse(JSON.stringify(schoolProgramsBlock))} slug={slug}/>
+    return <ProgramsPageWrapper slug={slug}/>
 }
 
 export const dynamicParams = false

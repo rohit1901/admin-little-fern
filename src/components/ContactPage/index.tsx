@@ -1,18 +1,13 @@
 'use client'
-import {ContactPageData} from "@admin/types";
 import LFForm from "@admin/components/LFForm";
 import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
 import LFFormSection from "@admin/components/LFFormSection";
 import {useContactPageStore} from "@admin/store/";
 import {useEffect} from "react";
-import {isContactPageData} from "@admin/lib";
-import {WithId} from "mongodb";
 import {PageHeader} from "@admin/components/PageHeader";
+import {API_CONTACT_GET} from "@admin/lib/constants";
 
-type ContactPageProps = {
-    pageData: WithId<ContactPageData>
-}
 const MapsIframe = () => {
     return (
         <iframe loading="lazy" width="100%" height="100%"
@@ -22,7 +17,7 @@ const MapsIframe = () => {
         </iframe>
     )
 }
-const ContactPageComponent = ({pageData}: ContactPageProps) => {
+const ContactPageComponent = () => {
     const {
         contactPageData,
         setContactPageData,
@@ -36,14 +31,27 @@ const ContactPageComponent = ({pageData}: ContactPageProps) => {
         setTextBlockText
     } = useContactPageStore()
     useEffect(() => {
-        setContactPageData(pageData)
+        if (!contactPageData || !contactPageData._id) {
+            fetch(API_CONTACT_GET, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    setContactPageData(data.body)
+                }).catch((error) => {
+                console.error('Error:', error);
+
+            })
+        }
     }, [])
+    if (!contactPageData || !contactPageData._id) {
+        return null
+    }
     return (
         <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
-            <LFForm data={contactPageData} updateState={(data) => {
-                if (!isContactPageData(data)) return
-                setContactPageData(data)
-            }}>
+            <LFForm data={contactPageData}>
                 <PageHeader title={'Contact Page'}/>
                 <LFFormSection sectionTitle={'Map and Contact Details'} row>
                     {/* Map */}

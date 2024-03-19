@@ -1,7 +1,6 @@
 'use client'
-import {Fragment, PropsWithChildren, useState} from "react";
-import {Accordion, Button, Modal} from "flowbite-react";
-import {MdOutlineAddReaction} from "react-icons/md";
+import {PropsWithChildren, useState} from "react";
+import {Accordion} from "flowbite-react";
 
 type LFFormSectionProps = {
     sectionTitle: string;
@@ -17,7 +16,7 @@ const getDisplayClasses = (wrap?: boolean, row?: boolean, column?: boolean) => {
     if (column) return 'flex-col'
     return 'flex-wrap'
 }
-const LFFormSection = ({children, sectionTitle, wrap, row, column, addElemButton}: PropsWithChildren<LFFormSectionProps>) => {
+const LFFormSection = ({children, sectionTitle, wrap, row, column}: PropsWithChildren<LFFormSectionProps>) => {
     const [openModal, setOpenModal] = useState(false)
     return (
         <Accordion className="mb-5">
@@ -28,26 +27,6 @@ const LFFormSection = ({children, sectionTitle, wrap, row, column, addElemButton
                     </p>
                 </Accordion.Title>
                 <Accordion.Content>
-                    {addElemButton &&
-                        <Fragment>
-                            <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
-                                <Modal.Header>
-                                    <h1 className="font-bold text-cyan-700 dark:text-white">
-                                        Add New Element
-                                    </h1>
-                                </Modal.Header>
-                                <Modal.Body>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button onClick={() => setOpenModal(false)} className="dark:bg-cyan-50">Close</Button>
-                                </Modal.Footer>
-                            </Modal>
-                            <Button onClick={() => setOpenModal(true)} outline>
-                                <MdOutlineAddReaction className="w-5 h-5 mr-2 dark:text-cyan-800"/>
-                                <p>Add new Staff</p>
-                            </Button>
-                        </Fragment>
-                    }
                     <div
                         className={`container mx-auto flex px-5 w-full ${getDisplayClasses(wrap, row, column)}`}>
                         {children}
