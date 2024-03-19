@@ -17,14 +17,13 @@ type ProgramsPageProps = {
 }
 const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
     const {
-        programs,
         setProgramHeroHeadline,
         setProgramHeroTagline,
         setProgramHeroText,
         setProgramDescriptionSectionText,
     } = useSchoolProgramsPageStore()
     return <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
-        <ProgramTabs programs={programs}/>
+        <ProgramTabs/>
         <LFForm isProgram>
             <PageHeader title={`${schoolProgram?.name} Program`}/>
             <LFFormSection sectionTitle="Headings">

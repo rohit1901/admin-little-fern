@@ -26,6 +26,8 @@ export const PATHNAME_MAPPING: PathnameMappingType = {
     '/website-pages/Parents': '/api/parents/update',
     '/website-pages/Gallery': '/api/gallery/update',
 }
+export const API_HOME_UPDATE = '/api/home/update'
+export const API_HOME_GET = '/api/home/get'
 export const API_PROGRAMS_UPDATE = '/api/programs/update'
 export const API_PROGRAMS_GET = '/api/programs/get'
 export const API_STAFF_UPDATE = '/api/staff/update'

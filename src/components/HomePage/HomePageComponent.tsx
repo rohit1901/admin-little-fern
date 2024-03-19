@@ -1,55 +1,43 @@
 'use client'
 import {Checkbox, Label, Tooltip} from "flowbite-react";
-import {HomePageData, SchoolProgramsBlock, StaffPageData} from "@admin/types";
 import LFForm from "@admin/components/LFForm";
 import HomeHero from "@admin/components/HomePage/HomeHero";
 import SchoolFeaturesText from "@admin/components/HomePage/SchoolFeaturesText";
 import SchoolFeaturesItems from "@admin/components/HomePage/SchoolFeaturesItems";
 import Staff from "@admin/components/Staff/Staff";
 import SchoolPrograms from "@admin/components/HomePage/SchoolPrograms";
-import {useHomePageStore, useSchoolProgramsPageStore} from "@admin/store";
+import {useHomePageStore} from "@admin/store";
 import {useEffect} from "react";
-import {WithId} from "mongodb";
 import FAQsBlock from "@admin/components/HomePage/FAQsBlock";
-import {useStaffStore} from "@admin/store/useStaffStore";
 import {PageHeader} from "@admin/components/PageHeader";
+import {API_HOME_GET} from "@admin/lib/constants";
 
-type HomePageDataProps = {
-    pageData: WithId<HomePageData>
-    schoolProgramsBlockPageData: WithId<SchoolProgramsBlock>
-    staffPageData: WithId<StaffPageData>
-}
-const HomePageComponent = ({pageData, schoolProgramsBlockPageData, staffPageData}: HomePageDataProps) => {
+const HomePageComponent = () => {
     const {
         homePageData,
         setHomePageData
     } = useHomePageStore()
-    const {setPrograms, setHeading} = useSchoolProgramsPageStore()
-    const {
-        setStaffPageDataId,
-        setStaffDetails,
-        setStaffAssurancesBlock,
-        setHomeTextBlock,
-        setAboutTextBlock
-    } = useStaffStore()
     useEffect(() => {
-        setHomePageData(pageData)
-        setPrograms(schoolProgramsBlockPageData?.schoolPrograms ?? [])
-        setHeading(schoolProgramsBlockPageData?.heading ?? '')
-        setStaffDetails(staffPageData?.staffDetails ?? [])
-        setStaffAssurancesBlock(staffPageData?.assurancesBlock ?? {})
-        setHomeTextBlock(staffPageData?.homeTextBlock ?? {})
-        setAboutTextBlock(staffPageData?.aboutTextBlock ?? {})
-        setStaffPageDataId(staffPageData?._id)
+        if (!homePageData || !homePageData._id) {
+            fetch(API_HOME_GET, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    setHomePageData(data.body)
+                }).catch((error) => {
+                console.error('Error:', error);
+            });
+        }
     }, [])
 
-    return (homePageData && <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
+    return (homePageData._id && <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
             <LFForm data={homePageData}>
                 <PageHeader title={'Home Page'}/>
                 {/* Hero Block */}
-                <HomeHero image={homePageData.homeHero?.hero.image} tagline={homePageData.homeHero?.hero.tagline}
-                          headline={homePageData.homeHero?.hero.headline} text={homePageData.homeHero?.hero.text}
-                          youTubeLink={homePageData.homeHero?.hero.youTubeLink}/>
+                <HomeHero/>
                 {/* School Features heading, subheading, text */}
                 <SchoolFeaturesText/>
                 {/* School Features items */}
@@ -62,7 +50,6 @@ const HomePageComponent = ({pageData, schoolProgramsBlockPageData, staffPageData
                 <FAQsBlock/>
 
                 <div className="flex items-center gap-2 pt-2 pb-2">
-
                     <Checkbox id="ratings" defaultChecked disabled/>
                     <Tooltip content="This feature is not yet available">
                         <Label htmlFor="ratings" className="flex" disabled>

@@ -4,11 +4,33 @@ import {Textarea, TextInput} from "flowbite-react";
 import {useSchoolProgramsPageStore} from "@admin/store";
 import {ImageBlock} from "@admin/components/ImageBlock";
 import LFFormSection from "@admin/components/LFFormSection";
+import {useEffect} from "react";
+import {API_PROGRAMS_GET} from "@admin/lib/constants";
 
 const headingClasses = "container mx-auto flex px-5 md:flex-row flex-col items-center w-full " +
     "text-2xl font-bold text-gray-900 dark:text-white md:text-3xl lg:text-4xl"
 const SchoolPrograms = () => {
-    const {programs, heading, setHeading, setProgramHeroHeadline, setProgramHeroTagline, setProgramHeroText} = useSchoolProgramsPageStore()
+    const {
+        programs, heading,
+        setHeading, setPrograms, setProgramHeroHeadline, setProgramHeroTagline, setProgramHeroText
+    } = useSchoolProgramsPageStore()
+    useEffect(() => {
+        if (!programs || programs.length === 0) {
+            fetch(API_PROGRAMS_GET, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    setPrograms(data.body)
+                    setHeading(data.body.heading)
+                }).catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    }, [])
+    if (!programs || programs.length === 0) return null
     return <LFFormSection sectionTitle="School Programs">
         <div className="container px-5">
             <div className="flex flex-col w-1/2 mb-20">
