@@ -30,6 +30,7 @@ export const RemoveProgram = ({openModal, setOpenModal}: RemoveProgramProps) => 
             })
         }
     }, [])
+    if (!programs || programs.length === 0) return null
     return (
         <Modal dismissible show={openModal} onClose={() => setOpenModal(false)} size="sm">
             <ModalHeader>

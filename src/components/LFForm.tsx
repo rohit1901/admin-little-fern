@@ -27,7 +27,6 @@ const getApiPath = (path: string, shouldUpdatePrograms?: boolean) => {
 }
 type LFFormProps = {
     data?: WithId<HomePageData | ParentsPageData | GalleryPageData | ContactPageData | AboutPageData>
-    updateState?: (data: WithId<HomePageData | ParentsPageData | GalleryPageData | ContactPageData | AboutPageData>) => void
     isProgram?: boolean
 }
 
@@ -56,7 +55,7 @@ const handleProgramUpdate = async (programs: WithId<SchoolProgram>[], heading: s
     return
 }
 
-const LFForm = ({children, data, updateState, isProgram}: PropsWithChildren<LFFormProps>) => {
+const LFForm = ({children, data, isProgram}: PropsWithChildren<LFFormProps>) => {
     const formRef = useRef<HTMLFormElement>(null);
     const {data: session} = useSession()
     const pathname = usePathname()

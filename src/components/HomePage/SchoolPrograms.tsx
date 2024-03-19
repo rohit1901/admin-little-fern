@@ -23,7 +23,7 @@ const SchoolPrograms = () => {
                 }
             }).then(response => response.json())
                 .then(data => {
-                    setPrograms(data.body)
+                    setPrograms(data.body.schoolPrograms)
                     setHeading(data.body.heading)
                 }).catch((error) => {
                 console.error('Error:', error);
