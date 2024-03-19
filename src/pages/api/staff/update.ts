@@ -1,9 +1,9 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import {getMongoDb} from "@admin/lib/mongodb";
 import {StaffDetails, StaffPageData} from "@admin/types";
-import {ObjectId, WithId} from "mongodb";
+import {Db, ObjectId, WithId} from "mongodb";
 
-const handlePost = async (req: NextApiRequest, res: NextApiResponse, db: any) => {
+const handlePost = async (req: NextApiRequest, res: NextApiResponse, db: Db) => {
     const staffPageData: WithId<StaffPageData> = {
         ...req.body,
         staffDetails: req.body?.staffDetails.map((staffDetail: WithId<StaffDetails>) => ({...staffDetail, _id: new ObjectId()}))
@@ -17,7 +17,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse, db: any) =>
     res.status(200).json({message: 'success', body: newStaffPageData});
 }
 
-const handlePut = async (req: NextApiRequest, res: NextApiResponse, db: any) => {
+const handlePut = async (req: NextApiRequest, res: NextApiResponse, db: Db) => {
     if (!req.body._id) {
         res.status(400).json({message: 'Error updating staff details', error: 'No staff id provided'});
         return;
@@ -33,7 +33,7 @@ const handlePut = async (req: NextApiRequest, res: NextApiResponse, db: any) => 
     res.status(200).json({message: 'success', body: newStaffDetails.staffDetails});
 }
 
-const handleDelete = async (req: NextApiRequest, res: NextApiResponse, db: any) => {
+const handleDelete = async (req: NextApiRequest, res: NextApiResponse, db: Db) => {
     const transformedReq: WithId<{
         staffDetailId: ObjectId
     }> = req.body as WithId<{

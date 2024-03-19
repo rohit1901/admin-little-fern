@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {ObjectId, WithId} from "mongodb";
 import {useSchoolProgramsPageStore} from "@admin/store";
-import {API_PROGRAMS_GET} from "@admin/lib/constants";
+import {API_PROGRAMS_GET, API_PROGRAMS_UPDATE} from "@admin/lib/constants";
 import {SchoolProgramsBlock} from "@admin/types";
 import {Button, Checkbox, Modal, ModalBody, ModalFooter, ModalHeader, Spinner, Table} from "flowbite-react";
 import {MdOutlineFolderDelete} from "react-icons/md";
@@ -13,13 +13,18 @@ type RemoveProgramProps = {
 export const RemoveProgram = ({openModal, setOpenModal}: RemoveProgramProps) => {
     const [loading, setLoading] = useState(false)
     const [selectedProgramId, setSelectedProgramId] = useState<ObjectId>()
+    const [collectionId, setCollectionId] = useState<ObjectId>()
     const {programs, setPrograms, setHeading} = useSchoolProgramsPageStore()
+    const fetchProgramsCallback = (programsBlock: WithId<SchoolProgramsBlock>) => {
+        setCollectionId(programsBlock._id)
+        setPrograms(programsBlock?.schoolPrograms ?? [])
+        setHeading(programsBlock?.heading ?? '')
+    }
     useEffect(() => {
         if (!programs || programs?.length === 0) {
             fetch(API_PROGRAMS_GET).then(r => r.json()).then((response) => {
                 const programsBlock: WithId<SchoolProgramsBlock> = response.body
-                setPrograms(programsBlock?.schoolPrograms ?? [])
-                setHeading(programsBlock?.heading ?? '')
+                fetchProgramsCallback(programsBlock)
             }).catch((error) => {
                 console.error("Error fetching programs", error)
             })
@@ -70,9 +75,31 @@ export const RemoveProgram = ({openModal, setOpenModal}: RemoveProgramProps) => 
                 <Button onClick={() => setOpenModal(false)} className="mr-1">
                     Cancel
                 </Button>
-                <Button onClick={() => {
+                <Button onClick={async () => {
                     setLoading(true)
-                    //TODO: remove program
+                    fetch(API_PROGRAMS_UPDATE, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({_id: selectedProgramId, collectionId})
+                    }).then(r => {
+                        if (r.ok) {
+                            fetch(API_PROGRAMS_GET).then(r => r.json()).then((response) => {
+                                const programsBlock: WithId<SchoolProgramsBlock> = response.body
+                                fetchProgramsCallback(programsBlock)
+                            }).catch((error) => {
+                                console.error("Error fetching programs", error)
+                            })
+                        }
+                    }).catch((error) => {
+                        console.error("Error removing program", error)
+                        setLoading(false)
+                    }).finally(() => {
+                        setSelectedProgramId(undefined)
+                        setLoading(false)
+                        setOpenModal(false)
+                    })
                 }} disabled={!selectedProgramId} color="failure">
                     {loading ? <Spinner size="sm"/> : <span className="text-white">Remove</span>}
                 </Button>
