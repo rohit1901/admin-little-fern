@@ -13,38 +13,40 @@ type HomeHeroProps = {
     image?: ImageItem
 }
 
-const HomeHero = ({tagline, headline, text, image, youTubeLink}: HomeHeroProps) => {
+const HomeHero = () => {
     const {
+        homePageData,
         setHomePageHeroHeadline,
         setHomePageHeroText,
         setHomePageHeroTagline,
         setYouTubeLink,
     } = useHomePageStore(state => state)
+    if (!homePageData || !homePageData._id) return null
     return <LFFormSection sectionTitle={'Headings'}>
         <div
             className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16">
-            <ImageBlock imagePath={image?.src}/>
+            <ImageBlock imagePath={homePageData?.homeHero?.hero.image?.src}/>
         </div>
         <div className="lg:flex-grow md:w-1/2">
-            <LFFormElement labelValue='Tagline' labelName='tagline' elemValue={tagline}>
+            <LFFormElement labelValue='Tagline' labelName='tagline' elemValue={homePageData?.homeHero?.hero?.tagline}>
                 <TextInput id='tagline' type='text' placeholder='Tagline for the Hero Block'
-                           value={tagline} required
+                           value={homePageData?.homeHero?.hero?.tagline} required
                            onChange={(e) => setHomePageHeroTagline(e.currentTarget.value)}/>
             </LFFormElement>
-            <LFFormElement labelValue="Headline" labelName="headline" elemValue={headline}>
+            <LFFormElement labelValue="Headline" labelName="headline" elemValue={homePageData?.homeHero?.hero?.headline}>
                 <TextInput id="headline" type="text" placeholder="Headline for the Hero Block"
-                           value={headline} required
+                           value={homePageData?.homeHero?.hero?.headline} required
                            onChange={(e) => setHomePageHeroHeadline(e.currentTarget.value)}/>
             </LFFormElement>
-            <LFFormElement labelValue="Text" labelName="text" elemValue={text}>
+            <LFFormElement labelValue="Text" labelName="text" elemValue={homePageData?.homeHero?.hero?.text}>
                 <Textarea id="text" placeholder="Text for the Hero Block"
-                          value={text} required
+                          value={homePageData?.homeHero?.hero?.text}
                           className="w-full h-text-area leading-6 transition-colors duration-200 ease-in-out"
                           onChange={(e) => setHomePageHeroText(e.currentTarget.value)}/>
             </LFFormElement>
-            <LFFormElement labelValue="YouTube Video Link" labelName="youtube" elemValue={youTubeLink}>
+            <LFFormElement labelValue="YouTube Video Link" labelName="youtube" elemValue={homePageData?.homeHero?.hero?.youTubeLink}>
                 <TextInput id="youtube" type="text" placeholder="YouTube Video Link"
-                           value={youTubeLink} required
+                           value={homePageData?.homeHero?.hero?.youTubeLink} required
                            onChange={(e) => setYouTubeLink(e.currentTarget.value)}/>
             </LFFormElement>
         </div>

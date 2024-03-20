@@ -1,43 +1,64 @@
 'use client'
-import {AboutPageData, StaffPageData} from "@admin/types";
 import LFForm from "@admin/components/LFForm";
 import LFFormSection from "@admin/components/LFFormSection";
 import {useEffect} from "react";
-import StaffDetails from "@admin/components/AboutPage/StaffDetails";
+import StaffDetails from "@admin/components/Staff/StaffDetails";
 import AboutValueData from "@admin/components/AboutPage/AboutValueData";
 import AboutTitle from "@admin/components/AboutPage/AboutTitle";
 import AlternatingFeatures from "@admin/components/AboutPage/AlternatingFeatures";
 import Stats from "@admin/components/AboutPage/Stats";
 import {useAboutPageStore} from "@admin/store/";
 import {ImageBlock} from "@admin/components/ImageBlock";
-import {isAboutPageData} from "@admin/lib";
-import {WithId} from "mongodb";
 import {useStaffStore} from "@admin/store/useStaffStore";
 import {PageHeader} from "@admin/components/PageHeader";
+import {API_ABOUT_GET, API_STAFF_GET} from "@admin/lib/constants";
+import {isAboutPageData} from "@admin/lib";
 
-type AboutPageComponentProps = {
-    pageData: WithId<AboutPageData>,
-    staffPageData: WithId<StaffPageData>
-}
-const AboutPageComponent = ({pageData, staffPageData}: AboutPageComponentProps) => {
+const AboutPageComponent = () => {
     const {aboutPageData, setAboutPageData} = useAboutPageStore()
     const {
+        staffPageDataId,
+        setStaffPageDataId,
         setStaffDetails,
         setStaffAssurancesBlock,
         setHomeTextBlock,
         setAboutTextBlock
     } = useStaffStore()
     useEffect(() => {
-        setAboutPageData(pageData)
-        setStaffDetails(staffPageData?.staffDetails ?? [])
-        setStaffAssurancesBlock(staffPageData?.assurancesBlock ?? {})
-        setHomeTextBlock(staffPageData?.homeTextBlock ?? {})
-        setAboutTextBlock(staffPageData?.aboutTextBlock ?? {})
+        if (!aboutPageData?._id) {
+            fetch(API_ABOUT_GET, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((res) => res.json()).then((response) => {
+                setAboutPageData(response.body)
+            })
+        }
+        if (!staffPageDataId) {
+            fetch(API_STAFF_GET, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    setStaffDetails(data.body.staffDetails)
+                    setStaffAssurancesBlock(data.body.assurancesBlock)
+                    setHomeTextBlock(data.body.homeTextBlock)
+                    setAboutTextBlock(data.body.aboutTextBlock)
+                    setStaffPageDataId(data.body._id)
+                }).catch((error) => {
+                console.error('Error:', error);
+            });
+        }
     }, [])
-
+    if (!aboutPageData?._id) {
+        return null
+    }
     return (
         <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
-            <LFForm data={aboutPageData} updateState={(data) => {
+            <LFForm data={aboutPageData} afterSubmit={(data) => {
                 if (!isAboutPageData(data)) return
                 setAboutPageData(data)
             }}>

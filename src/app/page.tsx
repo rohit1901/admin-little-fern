@@ -10,6 +10,7 @@ import {GrHeroku} from "react-icons/gr";
 import {HerokuStatusResponseType} from "@admin/types";
 import {DiMongodb} from "react-icons/di";
 import {PageHeader} from "@admin/components/PageHeader";
+import {IoReload} from "react-icons/io5";
 
 export default function Home() {
     const [s3Status, setS3Status] = useState(false)
@@ -41,19 +42,19 @@ export default function Home() {
     const checkMongoDBStatus = async () => {
         setCheckingMongoDBStatus(true)
         await fetch('/api/mongo/status').then((v) => {
-            console.log("MongoDB is connected.")
+            console.info("MongoDB is connected.")
             setMongoDBStatus(true)
         }).catch((e) => {
-            console.log("Error fetching MongoDB status", e);
+            console.error("Error fetching MongoDB status", e);
             setMongoDBStatus(false)
         }).finally(() => setCheckingMongoDBStatus(false))
     }
     const callback = (err: AWSError, data: AWS.S3.Types.HeadBucketOutput) => {
         if (err) {
-            console.log("Error fetching S3 status", err);
+            console.error("Error fetching S3 status", err);
             setS3Status(false)
         } else {
-            console.log("Successfully fetched S3 status");
+            console.info("Successfully fetched S3 status");
             setS3Status(true)
         }
         setCheckingS3Status(false)
@@ -78,7 +79,10 @@ export default function Home() {
                     <Button
                         outline
                         disabled={checkingS3Status} onClick={async () => checkS3Status()}>
-                        {checkingS3Status ? <Spinner/> : 'Check S3 Status'}
+                        {checkingS3Status ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
+                            <IoReload/>
+                            <span>Check S3 Status</span>
+                        </div>}
                     </Button>
                 </div>
             </Card>
@@ -99,7 +103,10 @@ export default function Home() {
                     <Button
                         outline
                         disabled={checkingHerokuStatus} onClick={async () => checkHerokuStatus()}>
-                        {checkingHerokuStatus ? <Spinner/> : 'Check Heroku Status'}
+                        {checkingHerokuStatus ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
+                            <IoReload/>
+                            <span>Check Heroku Status</span>
+                        </div>}
                     </Button>
                 </div>
             </Card>
@@ -120,7 +127,10 @@ export default function Home() {
                     <Button
                         outline
                         disabled={checkingMongoDBStatus} onClick={async () => checkMongoDBStatus()}>
-                        {checkingMongoDBStatus ? <Spinner/> : 'Check MongoDB Status'}
+                        {checkingMongoDBStatus ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
+                            <IoReload/>
+                            <span>Check MongoDB Status</span>
+                        </div>}
                     </Button>
                 </div>
             </Card>

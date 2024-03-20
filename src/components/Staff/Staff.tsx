@@ -1,9 +1,10 @@
-import {Fragment} from "react";
+import {Fragment, useEffect} from "react";
 import LFFormSection from "@admin/components/LFFormSection";
 import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
 import {ImageBlock} from "@admin/components/ImageBlock";
 import {useStaffStore} from "@admin/store/useStaffStore";
+import {API_STAFF_GET} from "@admin/lib/constants";
 
 
 const Staff = () => {
@@ -11,6 +12,12 @@ const Staff = () => {
         staffDetails,
         staffAssurancesBlock,
         homeTextBlock,
+        setStaffAssurancesBlock,
+        setHomeTextBlock,
+        setAboutTextBlock,
+        setStaffDetails,
+        staffPageDataId,
+        setStaffPageDataId,
         setHomeTextHeadline,
         setHomePageText,
         setHomeSubHeading,
@@ -18,8 +25,27 @@ const Staff = () => {
         setStaffDetailsDescription,
         setStaffDetailsRole,
         setStaffAssurancesBlockHeading,
-        setStaffAssurancesBlockAssurances, setStaffDetailsFeatured
+        setStaffAssurancesBlockAssurances,
     } = useStaffStore()
+    useEffect(() => {
+        if (!staffPageDataId) {
+            fetch(API_STAFF_GET, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    setStaffDetails(data.body.staffDetails)
+                    setStaffAssurancesBlock(data.body.assurancesBlock)
+                    setHomeTextBlock(data.body.homeTextBlock)
+                    setAboutTextBlock(data.body.aboutTextBlock)
+                    setStaffPageDataId(data.body._id)
+                }).catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    }, [])
     return <Fragment>
         <LFFormSection sectionTitle='Featured Staff Block' column>
             <div className="flex flex-row">
@@ -107,7 +133,7 @@ const Staff = () => {
             })}
         </LFFormSection>
         {/*Staff Assurances Block */}
-        <LFFormSection sectionTitle='Staff Assurances'>
+        {staffAssurancesBlock?.heading && <LFFormSection sectionTitle='Staff Assurances'>
             <div className="p-4 lg:w-1/2 md:w-full">
                 <LFFormElement labelValue="Staff Assurances Block Heading"
                                labelName='staffAssurancesBlockHeading'
@@ -130,7 +156,7 @@ const Staff = () => {
                     }}/>
                 </LFFormElement>
             </div>
-        </LFFormSection>
+        </LFFormSection>}
     </Fragment>
 }
 export default Staff;

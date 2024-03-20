@@ -8,12 +8,12 @@ import {useHomePageStore} from "@admin/store";
 const FAQsBlock = () => {
     const {homePageData: {faqBlock}, setFaqBlockHeading, setFaqQuestion, setFaqAnswer} = useHomePageStore()
     return <LFFormSection sectionTitle={'FAQ Block - FAQs'} row>
-        <LFFormElement labelValue="FAQ Heading" labelName='faqHeading'
-                       elemValue={faqBlock?.heading} className=" w-1/2 mr-2">
+        {faqBlock?.heading && <LFFormElement labelValue="FAQ Heading" labelName='faqHeading'
+                                             elemValue={faqBlock?.heading} className=" w-1/2 mr-2">
             <Textarea id="faqHeading" placeholder="FAQ Heading" className='h-text-area'
                       value={faqBlock?.heading} required
                       onChange={(event) => setFaqBlockHeading(event.currentTarget.value)}/>
-        </LFFormElement>
+        </LFFormElement>}
         <div className="flex flex-col w-full">
             {faqBlock?.faqs?.map((faq) => {
                 return (<Fragment key={faq._id.toString()}>

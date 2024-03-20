@@ -6,16 +6,17 @@ const collapseButton = "group flex w-full items-center rounded-lg p-2 text-base 
     "transition duration-75 hover:bg-gray-100 dark:text-cyan-50 dark:hover:bg-gray-700"
 export const sidebarTheme: DeepPartial<FlowbiteSidebarTheme> = {
     root: {
-        base: "h-full",
+        base: "fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border border-gray-200" +
+            " md:translate-x-0 dark:bg-gray-800 dark:border-gray-700",
         inner: "h-full overflow-y-auto overflow-x-hidden rounded bg-white py-4 px-3 dark:bg-gray-800"
     },
     collapse: {
         button: collapseButton,
         icon: {
-            base: "h-6 w-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white",
+            base: "h-6 w-6 transition duration-75 group-hover:text-cyan-900 dark:text-cyan-400 dark:group-hover:text-white" + textStyle,
             open: {
                 off: "",
-                on: "text-gray-900"
+                on: "text-cyan-900"
             }
         },
         label: {
@@ -33,5 +34,9 @@ export const sidebarTheme: DeepPartial<FlowbiteSidebarTheme> = {
     item: {
         base: "flex items-center justify-center rounded-lg p-2 text-base font-normal text-cyan-800 hover:bg-gray-100 dark:text-cyan-50" +
             " dark:hover:bg-gray-700",
+        icon: {
+            base: "h-6 w-6 text-cyan-900 dark:text-cyan-50 hover:text-cyan-700 dark:hover:text-cyan-300",
+            active: "text-cyan-900 dark:text-cyan-50"
+        }
     }
 };

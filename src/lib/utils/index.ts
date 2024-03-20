@@ -13,15 +13,21 @@ import {
 } from "@admin/types";
 import {Session} from "next-auth";
 import {ThemeMode} from "flowbite-react";
-import {PATHNAME_ABOUT, PATHNAME_HOME, PATHNAME_PROGRAMS} from "@admin/lib/constants";
+import {API_PROGRAMS_UPDATE, PATHNAME_ABOUT, PATHNAME_HOME, PATHNAME_PROGRAMS, UPDATE_PATHNAME_MAPPING} from "@admin/lib/constants";
 
 /**
  * Get the image url from the src
+ * Fetch from cloudfront in production and from dev in development
  * NOTE: the src should always have a leading slash
  * @param src {string} - the src of the image
  */
 export const getImageUrl = (src?: string) => {
-    return src ? `${process.env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL}${src}` : ''
+    if (!src) {
+        return '';
+    }
+    const isDev = process.env.NODE_ENV === 'development';
+    const basePath = process.env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL;
+    return isDev ? `${basePath}/dev${src}` : `${basePath}${src}`;
 }
 export const getNewSchoolPrograms = (id: string, newHero: Hero, schoolPrograms?: WithId<SchoolProgram>[]) => {
     return schoolPrograms?.map((program) => {
@@ -85,7 +91,7 @@ export const isSchoolProgramsBlock = (obj: any): obj is WithId<SchoolProgramsBlo
 
 export const getS3UploadKey = (key: string) => {
     if (process.env.NODE_ENV === 'development') {
-        return `dev/${key}`
+        return `dev${key}`
     }
     return key
 }
@@ -157,4 +163,46 @@ export const createScheduleString = (scheduleData: Partial<LFScheduleData>, mult
  */
 export const isDarkMode = (themeMode: ThemeMode) => {
     return themeMode === 'dark'
+}
+/**
+ * Get the update API path based on the pathname
+ * @param path {string} - the pathname
+ * @param shouldUpdatePrograms {boolean} - whether to update the programs
+ * @returns {string} - the update API path
+ */
+export const getUpdateAPIPath = (path: string, shouldUpdatePrograms?: boolean) => {
+    if (shouldUpdatePrograms) return API_PROGRAMS_UPDATE
+    return UPDATE_PATHNAME_MAPPING[path]
+}
+/**
+ * Update the school programs block on the home page or the programs page
+ * @param programs {WithId<SchoolProgram>[]} - the school programs
+ * @param heading {string} - the heading
+ * @param pathname {string} - the pathname
+ * @param setPrograms {Function} - the setPrograms function
+ * @param setHeading {Function} - the setHeading function
+ */
+export const handleProgramUpdate = async (programs: WithId<SchoolProgram>[], heading: string,
+                                          pathname: string, setPrograms: (data: WithId<SchoolProgram>[]) => void,
+                                          setHeading: (data: string) => void) => {
+    // NOTE: this function executes only if the pathname is /website-pages/Home or /programs
+    // which means that the request is to update the school programs block
+    if (isPathnameHome(pathname) || isPathnamePrograms(pathname)) {
+        const newSchoolProgramsBlock: SchoolProgramsBlock = {
+            heading,
+            schoolPrograms: programs,
+            dateCreated: new Date(),
+        }
+        const res = await fetch(getUpdateAPIPath(pathname, true), {
+            method: 'POST', headers: {
+                'Content-Type': 'application/json',
+            }, body: JSON.stringify(newSchoolProgramsBlock)
+        })
+        const r = await res.json()
+        if (isSchoolProgramsBlock(r.body)) {
+            setPrograms(r.body.schoolPrograms)
+            setHeading(r.body.heading)
+        }
+    }
+    return
 }
