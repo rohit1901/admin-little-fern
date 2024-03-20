@@ -57,13 +57,13 @@ const LFNavbar = () => {
                     arrowIcon={false}
                     inline
                     label={
-                        <Avatar alt="User settings"
-                                img={getImageUrl('/images/stock/testimonials/female.avatar.jpg')} rounded/>
+                        <Avatar alt="User avatar"
+                                img={session?.user?.image ?? ""} rounded/>
                     }
                 >
                     <DropdownHeader>
-                        <span className="block text-sm">{session?.user.name}</span>
-                        <span className="block truncate text-sm font-medium">{session?.user.email}</span>
+                        <span className="block text-sm">{session?.user?.name}</span>
+                        <span className="block truncate text-sm font-medium">{session?.user?.email}</span>
                     </DropdownHeader>
                     <DropdownItem icon={MdInsertChart} href="/">Dashboard</DropdownItem>
                     <DropdownItem as='a' href="http://email.littlefern.in" target='_blank' icon={HiInbox}>

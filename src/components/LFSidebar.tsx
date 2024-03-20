@@ -1,6 +1,6 @@
 'use client';
 
-import {Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems} from 'flowbite-react';
+import {Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems, Tooltip} from 'flowbite-react';
 import {BiCopyAlt} from 'react-icons/bi';
 import {usePathname} from "next/navigation";
 import {RiEmotionSadLine, RiHomeHeartLine} from "react-icons/ri";
@@ -13,6 +13,8 @@ import {RemoveStaff} from "@admin/components/Staff/RemoveStaff";
 import {RemoveProgram} from "@admin/components/ProgramsPage/RemoveProgram";
 import {PiUsersBold} from "react-icons/pi";
 import {IoMdCall, IoMdInformationCircleOutline} from "react-icons/io";
+import {isEmailAuthorized} from "@admin/lib";
+import {useSession} from "next-auth/react";
 
 const pages = [{
     name: 'Home', href: PATHNAME_HOME, icon: RiHomeHeartLine,
@@ -37,6 +39,7 @@ const setActive = (href: string, slug: string | null) => {
 
 const LFSidebar = () => {
     const slug = usePathname()
+    const {data: session} = useSession()
     const [openAddStaffModal, setOpenAddStaffModal] = useState(false)
     const [openRemoveStaffModal, setOpenRemoveStaffModal] = useState(false)
     const [openRemoveProgramModal, setOpenRemoveProgramModal] = useState(false)
@@ -59,17 +62,20 @@ const LFSidebar = () => {
                 </SidebarCollapse>
             </SidebarItemGroup>
             <SidebarItemGroup>
-                <SidebarItem as="button" icon={MdOutlineAddReaction} size="sm" onClick={() => setOpenAddStaffModal(true)}>
+                <SidebarItem as="button" icon={MdOutlineAddReaction} size="sm" className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''}
+                             onClick={() => setOpenAddStaffModal(true)} disabled={!isEmailAuthorized(session)}>
                     Add Staff
                 </SidebarItem>
-                <SidebarItem as="button" onClick={() => setOpenRemoveStaffModal(true)} icon={RiEmotionSadLine}>
-                    <span>Remove Staff</span>
+                <SidebarItem as="button" icon={RiEmotionSadLine} size="sm"  className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''}
+                             onClick={() => setOpenRemoveStaffModal(true)} disabled={!isEmailAuthorized(session)}>
+                    Remove Staff
                 </SidebarItem>
                 {/*TODO: Add Program*/}
                 {/*<SidebarItem href="#" icon={AddGraduate}>
                     Add Program
                 </SidebarItem>*/}
-                <SidebarItem href="#" icon={MdOutlineFolderDelete} onClick={() => setOpenRemoveProgramModal(true)}>
+                <SidebarItem as="button" icon={MdOutlineFolderDelete} onClick={() => setOpenRemoveProgramModal(true)}
+                className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''} disabled={!isEmailAuthorized(session)}>
                     <span>Remove Program</span>
                 </SidebarItem>
             </SidebarItemGroup>
