@@ -7,6 +7,7 @@ import {useContactPageStore} from "@admin/store/";
 import {useEffect} from "react";
 import {PageHeader} from "@admin/components/PageHeader";
 import {API_CONTACT_GET} from "@admin/lib/constants";
+import {isContactPageData} from "@admin/lib";
 
 const MapsIframe = () => {
     return (
@@ -51,7 +52,10 @@ const ContactPageComponent = () => {
     }
     return (
         <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
-            <LFForm data={contactPageData}>
+            <LFForm data={contactPageData} afterSubmit={(data) => {
+                if (!isContactPageData(data)) return
+                setContactPageData(data)
+            }}>
                 <PageHeader title={'Contact Page'}/>
                 <LFFormSection sectionTitle={'Map and Contact Details'} row>
                     {/* Map */}
