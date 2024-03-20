@@ -43,7 +43,7 @@ export const STAFF_IMAGE_FILENAME_PREFIX = "/images/stock/staff/staff-";
 export const STAFF_PORTRAIT_IMAGE_FILENAME_PREFIX = "/images/stock/about/about-team-";
 export const IMAGE_FILE_EXTENSION = ".jpg";
 
-export const PATHNAME_MAPPING: PathnameMappingType = {
+export const UPDATE_PATHNAME_MAPPING: PathnameMappingType = {
     '/website-pages/Home': API_HOME_UPDATE,
     '/website-pages/About': API_ABOUT_UPDATE,
     '/website-pages/Contact': API_CONTACT_UPDATE,

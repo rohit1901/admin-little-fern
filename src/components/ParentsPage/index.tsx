@@ -6,6 +6,7 @@ import {useParentsPageStore} from "@admin/store/";
 import {useEffect} from "react";
 import {PageHeader} from "@admin/components/PageHeader";
 import {API_PARENTS_GET} from "@admin/lib/constants";
+import {isParentsPageData} from "@admin/lib";
 
 const ParentsPageComponent = () => {
     const {parentsPageData, setParentsPageData} = useParentsPageStore()
@@ -29,7 +30,10 @@ const ParentsPageComponent = () => {
         return null
     }
     return <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
-        <LFForm data={parentsPageData}>
+        <LFForm data={parentsPageData} afterSubmit={(data) => {
+            if (!isParentsPageData(data)) return
+            setParentsPageData(data)
+        }}>
             <PageHeader title='Parents Page'/>
             <ParentsHero/>
             <ParentsEvents/>

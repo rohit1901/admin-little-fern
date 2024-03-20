@@ -12,6 +12,7 @@ import {ImageBlock} from "@admin/components/ImageBlock";
 import {useStaffStore} from "@admin/store/useStaffStore";
 import {PageHeader} from "@admin/components/PageHeader";
 import {API_ABOUT_GET, API_STAFF_GET} from "@admin/lib/constants";
+import {isAboutPageData} from "@admin/lib";
 
 const AboutPageComponent = () => {
     const {aboutPageData, setAboutPageData} = useAboutPageStore()
@@ -57,7 +58,10 @@ const AboutPageComponent = () => {
     }
     return (
         <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
-            <LFForm data={aboutPageData}>
+            <LFForm data={aboutPageData} afterSubmit={(data) => {
+                if (!isAboutPageData(data)) return
+                setAboutPageData(data)
+            }}>
                 <PageHeader title={'About Page'}/>
                 <AboutTitle/>
                 <LFFormSection sectionTitle={'Hero Block Images'} wrap>

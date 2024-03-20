@@ -11,6 +11,7 @@ import {useEffect} from "react";
 import FAQsBlock from "@admin/components/HomePage/FAQsBlock";
 import {PageHeader} from "@admin/components/PageHeader";
 import {API_HOME_GET} from "@admin/lib/constants";
+import {isHomePageData} from "@admin/lib";
 
 const HomePageComponent = () => {
     const {
@@ -34,7 +35,10 @@ const HomePageComponent = () => {
     }, [])
 
     return (homePageData._id && <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
-            <LFForm data={homePageData}>
+            <LFForm data={homePageData} afterSubmit={(data) => {
+                if (!isHomePageData(data)) return
+                setHomePageData(data)
+            }}>
                 <PageHeader title={'Home Page'}/>
                 {/* Hero Block */}
                 <HomeHero/>
