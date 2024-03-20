@@ -73,6 +73,7 @@ Please refer to the source code for more details about these components.
 - ![Next.js](https://img.shields.io/badge/-Next.js-black?style=flat-square&logo=next.js)
 - ![MongoDB](https://img.shields.io/badge/-MongoDB-black?style=flat-square&logo=mongodb)
 - ![AWS](https://img.shields.io/badge/-AWS-black?style=flat-square&logo=amazon-aws)
+- ![AUTH0](https://img.shields.io/badge/Auth0-black?logo=auth0&logoColor=fff&style=flat-square)
 - ![Heroku](https://img.shields.io/badge/-Heroku-430098?style=flat-square&logo=heroku)
 - ![Flowbite](https://img.shields.io/badge/-Flowbite-563D7C?logo=tailwind-css&logoColor=white)
 - ![Flowbite React](https://img.shields.io/badge/-FlowbiteReact-563D7C?logo=tailwind-css&logoColor=white)

@@ -1,5 +1,5 @@
 import {StaffAssurancesBlock, StaffDetails, TextBlock} from "@admin/types";
-import {WithId} from "mongodb";
+import {ObjectId, WithId} from "mongodb";
 import {create} from "zustand";
 
 const defaultTextBlock: TextBlock = {
@@ -8,10 +8,12 @@ const defaultTextBlock: TextBlock = {
     subHeading: ''
 }
 type StaffStore = {
+    staffPageDataId?: ObjectId
     staffDetails: WithId<StaffDetails>[]
     staffAssurancesBlock: StaffAssurancesBlock
     homeTextBlock: TextBlock
     aboutTextBlock: TextBlock
+    setStaffPageDataId: (id: ObjectId) => void
     setStaffDetails: (staffDetails: WithId<StaffDetails>[]) => void
     setStaffDetailsName: (id: string, name: string) => void
     setStaffDetailsRole: (id: string, role: string) => void
@@ -34,6 +36,7 @@ export const useStaffStore = create<StaffStore>((set) => ({
     staffAssurancesBlock: {} as StaffAssurancesBlock,
     homeTextBlock: defaultTextBlock,
     aboutTextBlock: defaultTextBlock,
+    setStaffPageDataId: (staffPageDataId: ObjectId) => set({staffPageDataId}),
     setStaffDetails: (staffDetails: WithId<StaffDetails>[]) => set({staffDetails}),
     setStaffDetailsName: (id: string, name: string) => set((state) => ({
         staffDetails: state.staffDetails.map((staff) => {

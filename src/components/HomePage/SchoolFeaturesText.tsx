@@ -11,6 +11,7 @@ const SchoolFeaturesText = () => {
         setSchoolFeaturesSubHeading,
         setSchoolFeaturesFeatures
     } = useHomePageStore(state => state)
+    if (!homePageData || !homePageData._id) return null
     return <LFFormSection sectionTitle='School Features' row>
         <LFFormElement labelValue="School features heading" labelName="sfh"
                        elemValue={homePageData.schoolFeatures?.heading} className="w-full mr-2">

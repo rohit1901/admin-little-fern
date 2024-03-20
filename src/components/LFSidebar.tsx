@@ -1,46 +1,58 @@
 'use client';
 
-import {Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems} from 'flowbite-react';
-import {BiSolidCopyAlt} from 'react-icons/bi';
+import {Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems, Tooltip} from 'flowbite-react';
+import {BiCopyAlt} from 'react-icons/bi';
 import {usePathname} from "next/navigation";
-import {IoCall, IoPeopleCircle} from "react-icons/io5";
-import {RiHomeHeartFill} from "react-icons/ri";
-import {MdInfo, MdInsertChart} from "react-icons/md";
-import {IoMdSchool} from "react-icons/io";
-import {FaImages, FaLaptopCode} from "react-icons/fa";
+import {RiEmotionSadLine, RiHomeHeartLine} from "react-icons/ri";
+import {MdInsertChartOutlined, MdOutlineAddReaction, MdOutlineFolder, MdOutlineFolderDelete} from "react-icons/md";
+import {FaLaptopCode, FaRegImages} from "react-icons/fa";
+import {NewStaff} from "@admin/components/Staff/NewStaff";
+import {useState} from "react";
+import {PATHNAME_ABOUT, PATHNAME_CONTACT, PATHNAME_GALLERY, PATHNAME_HOME, PATHNAME_PARENTS, PATHNAME_PROGRAMS} from "@admin/lib/constants";
+import {RemoveStaff} from "@admin/components/Staff/RemoveStaff";
+import {RemoveProgram} from "@admin/components/ProgramsPage/RemoveProgram";
+import {PiUsersBold} from "react-icons/pi";
+import {IoMdCall, IoMdInformationCircleOutline} from "react-icons/io";
+import {isEmailAuthorized} from "@admin/lib";
+import {useSession} from "next-auth/react";
 
-const SidebarClasses = "fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full " +
-    "bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
 const pages = [{
-    name: 'Home', href: '/website-pages/Home', icon: RiHomeHeartFill,
+    name: 'Home', href: PATHNAME_HOME, icon: RiHomeHeartLine,
 }, {
-    name: 'About', href: '/website-pages/About', icon: MdInfo,
+    name: 'About', href: PATHNAME_ABOUT, icon: IoMdInformationCircleOutline,
 }, {
-    name: 'Gallery', href: '/website-pages/Gallery', icon: FaImages,
+    name: 'Gallery', href: PATHNAME_GALLERY, icon: FaRegImages,
 }, {
-    name: 'Programs', href: '/programs/play-group', icon: IoMdSchool,
+    name: 'Programs', href: '/programs/play-group', icon: MdOutlineFolder,
 }, {
-    name: 'Contact', href: '/website-pages/Contact', icon: IoCall,
+    name: 'Contact', href: PATHNAME_CONTACT, icon: IoMdCall,
 }, {
-    name: 'Parents', href: '/website-pages/Parents', icon: IoPeopleCircle,
+    name: 'Parents', href: PATHNAME_PARENTS, icon: PiUsersBold,
 }]
 const setActive = (href: string, slug: string | null) => {
     // set active to true if the slug includes '/programs'
-    if (href.includes('/programs')) {
-        return slug?.includes('/programs')
+    if (href.includes(PATHNAME_PROGRAMS)) {
+        return slug?.includes(PATHNAME_PROGRAMS)
     }
     return slug === href
 }
+
 const LFSidebar = () => {
     const slug = usePathname()
-    return (<Sidebar
-        className={SidebarClasses}>
-        <SidebarItems className="sidebar-items">
+    const {data: session} = useSession()
+    const [openAddStaffModal, setOpenAddStaffModal] = useState(false)
+    const [openRemoveStaffModal, setOpenRemoveStaffModal] = useState(false)
+    const [openRemoveProgramModal, setOpenRemoveProgramModal] = useState(false)
+    return (<Sidebar>
+        <NewStaff openModal={openAddStaffModal} setOpenModal={setOpenAddStaffModal}/>
+        <RemoveStaff openModal={openRemoveStaffModal} setOpenModal={setOpenRemoveStaffModal}/>
+        <RemoveProgram openModal={openRemoveProgramModal} setOpenModal={setOpenRemoveProgramModal}/>
+        <SidebarItems>
             <SidebarItemGroup>
-                <SidebarItem href="/" icon={MdInsertChart} active={setActive('/', slug)}>
+                <SidebarItem href="/" icon={MdInsertChartOutlined} active={setActive('/', slug)}>
                     Dashboard
                 </SidebarItem>
-                <SidebarCollapse icon={BiSolidCopyAlt} label="Pages" open>
+                <SidebarCollapse icon={BiCopyAlt} label="Pages" open>
                     {pages?.map((page) => (<SidebarItem href={page.href} key={page.name}
                                                         icon={page.icon}
                                                         className='text-ellipsis overflow-hidden text-sm'
@@ -48,6 +60,24 @@ const LFSidebar = () => {
                         {page.name}
                     </SidebarItem>))}
                 </SidebarCollapse>
+            </SidebarItemGroup>
+            <SidebarItemGroup>
+                <SidebarItem as="button" icon={MdOutlineAddReaction} size="sm" className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''}
+                             onClick={() => setOpenAddStaffModal(true)} disabled={!isEmailAuthorized(session)}>
+                    Add Staff
+                </SidebarItem>
+                <SidebarItem as="button" icon={RiEmotionSadLine} size="sm"  className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''}
+                             onClick={() => setOpenRemoveStaffModal(true)} disabled={!isEmailAuthorized(session)}>
+                    Remove Staff
+                </SidebarItem>
+                {/*TODO: Add Program*/}
+                {/*<SidebarItem href="#" icon={AddGraduate}>
+                    Add Program
+                </SidebarItem>*/}
+                <SidebarItem as="button" icon={MdOutlineFolderDelete} onClick={() => setOpenRemoveProgramModal(true)}
+                className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''} disabled={!isEmailAuthorized(session)}>
+                    <span>Remove Program</span>
+                </SidebarItem>
             </SidebarItemGroup>
             <SidebarItemGroup>
                 <SidebarItem href="#" icon={FaLaptopCode}>

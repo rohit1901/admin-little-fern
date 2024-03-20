@@ -1,6 +1,6 @@
 "use client";
 import {signIn, useSession} from "next-auth/react";
-import {Button, Card, Flowbite} from "flowbite-react";
+import {Banner, Button, Card, Flowbite} from "flowbite-react";
 import {customTheme} from "@admin/theme";
 import LFNavbar from "@admin/components/LFNavbar";
 import LFSidebar from "@admin/components/LFSidebar";
@@ -8,10 +8,11 @@ import {PropsWithChildren} from "react";
 import Image from "next/image";
 import {getImageUrl} from "@admin/lib";
 import Loader from "@admin/components/Loader";
+import {HiMiniInformationCircle} from "react-icons/hi2";
+import {FaSignInAlt} from "react-icons/fa";
 
 export default function LoginMask({children}: PropsWithChildren) {
     const {status} = useSession();
-
     if (status === "loading") {
         return <Loader/>
     }
@@ -22,14 +23,21 @@ export default function LoginMask({children}: PropsWithChildren) {
                    src={getImageUrl('/images/bright-logo.png')}
                    width="96"
                    className="mb-3 mx-auto"/>
-            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
+            <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50 text-center">
                 Sign in to your account
             </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400 text-center">
-                You will be redirected to a secure sign in page where you can sign in with your AWS Cognito account.
-            </p>
-            <Button onClick={() => signIn()} outline>
-                Sign in
+            <Banner
+                className="flex justify-between items-center rounded border-b border-gray-200 bg-gray-50 dark:border-cyan-50 dark:bg-cyan-50 p-2">
+                <HiMiniInformationCircle className="mr-2 h-8 w-8 text-cyan-800"/>
+                <p className="font-mono text-xs text-cyan-800">
+                    You will be redirected to a secure sign in page where you can sign in with your credentials.
+                </p>
+            </Banner>
+            <Button onClick={() => signIn()}>
+                <div className="flex justify-center items-center">
+                    <FaSignInAlt className="mr-2 h-5 w-5"/>
+                    <span className="text-cyan-50">Sign in</span>
+                </div>
             </Button>
         </Card>
     </section>);

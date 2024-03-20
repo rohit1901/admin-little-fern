@@ -11,21 +11,27 @@ import {ProgramTabs} from "@admin/components/ProgramTabs";
 import {PageHeader} from "@admin/components/PageHeader";
 import {PricingBlock} from "@admin/components/ProgramsPage/PricingBlock";
 import {ProgramInfo} from "@admin/components/ProgramsPage/ProgramInfo";
+import {isSchoolProgramsBlock} from "@admin/lib";
 
 type ProgramsPageProps = {
     schoolProgram: WithId<SchoolProgram>
 }
 const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
     const {
-        programs,
+        setHeading,
+        setPrograms,
         setProgramHeroHeadline,
         setProgramHeroTagline,
         setProgramHeroText,
         setProgramDescriptionSectionText,
     } = useSchoolProgramsPageStore()
     return <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
-        <ProgramTabs programs={programs}/>
-        <LFForm isProgram>
+        <ProgramTabs/>
+        <LFForm isProgram afterSubmit={(data) => {
+            if (!isSchoolProgramsBlock(data)) return
+            setHeading(data.heading ?? '')
+            setPrograms(data.schoolPrograms ?? [])
+        }}>
             <PageHeader title={`${schoolProgram?.name} Program`}/>
             <LFFormSection sectionTitle="Headings">
                 <div

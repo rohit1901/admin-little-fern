@@ -8,6 +8,7 @@ export const buttonTheme: DeepPartial<FlowbiteButtonTheme> = {
         gray: "bg-gray-600 text-gray-50 dark:bg-gray-50 dark:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-800",
         info: "bg-cyan-800 text-cyan-50 dark:bg-cyan-50 dark:text-cyan-800 dark:hover:bg-cyan-800 dark:hover:text-cyan-800",
         light: "bg-white text-gray-800 dark:bg-gray-800 dark:text-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-50",
+        red: "bg-red-800 text-red-50 dark:bg-red-50 dark:text-red-800 dark:hover:bg-red-800 dark:hover:text-red-800",
     },
     inner: {
         outline: "bg-cyan-800 text-cyan-50 dark:bg-cyan-50 dark:text-cyan-800 dark:hover:bg-cyan-800 dark:hover:text-cyan-800"
