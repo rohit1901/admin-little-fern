@@ -1,6 +1,6 @@
 'use client';
 
-import {Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems, Tooltip} from 'flowbite-react';
+import {Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems} from 'flowbite-react';
 import {BiCopyAlt} from 'react-icons/bi';
 import {usePathname} from "next/navigation";
 import {RiEmotionSadLine, RiHomeHeartLine} from "react-icons/ri";
@@ -66,7 +66,7 @@ const LFSidebar = () => {
                              onClick={() => setOpenAddStaffModal(true)} disabled={!isEmailAuthorized(session)}>
                     Add Staff
                 </SidebarItem>
-                <SidebarItem as="button" icon={RiEmotionSadLine} size="sm"  className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''}
+                <SidebarItem as="button" icon={RiEmotionSadLine} size="sm" className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''}
                              onClick={() => setOpenRemoveStaffModal(true)} disabled={!isEmailAuthorized(session)}>
                     Remove Staff
                 </SidebarItem>
@@ -75,7 +75,7 @@ const LFSidebar = () => {
                     Add Program
                 </SidebarItem>*/}
                 <SidebarItem as="button" icon={MdOutlineFolderDelete} onClick={() => setOpenRemoveProgramModal(true)}
-                className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''} disabled={!isEmailAuthorized(session)}>
+                             className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''} disabled={!isEmailAuthorized(session)}>
                     <span>Remove Program</span>
                 </SidebarItem>
             </SidebarItemGroup>

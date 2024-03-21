@@ -11,7 +11,11 @@ export type SocialLinkProps = {
     icon: string
 }
 /* Global Types used across the application */
-export type Notification = {
+export type LFPartyNotification = {
+    type: "notification" | "acknowledgement";
+    notification?: LFNotification
+}
+export type LFNotification = {
     message: string
     read: boolean
     dateCreated: Date
@@ -268,7 +272,7 @@ export type ContactPageData = {
     dateCreated: Date
 }
 export type NotificationPageData = {
-    notifications: Notification[]
+    notifications: LFNotification[]
     dateCreated: Date
 }
 /* Heroku Types */

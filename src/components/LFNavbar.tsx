@@ -1,7 +1,7 @@
 'use client'
 import {Avatar, Banner, Button, DarkThemeToggle, Dropdown, DropdownDivider, DropdownHeader, DropdownItem, Navbar, NavbarBrand} from "flowbite-react";
 import Logo from "@admin/components/Logo";
-import {getImageUrl, isEmailAuthorized} from "@admin/lib";
+import {isEmailAuthorized} from "@admin/lib";
 import {signOut, useSession} from "next-auth/react";
 import {MdInfo, MdInsertChart} from "react-icons/md";
 import {HiArrowRight, HiInbox, HiX} from "react-icons/hi";
@@ -9,7 +9,7 @@ import {Session} from "next-auth";
 import {SiSubstack} from "react-icons/si";
 import {FaSignOutAlt} from "react-icons/fa";
 import {IoSettings} from "react-icons/io5";
-import {LFNotification} from "@admin/components/LFNotification";
+import {LFNotifications} from "@admin/components/LFNotifications";
 
 const getUnauthorizedBanner = (session: Session | null) => {
     if (isEmailAuthorized(session)) {
@@ -55,7 +55,7 @@ const LFNavbar = () => {
             {getUnauthorizedBanner(session)}
             <div className="flex items-center lg:order-2">
                 <DarkThemeToggle className='p-2 mr-5 text-cyan-800 dark:text-yellow-200'/>
-                <LFNotification/>
+                <LFNotifications/>
                 <Dropdown
                     arrowIcon={false}
                     inline

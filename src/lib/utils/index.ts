@@ -6,6 +6,8 @@ import {
     GalleryPageData,
     Hero,
     HomePageData,
+    LFNotification,
+    LFPartyNotification,
     LFScheduleData,
     ParentsPageData,
     SchoolProgram,
@@ -87,6 +89,18 @@ export const isSchoolProgram = (obj: any): obj is SchoolProgram => {
 
 export const isSchoolProgramsBlock = (obj: any): obj is WithId<SchoolProgramsBlock> => {
     return obj && typeof obj === 'object' && 'heading' in obj && 'schoolPrograms' in obj;
+}
+
+/**
+ * Typeguard to check if the party notification is an LFPartyNotification
+ * @param partyNotification {any} - the party notification
+ * @returns {boolean} - whether the party notification is an LFPartyNotification
+ */
+export const isLFPartyNotification = (partyNotification: any): partyNotification is LFPartyNotification => {
+    if (typeof partyNotification !== 'object') return false
+    if (!partyNotification.type) return false
+    if (partyNotification.type !== 'notification' && partyNotification.type !== 'acknowledgement') return false
+    return !(partyNotification.type === 'notification' && !partyNotification.notification);
 }
 
 export const getS3UploadKey = (key: string) => {
@@ -205,4 +219,34 @@ export const handleProgramUpdate = async (programs: WithId<SchoolProgram>[], hea
         }
     }
     return
+}
+export const formatNotificationDate = (date: Date) => {
+    const now = new Date();
+    const providedDate = new Date(date);
+
+    const diffInSeconds = Math.floor((now.getTime() - providedDate.getTime()) / 1000);
+
+    if (diffInSeconds < 60) {
+        return 'just now';
+    }
+
+    if (now.getFullYear() === providedDate.getFullYear() &&
+        now.getMonth() === providedDate.getMonth() &&
+        now.getDate() === providedDate.getDate()) {
+        return 'today';
+    }
+
+    return providedDate.toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
+    });
+}
+export const getUnreadNotificationCount = (notifications: LFNotification[]) => {
+    return notifications.filter(n => !n.read).length || ''
+}
+export const getNotificationsHeading = (notifications: LFNotification[]) => {
+    return getUnreadNotificationCount(notifications) ? 'New Notifications' : 'No new notifications'
 }
