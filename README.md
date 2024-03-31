@@ -9,7 +9,8 @@ The application is built as a full-stack web application with the following comp
 
 1. **Frontend**: The frontend of the application is built using React and Next.js. It includes components like `Dropzone` for uploading images and `ImageBlock` for displaying and managing images. The UI is designed using Flowbite, Flowbite React, and Tailwind CSS. State management is handled by Zustand 🐻.
 
-2. **Backend**: The backend is built with Node.js, using MongoClient to connect to the MongoDB database. User authentication and authorization are handled by AWS Cognito.
+2. **Backend**: The backend is built with Node.js, using MongoClient to connect to the MongoDB database. User authentication and authorization are 
+   handled by ~~AWS Cognito~~ Auth0 by Okta.
 
 3. **Database**: MongoDB is used as the database for this application.
 

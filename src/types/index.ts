@@ -11,7 +11,15 @@ export type SocialLinkProps = {
     icon: string
 }
 /* Global Types used across the application */
-
+export type LFPartyNotification = {
+    type: "notification" | "acknowledgement";
+    notification?: LFNotification
+}
+export type LFNotification = {
+    message: string
+    read: boolean
+    dateCreated: Date
+}
 export type LFScheduleData = {
     fromDay?: string;
     toDay?: string;
@@ -261,6 +269,10 @@ export type GalleryPageData = {
 export type ContactPageData = {
     textBlock: TextBlock
     contactInformation: ContactInformationItem
+    dateCreated: Date
+}
+export type NotificationPageData = {
+    notifications: LFNotification[]
     dateCreated: Date
 }
 /* Heroku Types */
