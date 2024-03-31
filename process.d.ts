@@ -22,7 +22,7 @@ declare namespace NodeJS {
         // Application
         NEXT_PUBLIC_ADMIN_EMAILS: string
         NEXT_PUBLIC_MAP_URI: string
-        // Partykit
+        // PartyKit
         NEXT_PUBLIC_PARTYKIT_HOSTNAME: string
         NEXT_PUBLIC_PARTYKIT_ROOM: string
     }
