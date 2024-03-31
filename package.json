@@ -2,6 +2,7 @@
   "name": "admin-little-fern",
   "version": "0.1.0",
   "private": true,
+  "author": "Rohit Khanduri <https://github.com/rohit1901>",
   "scripts": {
     "start-party": "cd ../little-fern-party && npm run dev",
     "dev": "concurrently \"next dev\" \"npm run start-party\"",
