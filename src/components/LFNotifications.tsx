@@ -6,10 +6,15 @@ import {LFNotification, NotificationPageData} from "@admin/types";
 import {formatNotificationDate, getNotificationsHeading, getUnreadNotificationCount, isLFPartyNotification} from "@admin/lib";
 import usePartySocket from "partysocket/react";
 import {API_NOTIFICATIONS_GET, API_NOTIFICATIONS_UPDATE} from "@admin/lib/constants";
+import {useSession} from "next-auth/react";
 
 type IconProps = {
     count: number | string
 }
+/**
+ * Component to display the notification icon with the count
+ * @param count {number | string} - the count of notifications
+ */
 const LFNotificationIcon = ({count}: IconProps) => {
     return (<div className="relative inline-flex mr-5">
         <FaBell className="text-cyan-800 dark:text-cyan-50 h-6 w-6"/>
@@ -22,9 +27,25 @@ const NOTIFICATION_BADGE_CLASS = "absolute inline-flex items-center justify-cent
 export const LFNotifications = () => {
     const [notificationPageData, setNotificationPageData] =
         useState<NotificationPageData>()
+    const {data: session} = useSession()
+    /**
+     * Function to get the auth token from the session
+     * @param session {any} - the session object
+     * @returns {string | undefined} - the auth token
+     * TODO: Move to a utility function and handle type of session
+     */
+    const getAuthToken = (session: any): string | undefined => {
+        if (!session) return
+        if (!session.hasOwnProperty('idToken')) return
+        return session.idToken
+    }
     usePartySocket({
         host: process.env.NEXT_PUBLIC_PARTYKIT_HOSTNAME,
         room: process.env.NEXT_PUBLIC_PARTYKIT_ROOM,
+        // sends the auth token to the party socket as a query parameter
+        query: () => ({
+            token: getAuthToken(session)
+        }),
         /**
          * Function to handle the message from the party socket. If the message is an LFPartyNotification,
          * it updates the notification page data in the state. If the message is an acknowledgement, it does nothing.
@@ -85,12 +106,23 @@ export const LFNotifications = () => {
         }
         updateNotification(newNotificationPageData)
     }
-    useEffect(() => {
-        // fetch notifications on initial render
+    /**
+     * Function to fetch notifications from the DB
+     * @returns {Promise<void>}
+     */
+    const fetchNotifications = async (): Promise<void> => {
+        // Now you can use this token to make authenticated requests
         fetch(API_NOTIFICATIONS_GET)
             .then(r => r.json())
             .then((r) => setNotificationPageData(r.body))
-            .catch(e => e)
+            .catch(e => {
+                console.error("Error fetching notifications", e)
+            })
+    }
+
+    useEffect(() => {
+        // fetch notifications on initial render
+        fetchNotifications().then(r => r).catch(e => console.error(e))
     }, [])
     return (
         <Dropdown

@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from 'next'
 import {getMongoDb} from "@admin/lib/mongodb";
-import {NotificationPageData} from "@admin/types";
+import {LFNotification, NotificationPageData} from "@admin/types";
 import {ObjectId} from "mongodb";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -17,7 +17,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const docs = await collections
             if (!docs[0] || docs[0] === null || docs.length === 0) {
                 await db.collection('notifications').insertOne({
-                    notifications: req.body.notifications,
+                    notifications: req.body.notifications.map((n: LFNotification) => ({
+                        ...n,
+                        dateCreated: new Date(n.dateCreated),
+                    })),
                     dateCreated: new Date(),
                 })
                 res.status(200).json({
@@ -29,7 +32,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 {_id: new ObjectId(docs[0]._id)},
                 {
                     $set: {
-                        notifications: req.body.notifications,
+                        notifications: req.body.notifications.map((n: LFNotification) => ({
+                            ...n,
+                            dateCreated: new Date(n.dateCreated),
+                        })),
                         dateCreated: new Date(),
                     },
                 },
