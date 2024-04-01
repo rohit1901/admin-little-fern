@@ -1,5 +1,5 @@
 'use client'
-import {Button, Card, Spinner} from "flowbite-react";
+import {Button, Card, Spinner, useThemeMode} from "flowbite-react";
 import {Fragment, useEffect, useState} from "react";
 import {getS3Status} from "@admin/lib/s3";
 import {AWSError} from "aws-sdk/lib/error";
@@ -17,6 +17,7 @@ import {useSession} from "next-auth/react";
 
 export default function Home() {
     const {data: session} = useSession()
+    const {mode} = useThemeMode()
     const [s3Status, setS3Status] = useState(false)
     const [checkingS3Status, setCheckingS3Status] = useState(false)
     const [herokuStatus, setHerokuStatus] = useState(false)
@@ -73,8 +74,8 @@ export default function Home() {
                 <div className='flex flex-row gap-4 mt-4 justify-between'>
                     <Card className="max-w-sm dark:border-primary-50">
                         <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">
-                            <FaAws/>
-                            <div className='flex flex-wrap items-center'><p>AWS S3 Status:</p> <p>{s3Status ?
+                            <FaAws color={mode === "dark" ? 'white' : '#CC7A00'}/>
+                            <div className='flex flex-wrap items-center mt-1'><p>AWS S3 Status</p> <p className="ml-2">{s3Status ?
                                 <AiFillCheckCircle color='green'></AiFillCheckCircle> :
                                 <AiFillCloseCircle color='red'></AiFillCloseCircle>}</p></div>
 
@@ -97,8 +98,8 @@ export default function Home() {
                     </Card>
                     <Card className="max-w-sm dark:border-primary-50">
                         <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">
-                            <GrHeroku color='purple'/>
-                            <div className='flex flex-wrap items-center'><p>Heroku Dyno Status:</p> <p>{herokuStatus ?
+                            <GrHeroku color={mode === "dark" ? 'white' : 'purple'}/>
+                            <div className='flex flex-wrap items-center mt-1'><p>Heroku Dyno Status</p> <p className="ml-2">{herokuStatus ?
                                 <AiFillCheckCircle color='green'></AiFillCheckCircle> :
                                 <AiFillCloseCircle color='red'></AiFillCloseCircle>}</p></div>
 
@@ -121,8 +122,8 @@ export default function Home() {
                     </Card>
                     <Card className="max-w-sm dark:border-primary-50">
                         <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">
-                            <DiMongodb color='green'/>
-                            <div className='flex flex-wrap items-center'><p>Mongo DB:</p> <p>{mongoDBStatus ?
+                            <DiMongodb color="green"/>
+                            <div className='flex flex-wrap items-center mt-1'><p>Mongo DB</p> <p className="ml-2">{mongoDBStatus ?
                                 <AiFillCheckCircle color='green'></AiFillCheckCircle> :
                                 <AiFillCloseCircle color='red'></AiFillCloseCircle>}</p></div>
 

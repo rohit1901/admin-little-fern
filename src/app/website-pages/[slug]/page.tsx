@@ -3,7 +3,6 @@ import AboutPageComponent from "@admin/components/AboutPage";
 import GalleryPageComponent from "@admin/components/GalleryPage";
 import ParentsPageComponent from "@admin/components/ParentsPage";
 import ContactPageComponent from "@admin/components/ContactPage";
-import {Spinner} from "flowbite-react";
 import {Fragment, Suspense} from "react";
 import LFNavbar from "@admin/components/LFNavbar";
 import LFSidebar from "@admin/components/LFSidebar";
@@ -41,7 +40,7 @@ export default function WebsitePage({params: {slug}}: {
             <LFNavbar/>
             <LFSidebar/>
             <Suspense
-                fallback={<Loader />}>
+                fallback={<Loader/>}>
                 {elem}
             </Suspense>
         </Fragment>)
