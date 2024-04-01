@@ -1,11 +1,11 @@
 import type {Metadata} from "next";
 import {Outfit} from "next/font/google";
 import "./globals.css";
-import {ThemeModeScript} from "flowbite-react";
+import {Flowbite, ThemeModeScript} from "flowbite-react";
 import {ReactNode, Suspense} from "react";
 import Providers from "@admin/app/providers";
-import LoginMask from "@admin/components/LoginMask";
 import Loader from "@admin/components/Loader";
+import {customTheme} from "@admin/theme";
 
 const customFont = Outfit({subsets: ["latin"]});
 
@@ -27,7 +27,11 @@ export default async function RootLayout({
         <Providers>
             <Suspense
                 fallback={<Loader/>}>
-                <LoginMask>{children}</LoginMask>
+                <Flowbite theme={{theme: customTheme}}>
+                    <section>
+                        {children}
+                    </section>
+                </Flowbite>
             </Suspense>
         </Providers>
         </body>

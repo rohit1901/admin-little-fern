@@ -4,7 +4,7 @@ const NOTIFICATION_BADGE_CLASS = "absolute inline-flex items-center justify-cent
     "text-xs text-white bg-red-500 border-1 border-white rounded-full -top-4 -right-3 -end-2 dark:border-gray-900"
 
 type IconProps = {
-    count: number | string
+    count?: number
 }
 /**
  * Component to display the notification icon with the count

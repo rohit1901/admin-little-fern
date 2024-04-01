@@ -2,20 +2,27 @@ import {WithId} from "mongodb";
 import {
     AboutPageData,
     ContactPageData,
-    GalleryItem,
     GalleryPageData,
-    Hero,
     HomePageData,
     LFNotification,
     LFPartyNotification,
     LFScheduleData,
+    NotificationPageData,
     ParentsPageData,
     SchoolProgram,
     SchoolProgramsBlock
 } from "@admin/types";
 import {Session} from "next-auth";
 import {ThemeMode} from "flowbite-react";
-import {API_PROGRAMS_UPDATE, PATHNAME_ABOUT, PATHNAME_HOME, PATHNAME_PROGRAMS, UPDATE_PATHNAME_MAPPING} from "@admin/lib/constants";
+import {
+    API_NOTIFICATIONS_GET,
+    API_NOTIFICATIONS_UPDATE,
+    API_PROGRAMS_UPDATE,
+    PATHNAME_ABOUT,
+    PATHNAME_HOME,
+    PATHNAME_PROGRAMS,
+    UPDATE_PATHNAME_MAPPING
+} from "@admin/lib/constants";
 
 /**
  * Get the image url from the src
@@ -31,33 +38,35 @@ export const getImageUrl = (src?: string) => {
     const basePath = process.env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL;
     return isDev ? `${basePath}/dev${src}` : `${basePath}${src}`;
 }
-export const getNewSchoolPrograms = (id: string, newHero: Hero, schoolPrograms?: WithId<SchoolProgram>[]) => {
-    return schoolPrograms?.map((program) => {
-        if (program._id?.toString() === id) {
-            return {...program, hero: newHero}
-        }
-        return {...program}
-    })
-}
-
-export const getUniqueTags = (galleryItems: GalleryItem[]) => {
-    const badges = galleryItems.map((galleryItem) => galleryItem.tag)
-    const set = new Set(badges)
-    return Array.from(set)
-}
-
-export const isPathnameHome = (pathname: string) => {
+/**
+ * Check if the pathname is the home page
+ * @param pathname {string} - the pathname
+ * @returns {boolean} - whether the pathname is the home page
+ */
+export const isPathnameHome = (pathname: string): boolean => {
     return pathname === PATHNAME_HOME
 }
-
-export const isPathnameAbout = (pathname: string) => {
+/**
+ * Check if the pathname is the about page
+ * @param pathname {string} - the pathname
+ * @returns {boolean} - whether the pathname is the about page
+ */
+export const isPathnameAbout = (pathname: string): boolean => {
     return pathname === PATHNAME_ABOUT
 }
-
-export const isPathnamePrograms = (pathname: string) => {
+/**
+ * Check if the pathname is the programs page
+ * @param pathname {string} - the pathname
+ * @returns {boolean} - whether the pathname is the programs page
+ */
+export const isPathnamePrograms = (pathname: string): boolean => {
     return pathname.includes(PATHNAME_PROGRAMS)
 }
-
+/**
+ * Typeguard to check if the data is a HomePageData
+ * @param data {any} - the data
+ * @returns {boolean} - whether the data is a HomePageData
+ */
 export const isHomePageData = (data: any): data is HomePageData => {
     return (data && typeof data === 'object' && 'homeHero' in data
         && 'schoolFeatures' in data && 'staff' in data && 'schoolProgramsBlock' in data
@@ -78,14 +87,6 @@ export const isAboutPageData = (data: any): data is AboutPageData => {
 export const isGalleryPageData = (data: any): data is GalleryPageData => {
     return data && typeof data === 'object' && 'galleryHero' in data && 'galleryItems' in data;
 }
-export const isSchoolProgramArray = (obj: any): obj is SchoolProgram[] => {
-    return Array.isArray(obj) && obj.every(item => isSchoolProgram(item));
-}
-
-export const isSchoolProgram = (obj: any): obj is SchoolProgram => {
-    // Add your own checks based on the properties of SchoolProgram
-    return obj && typeof obj === 'object' && 'name' in obj && 'hero' in obj;
-}
 
 export const isSchoolProgramsBlock = (obj: any): obj is WithId<SchoolProgramsBlock> => {
     return obj && typeof obj === 'object' && 'heading' in obj && 'schoolPrograms' in obj;
@@ -102,33 +103,65 @@ export const isLFPartyNotification = (partyNotification: any): partyNotification
     if (partyNotification.type !== 'notification' && partyNotification.type !== 'acknowledgement') return false
     return !(partyNotification.type === 'notification' && !partyNotification.notification);
 }
-
-export const getS3UploadKey = (key: string) => {
+/**
+ * Get the S3 upload key based on the environment
+ * @param key {string} - the key
+ * @returns {string} - the S3 upload key
+ */
+export const getS3UploadKey = (key: string): string => {
     if (process.env.NODE_ENV === 'development') {
         return `dev${key}`
     }
     return key
 }
-
-export const isEmailAuthorized = (session: Session | null) => {
+/**
+ * Check if the email is authorized to access the admin dashboard
+ * @param session {Session | null} - the session
+ * @returns {boolean} - whether the email is authorized
+ */
+export const isEmailAuthorized = (session: Session | null): boolean => {
     return session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAILS
 }
+/**
+ * Get the school program based on the slug
+ * @param slug {string} - the slug
+ * @param schoolPrograms {WithId<SchoolProgram>[]} - the school programs
+ * @returns {WithId<SchoolProgram> | undefined} - the school program
+ */
 export const getSchoolProgram = (slug: string, schoolPrograms?: WithId<SchoolProgram>[]): WithId<SchoolProgram> | undefined => {
     return schoolPrograms?.find((program) => program.slug === slug)
 }
-
-export const createDate = (fromDate?: string, toDate?: string) => {
+/**
+ * Function to create a date string from the from and to dates.
+ * If both dates are provided, the date string will be in the format from - to
+ * If only the from date is provided, the date string will be the from date
+ * Example: 1 Jan 2022 - 2 Jan 2022
+ * @param fromDate {string} - the from date
+ * @param toDate {string} - the to date
+ * @returns {string} - the date string
+ */
+export const createDate = (fromDate?: string, toDate?: string): string | undefined => {
     if (fromDate && toDate) {
         return `${fromDate} - ${toDate}`
     }
     return fromDate
 }
-
-export const formatDate = (date: Date) => {
+/**
+ * Function to format the date to a readable format
+ * Example: Jan. 1
+ * @param date {Date} - the date
+ * @returns {string} - the formatted date
+ */
+export const formatDate = (date: Date): string => {
     const month = date.toLocaleString('default', {month: 'short'})
     return `${month}. ${date.getDate()}`
 }
-
+/**
+ * Function to parse the date string to a LFScheduleData object
+ * Example: 1 Jan 2022 - 2 Jan 2022 returns {fromDate: "1 Jan 2022", toDate: "2 Jan 202
+ * @param dateString {string} - the date string
+ * @returns {LFScheduleData} - the parsed schedule data
+ */
 export const parseDateFromString = (dateString: string) => {
     const [fromDate, toDate] = dateString.split('-')
     return {
@@ -220,6 +253,12 @@ export const handleProgramUpdate = async (programs: WithId<SchoolProgram>[], hea
     }
     return
 }
+/**
+ * Function to format the notification date to a readable format
+ * Example: just now, today, 1 Jan 2022, 10:00
+ * @param date {Date} - the date
+ * @returns {string} - the formatted date
+ */
 export const formatNotificationDate = (date: Date) => {
     const now = new Date();
     const providedDate = new Date(date);
@@ -244,9 +283,133 @@ export const formatNotificationDate = (date: Date) => {
         minute: 'numeric'
     });
 }
-export const getUnreadNotificationCount = (notifications: LFNotification[]) => {
-    return notifications.filter(n => !n.read).length || ''
+/**
+ * Get the unread notification count
+ * @param notifications {LFNotification[]} - the notifications
+ * @returns {number | undefined} - the unread notification count
+ */
+export const getUnreadNotificationCount = (notifications: LFNotification[]): number | undefined => {
+    return notifications.filter(n => !n.read)?.length
 }
-export const getNotificationsHeading = (notifications: LFNotification[]) => {
+/**
+ * Get the notifications heading based on the notifications
+ * @param notifications {LFNotification[]} - the notifications
+ * @returns {string} - the notifications heading
+ */
+export const getNotificationsHeading = (notifications: LFNotification[]): string => {
     return getUnreadNotificationCount(notifications) ? 'New Notifications' : 'No new notifications'
+}
+/**
+ * Get the party kit hostname based on the environment
+ * @param hostname {string} - the hostname
+ * @returns {string} - the party kit hostname
+ * @example getPartyKitHostname('localhost:3000') => 'http://localhost:3000'
+ */
+export const getPartyKitHostname = (hostname: string): string => {
+    if (process.env.NODE_ENV === 'development') {
+        return `http://${hostname}`
+    }
+    return `https://${hostname}`
+}
+/**
+ * Function to handle the party message. If the message is an LFPartyNotification,
+ * it updates the notification page data in the state. If the message is an acknowledgement, it does nothing.
+ * @param message {MessageEvent} - the message from the party socket
+ * @param notificationPageData {NotificationPageData} - the notification page data in the state
+ * @param callback {(data?: NotificationPageData) => void} - the callback function to update the state
+ */
+export const onPartyMessage = (message: MessageEvent,
+                               notificationPageData?: NotificationPageData,
+                               callback?: (data?: NotificationPageData) => void): void => {
+    const parsedMessage = JSON.parse(message.data)
+    if (!isLFPartyNotification(parsedMessage)) return;
+    if (parsedMessage.type === "acknowledgement") return;
+    const newNotification: LFNotification = {
+        message: parsedMessage.notification?.message ?? '',
+        read: !!parsedMessage.notification?.read,
+        dateCreated: parsedMessage.notification?.dateCreated ? new Date(parsedMessage.notification.dateCreated) : new Date()
+    }
+    const newNotificationPageData: NotificationPageData = notificationPageData && notificationPageData.notifications ? {
+        ...notificationPageData,
+        notifications: [...notificationPageData.notifications, newNotification]
+    } : {
+        notifications: [newNotification],
+        dateCreated: new Date()
+    }
+    callback?.(newNotificationPageData)
+}
+/**
+ * Function to update the notification page data in the DB. Sets the notifications as 'read'.
+ * @param newNotificationPageData {NotificationPageData} - the new notification page data
+ * @param callback {(data?: NotificationPageData) => void} - the callback function to update the state
+ * @returns {void}
+ */
+export const updateNotification = (newNotificationPageData: NotificationPageData,
+                                   callback?: (data?: NotificationPageData) => void): void => {
+    fetch(API_NOTIFICATIONS_UPDATE, {
+        method: 'POST',
+        body: JSON.stringify(newNotificationPageData),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(r => r.json())
+        .then((r) => {
+            console.info("Notifications updated", r.message)
+            callback?.(newNotificationPageData)
+        })
+        .catch(e => {
+            console.error("Error updating notifications", e)
+        })
+}
+/**
+ * Function to make all notifications read by updating the DB
+ * and updating the state
+ * @param notificationPageData {NotificationPageData} - the notification page data
+ * @param callback {(data?: NotificationPageData) => void} - the callback function to update the state
+ * @returns {void}
+ */
+export const makeAllNotificationsRead = (notificationPageData?: NotificationPageData,
+                                         callback?: (data?: NotificationPageData) => void): void => {
+    if (!notificationPageData) return
+    const newNotificationPageData: NotificationPageData = {
+        ...notificationPageData,
+        notifications: notificationPageData?.notifications?.map((notification) => ({
+            ...notification,
+            read: true
+        }))
+    }
+    updateNotification(newNotificationPageData, callback)
+}
+/**
+ * Function to fetch notifications from the DB
+ * and update the state
+ * @param callback {(data?: NotificationPageData) => void} - the callback function to update the state
+ * @returns {Promise<void>}
+ */
+export const fetchNotifications = async (callback?: (data?: NotificationPageData) => void): Promise<void> => {
+    fetch(API_NOTIFICATIONS_GET)
+        .then(r => r.json())
+        .then((r) => callback?.(r.body))
+        .catch(e => {
+            console.error("Error fetching notifications", e)
+        })
+}
+/**
+ * Function to determine whether to show the 'View All' link in the notifications dropdown
+ * @param notificationPageData {NotificationPageData} - the notification page data
+ * @returns {boolean}
+ */
+export const showViewAll = (notificationPageData?: NotificationPageData): boolean => {
+    const unreadCount = getUnreadNotificationCount(notificationPageData?.notifications ?? [])
+    if (!unreadCount) return false
+    return unreadCount > 5
+}
+/**
+ * Function to get the unread notifications from the notification page data
+ * @param notificationPageData {NotificationPageData} - the notification page data
+ * @returns {LFNotification[]}
+ */
+export const getUnreadNotifications = (notificationPageData?: NotificationPageData): LFNotification[] => {
+    return notificationPageData?.notifications?.filter(n => !n.read) ?? []
 }

@@ -1,4 +1,7 @@
 import ProgramsPageWrapper from "@admin/components/ProgramsPage/ProgramsPageWrapper";
+import {Fragment} from "react";
+import LFNavbar from "@admin/components/LFNavbar";
+import LFSidebar from "@admin/components/LFSidebar";
 
 export async function generateMetadata() {
     return {
@@ -10,7 +13,13 @@ export async function generateMetadata() {
 export default async function ProgramPage({params: {slug}}: {
     params: { slug: string }
 }) {
-    return <ProgramsPageWrapper slug={slug}/>
+    return (
+        <Fragment>
+            <LFNavbar/>
+            <LFSidebar/>
+            <ProgramsPageWrapper slug={slug}/>
+        </Fragment>
+    )
 }
 
 export const dynamicParams = false

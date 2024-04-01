@@ -3,8 +3,10 @@ import AboutPageComponent from "@admin/components/AboutPage";
 import GalleryPageComponent from "@admin/components/GalleryPage";
 import ParentsPageComponent from "@admin/components/ParentsPage";
 import ContactPageComponent from "@admin/components/ContactPage";
-import {Spinner} from "flowbite-react";
-import {Suspense} from "react";
+import {Fragment, Suspense} from "react";
+import LFNavbar from "@admin/components/LFNavbar";
+import LFSidebar from "@admin/components/LFSidebar";
+import Loader from "@admin/components/Loader";
 
 export async function generateMetadata() {
     return {
@@ -33,12 +35,15 @@ export default function WebsitePage({params: {slug}}: {
     params: { slug: string }
 }) {
     const elem = getPageComponent(slug);
-    return <Suspense
-        fallback={<div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
-            <Spinner aria-label="Page loading..."/>
-        </div>}>
-        {elem}
-    </Suspense>
+    return (
+        <Fragment>
+            <LFNavbar/>
+            <LFSidebar/>
+            <Suspense
+                fallback={<Loader/>}>
+                {elem}
+            </Suspense>
+        </Fragment>)
 }
 
 export const dynamicParams = false

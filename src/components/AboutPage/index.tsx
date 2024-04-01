@@ -35,6 +35,7 @@ const AboutPageComponent = () => {
                 setAboutPageData(response.body)
             })
         }
+        // TODO: Duplicate code. Refactor
         if (!staffPageDataId) {
             fetch(API_STAFF_GET, {
                 method: 'GET',
