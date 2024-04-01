@@ -45,6 +45,7 @@ const getUnauthorizedBanner = (session: Session | null) => {
 
 const LFNavbar = () => {
     const {data: session} = useSession()
+    if (!session) return null
     return (
         <Navbar fluid rounded border className='fixed top-0 w-full z-50'>
             <NavbarBrand href="https://www.littlefern.in" className='mr-2'>

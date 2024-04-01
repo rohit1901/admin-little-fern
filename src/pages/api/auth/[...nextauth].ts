@@ -10,6 +10,9 @@ export const authOptions: AuthOptions = {
             idToken: true
         })
     ],
+    pages: {
+        signIn: "/login",
+    },
     // Documentation for callbacks: https://next-auth.js.org/configuration/callbacks
     callbacks: {
         // The JWT callback is called any time a token is written to
@@ -26,6 +29,24 @@ export const authOptions: AuthOptions = {
         session: async ({session, token}) => {
             return {...session, idToken: token.idToken, accessToken: token.accessToken}
         },
+        redirect: async ({url, baseUrl}: { url: string, baseUrl: string }) => {
+            const isRelativeUrl = url.startsWith("/");
+            if (isRelativeUrl) {
+                return `${baseUrl}${url}`;
+            }
+
+            const isSameOriginUrl = new URL(url).origin === baseUrl;
+            const alreadyRedirected = url.includes('callbackUrl=')
+            if (isSameOriginUrl && alreadyRedirected) {
+                return decodeURIComponent(url.split('callbackUrl=')[1]);
+            }
+
+            if (isSameOriginUrl) {
+                return url;
+            }
+
+            return baseUrl;
+        }
     },
 }
 

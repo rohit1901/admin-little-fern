@@ -50,6 +50,7 @@ const LFSidebar = () => {
     const [openAddStaffModal, setOpenAddStaffModal] = useState(false)
     const [openRemoveStaffModal, setOpenRemoveStaffModal] = useState(false)
     const [openRemoveProgramModal, setOpenRemoveProgramModal] = useState(false)
+    if (!session) return null
     return (<Sidebar>
         <NewStaff openModal={openAddStaffModal} setOpenModal={setOpenAddStaffModal}/>
         <RemoveStaff openModal={openRemoveStaffModal} setOpenModal={setOpenRemoveStaffModal}/>

@@ -277,10 +277,10 @@ export const formatNotificationDate = (date: Date) => {
 /**
  * Get the unread notification count
  * @param notifications {LFNotification[]} - the notifications
- * @returns {string | number} - the unread notification count
+ * @returns {number | undefined} - the unread notification count
  */
-export const getUnreadNotificationCount = (notifications: LFNotification[]): string | number => {
-    return notifications.filter(n => !n.read).length || ''
+export const getUnreadNotificationCount = (notifications: LFNotification[]): number | undefined => {
+    return notifications.filter(n => !n.read)?.length
 }
 /**
  * Get the notifications heading based on the notifications

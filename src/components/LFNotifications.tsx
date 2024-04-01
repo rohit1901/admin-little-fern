@@ -5,7 +5,7 @@ import {LFNotification, NotificationPageData} from "@admin/types";
 import {formatNotificationDate, getNotificationsHeading, getUnreadNotificationCount, isLFPartyNotification} from "@admin/lib";
 import usePartySocket from "partysocket/react";
 import {API_NOTIFICATIONS_GET, API_NOTIFICATIONS_UPDATE} from "@admin/lib/constants";
-import {useSession} from "next-auth/react";
+import {getSession} from "next-auth/react";
 import {LFNotificationIcon} from "./LFNotificationIcon";
 import {LFNotificationMessageIcon} from "@admin/components/LFNotificationMessageIcon";
 
@@ -116,13 +116,13 @@ const getUnreadNotifications = (notificationPageData?: NotificationPageData): LF
 export const LFNotifications = () => {
     const [notificationPageData, setNotificationPageData] =
         useState<NotificationPageData>()
-    const {data: session} = useSession();
     usePartySocket({
         host: process.env.NEXT_PUBLIC_PARTYKIT_HOSTNAME,
         room: process.env.NEXT_PUBLIC_PARTYKIT_ROOM,
         // sends the auth token to the party socket as a query parameter
-        query: (): Record<"token", string | undefined> => ({
-            token: session?.idToken
+        query: async () => ({
+            // get an auth token using your authentication client library
+            token: await getSession().then((session) => session?.idToken)
         }),
         onMessage: (message: MessageEvent): void => onPartyMessage(message, notificationPageData, setNotificationPageData)
     })
