@@ -1,6 +1,5 @@
-import {FaRegEyeSlash} from "react-icons/fa";
+import {FaRegEye, FaRegEyeSlash} from "react-icons/fa";
 import {Dropdown, DropdownHeader, DropdownItem} from "flowbite-react";
-import {MdEmail} from "react-icons/md";
 import {useEffect, useState} from "react";
 import {LFNotification, NotificationPageData} from "@admin/types";
 import {formatNotificationDate, getNotificationsHeading, getUnreadNotificationCount, isLFPartyNotification} from "@admin/lib";
@@ -8,6 +7,7 @@ import usePartySocket from "partysocket/react";
 import {API_NOTIFICATIONS_GET, API_NOTIFICATIONS_UPDATE} from "@admin/lib/constants";
 import {useSession} from "next-auth/react";
 import {LFNotificationIcon} from "./LFNotificationIcon";
+import {LFNotificationMessageIcon} from "@admin/components/LFNotificationMessageIcon";
 
 /**
  * Function to handle the party message. If the message is an LFPartyNotification,
@@ -34,7 +34,7 @@ const onPartyMessage = (message: MessageEvent,
         notifications: [newNotification],
         dateCreated: new Date()
     }
-    if (newNotificationPageData) callback?.(notificationPageData)
+    callback?.(newNotificationPageData)
 }
 /**
  * Function to update the notification page data in the DB. Sets the notifications as 'read'.
@@ -52,8 +52,10 @@ const updateNotification = (newNotificationPageData: NotificationPageData,
         }
     })
         .then(r => r.json())
-        // TODO: verify the response and replace newNotificationPageData with the response if necessary
-        .then((r) => callback?.(newNotificationPageData))
+        .then((r) => {
+            console.info("Notifications updated", r.message)
+            callback?.(newNotificationPageData)
+        })
         .catch(e => {
             console.error("Error updating notifications", e)
         })
@@ -61,9 +63,12 @@ const updateNotification = (newNotificationPageData: NotificationPageData,
 /**
  * Function to make all notifications read by updating the DB
  * and updating the state
+ * @param notificationPageData {NotificationPageData} - the notification page data
+ * @param callback {(data?: NotificationPageData) => void} - the callback function to update the state
  * @returns {void}
  */
-const makeAllNotificationsRead = (notificationPageData?: NotificationPageData): void => {
+const makeAllNotificationsRead = (notificationPageData?: NotificationPageData,
+                                  callback?: (data?: NotificationPageData) => void): void => {
     if (!notificationPageData) return
     const newNotificationPageData: NotificationPageData = {
         ...notificationPageData,
@@ -72,7 +77,7 @@ const makeAllNotificationsRead = (notificationPageData?: NotificationPageData): 
             read: true
         }))
     }
-    updateNotification(newNotificationPageData)
+    updateNotification(newNotificationPageData, callback)
 }
 
 
@@ -89,6 +94,24 @@ const fetchNotifications = async (callback?: (data?: NotificationPageData) => vo
         .catch(e => {
             console.error("Error fetching notifications", e)
         })
+}
+/**
+ * Function to determine whether to show the 'View All' link in the notifications dropdown
+ * @param notificationPageData {NotificationPageData} - the notification page data
+ * @returns {boolean}
+ */
+const showViewAll = (notificationPageData?: NotificationPageData): boolean => {
+    const unreadCount = getUnreadNotificationCount(notificationPageData?.notifications ?? [])
+    if (!unreadCount) return false
+    return unreadCount > 5
+}
+/**
+ * Function to get the unread notifications from the notification page data
+ * @param notificationPageData {NotificationPageData} - the notification page data
+ * @returns {LFNotification[]}
+ */
+const getUnreadNotifications = (notificationPageData?: NotificationPageData): LFNotification[] => {
+    return notificationPageData?.notifications?.filter(n => !n.read) ?? []
 }
 export const LFNotifications = () => {
     const [notificationPageData, setNotificationPageData] =
@@ -121,33 +144,46 @@ export const LFNotifications = () => {
                     {getNotificationsHeading(notificationPageData?.notifications ?? [])}</span>
                 {notificationPageData?.notifications.some(n => !n.read) &&
                     <span className="ml-auto cursor-pointer" onClick={() => {
-                        makeAllNotificationsRead(notificationPageData)
+                        makeAllNotificationsRead(notificationPageData, setNotificationPageData)
                     }}>
                         <FaRegEyeSlash/>
                     </span>
                 }
             </DropdownHeader>
             {/* Only display unread notifications */}
-            {notificationPageData?.notifications?.filter(n => !n.read)?.map((notification, index) => {
+            {getUnreadNotifications(notificationPageData)?.slice(0, 5)?.map((notification, index) => {
                 return (
                     <DropdownItem key={index} as='a' href="http://email.littlefern.in" target='_blank'>
-                        <div className="flex flex-col">
-                            <div className="w-64 text-cyan-800 font-normal text-sm mb-1.5 dark:text-cyan-50 flex items-center">
-                                <div className="mr-2">
-                                    <MdEmail/>
+                        <div
+                            className="flex py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600 w-64"
+                        >
+                            <LFNotificationMessageIcon/>
+                            <div className="pl-3 w-full">
+                                <div
+                                    className="text-gray-500 font-normal text-xs mb-1.5 dark:text-gray-400"
+                                >
+                                    <span className="text-cyan-800 dark:text-cyan-50">{notification.message}</span>
                                 </div>
-                                <span className="font-semibold">New:</span>
-                                <span className="truncate ml-2 text-gray-900 dark:text-white">{notification.message}</span>
-                            </div>
-                            <div
-                                className="text-xs font-medium text-primary-600 dark:text-primary-500"
-                            >
-                                {formatNotificationDate(notification.dateCreated)}
+                                <div
+                                    className="text-xs font-medium text-primary-600 dark:text-primary-300"
+                                >
+                                    {formatNotificationDate(notification.dateCreated)}
+                                </div>
                             </div>
                         </div>
                     </DropdownItem>
                 )
             })}
+            {/* Display a View All link if there are more than 5 unread notifications */}
+            {showViewAll(notificationPageData) &&
+                <DropdownItem as='a' href="http://email.littlefern.in" target='_blank' className="block py-2 text-md text-center text-cyan-800">
+                    <div className="inline-flex items-center">
+                        <span className="mr-2 text-sm font-semibold">
+                            View all
+                        </span>
+                        <FaRegEye/>
+                    </div>
+                </DropdownItem>}
         </Dropdown>
     )
 }
