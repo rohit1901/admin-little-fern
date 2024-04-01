@@ -2,9 +2,7 @@ import {WithId} from "mongodb";
 import {
     AboutPageData,
     ContactPageData,
-    GalleryItem,
     GalleryPageData,
-    Hero,
     HomePageData,
     LFNotification,
     LFPartyNotification,
@@ -31,33 +29,35 @@ export const getImageUrl = (src?: string) => {
     const basePath = process.env.NEXT_PUBLIC_AWS_CLOUDFRONT_URL;
     return isDev ? `${basePath}/dev${src}` : `${basePath}${src}`;
 }
-export const getNewSchoolPrograms = (id: string, newHero: Hero, schoolPrograms?: WithId<SchoolProgram>[]) => {
-    return schoolPrograms?.map((program) => {
-        if (program._id?.toString() === id) {
-            return {...program, hero: newHero}
-        }
-        return {...program}
-    })
-}
-
-export const getUniqueTags = (galleryItems: GalleryItem[]) => {
-    const badges = galleryItems.map((galleryItem) => galleryItem.tag)
-    const set = new Set(badges)
-    return Array.from(set)
-}
-
-export const isPathnameHome = (pathname: string) => {
+/**
+ * Check if the pathname is the home page
+ * @param pathname {string} - the pathname
+ * @returns {boolean} - whether the pathname is the home page
+ */
+export const isPathnameHome = (pathname: string): boolean => {
     return pathname === PATHNAME_HOME
 }
-
-export const isPathnameAbout = (pathname: string) => {
+/**
+ * Check if the pathname is the about page
+ * @param pathname {string} - the pathname
+ * @returns {boolean} - whether the pathname is the about page
+ */
+export const isPathnameAbout = (pathname: string): boolean => {
     return pathname === PATHNAME_ABOUT
 }
-
-export const isPathnamePrograms = (pathname: string) => {
+/**
+ * Check if the pathname is the programs page
+ * @param pathname {string} - the pathname
+ * @returns {boolean} - whether the pathname is the programs page
+ */
+export const isPathnamePrograms = (pathname: string): boolean => {
     return pathname.includes(PATHNAME_PROGRAMS)
 }
-
+/**
+ * Typeguard to check if the data is a HomePageData
+ * @param data {any} - the data
+ * @returns {boolean} - whether the data is a HomePageData
+ */
 export const isHomePageData = (data: any): data is HomePageData => {
     return (data && typeof data === 'object' && 'homeHero' in data
         && 'schoolFeatures' in data && 'staff' in data && 'schoolProgramsBlock' in data
@@ -78,14 +78,6 @@ export const isAboutPageData = (data: any): data is AboutPageData => {
 export const isGalleryPageData = (data: any): data is GalleryPageData => {
     return data && typeof data === 'object' && 'galleryHero' in data && 'galleryItems' in data;
 }
-export const isSchoolProgramArray = (obj: any): obj is SchoolProgram[] => {
-    return Array.isArray(obj) && obj.every(item => isSchoolProgram(item));
-}
-
-export const isSchoolProgram = (obj: any): obj is SchoolProgram => {
-    // Add your own checks based on the properties of SchoolProgram
-    return obj && typeof obj === 'object' && 'name' in obj && 'hero' in obj;
-}
 
 export const isSchoolProgramsBlock = (obj: any): obj is WithId<SchoolProgramsBlock> => {
     return obj && typeof obj === 'object' && 'heading' in obj && 'schoolPrograms' in obj;
@@ -102,33 +94,65 @@ export const isLFPartyNotification = (partyNotification: any): partyNotification
     if (partyNotification.type !== 'notification' && partyNotification.type !== 'acknowledgement') return false
     return !(partyNotification.type === 'notification' && !partyNotification.notification);
 }
-
-export const getS3UploadKey = (key: string) => {
+/**
+ * Get the S3 upload key based on the environment
+ * @param key {string} - the key
+ * @returns {string} - the S3 upload key
+ */
+export const getS3UploadKey = (key: string): string => {
     if (process.env.NODE_ENV === 'development') {
         return `dev${key}`
     }
     return key
 }
-
-export const isEmailAuthorized = (session: Session | null) => {
+/**
+ * Check if the email is authorized to access the admin dashboard
+ * @param session {Session | null} - the session
+ * @returns {boolean} - whether the email is authorized
+ */
+export const isEmailAuthorized = (session: Session | null): boolean => {
     return session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAILS
 }
+/**
+ * Get the school program based on the slug
+ * @param slug {string} - the slug
+ * @param schoolPrograms {WithId<SchoolProgram>[]} - the school programs
+ * @returns {WithId<SchoolProgram> | undefined} - the school program
+ */
 export const getSchoolProgram = (slug: string, schoolPrograms?: WithId<SchoolProgram>[]): WithId<SchoolProgram> | undefined => {
     return schoolPrograms?.find((program) => program.slug === slug)
 }
-
-export const createDate = (fromDate?: string, toDate?: string) => {
+/**
+ * Function to create a date string from the from and to dates.
+ * If both dates are provided, the date string will be in the format from - to
+ * If only the from date is provided, the date string will be the from date
+ * Example: 1 Jan 2022 - 2 Jan 2022
+ * @param fromDate {string} - the from date
+ * @param toDate {string} - the to date
+ * @returns {string} - the date string
+ */
+export const createDate = (fromDate?: string, toDate?: string): string | undefined => {
     if (fromDate && toDate) {
         return `${fromDate} - ${toDate}`
     }
     return fromDate
 }
-
-export const formatDate = (date: Date) => {
+/**
+ * Function to format the date to a readable format
+ * Example: Jan. 1
+ * @param date {Date} - the date
+ * @returns {string} - the formatted date
+ */
+export const formatDate = (date: Date): string => {
     const month = date.toLocaleString('default', {month: 'short'})
     return `${month}. ${date.getDate()}`
 }
-
+/**
+ * Function to parse the date string to a LFScheduleData object
+ * Example: 1 Jan 2022 - 2 Jan 2022 returns {fromDate: "1 Jan 2022", toDate: "2 Jan 202
+ * @param dateString {string} - the date string
+ * @returns {LFScheduleData} - the parsed schedule data
+ */
 export const parseDateFromString = (dateString: string) => {
     const [fromDate, toDate] = dateString.split('-')
     return {
@@ -220,6 +244,12 @@ export const handleProgramUpdate = async (programs: WithId<SchoolProgram>[], hea
     }
     return
 }
+/**
+ * Function to format the notification date to a readable format
+ * Example: just now, today, 1 Jan 2022, 10:00
+ * @param date {Date} - the date
+ * @returns {string} - the formatted date
+ */
 export const formatNotificationDate = (date: Date) => {
     const now = new Date();
     const providedDate = new Date(date);
@@ -244,9 +274,31 @@ export const formatNotificationDate = (date: Date) => {
         minute: 'numeric'
     });
 }
-export const getUnreadNotificationCount = (notifications: LFNotification[]) => {
+/**
+ * Get the unread notification count
+ * @param notifications {LFNotification[]} - the notifications
+ * @returns {string | number} - the unread notification count
+ */
+export const getUnreadNotificationCount = (notifications: LFNotification[]): string | number => {
     return notifications.filter(n => !n.read).length || ''
 }
-export const getNotificationsHeading = (notifications: LFNotification[]) => {
+/**
+ * Get the notifications heading based on the notifications
+ * @param notifications {LFNotification[]} - the notifications
+ * @returns {string} - the notifications heading
+ */
+export const getNotificationsHeading = (notifications: LFNotification[]): string => {
     return getUnreadNotificationCount(notifications) ? 'New Notifications' : 'No new notifications'
+}
+/**
+ * Get the party kit hostname based on the environment
+ * @param hostname {string} - the hostname
+ * @returns {string} - the party kit hostname
+ * @example getPartyKitHostname('localhost:3000') => 'http://localhost:3000'
+ */
+export const getPartyKitHostname = (hostname: string): string => {
+    if (process.env.NODE_ENV === 'development') {
+        return `http://${hostname}`
+    }
+    return `https://${hostname}`
 }

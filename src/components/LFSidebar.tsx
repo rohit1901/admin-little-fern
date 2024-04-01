@@ -13,8 +13,9 @@ import {RemoveStaff} from "@admin/components/Staff/RemoveStaff";
 import {RemoveProgram} from "@admin/components/ProgramsPage/RemoveProgram";
 import {PiUsersBold} from "react-icons/pi";
 import {IoMdCall, IoMdInformationCircleOutline} from "react-icons/io";
-import {isEmailAuthorized} from "@admin/lib";
+import {getPartyKitHostname, isEmailAuthorized} from "@admin/lib";
 import {useSession} from "next-auth/react";
+import {IoBalloon} from "react-icons/io5";
 
 const pages = [{
     name: 'Home', href: PATHNAME_HOME, icon: RiHomeHeartLine,
@@ -29,10 +30,16 @@ const pages = [{
 }, {
     name: 'Parents', href: PATHNAME_PARENTS, icon: PiUsersBold,
 }]
-const setActive = (href: string, slug: string | null) => {
+/**
+ * Function to set the active sidebar item
+ * @param href {string} - the href of the sidebar item
+ * @param slug {string | null} - the slug of the current page
+ * @returns {boolean} - true if the sidebar item is active, false otherwise
+ */
+const setActive = (href: string, slug: string | null): boolean => {
     // set active to true if the slug includes '/programs'
     if (href.includes(PATHNAME_PROGRAMS)) {
-        return slug?.includes(PATHNAME_PROGRAMS)
+        return !!slug?.includes(PATHNAME_PROGRAMS)
     }
     return slug === href
 }
@@ -82,6 +89,13 @@ const LFSidebar = () => {
             <SidebarItemGroup>
                 <SidebarItem href="#" icon={FaLaptopCode}>
                     Documentation
+                </SidebarItem>
+                <SidebarItem as="a" target="_blank" href={getPartyKitHostname(process.env.NEXT_PUBLIC_PARTYKIT_HOSTNAME)}
+                             className="text-red-700 px-0">
+                    <div className="flex items-center px-0">
+                        <IoBalloon className="mr-3 w-5 h-5 text-red-700"/>
+                        <span className="text-cyan-800 dark:text-cyan-50">Little Fern PartyKit</span>
+                    </div>
                 </SidebarItem>
             </SidebarItemGroup>
         </SidebarItems>
