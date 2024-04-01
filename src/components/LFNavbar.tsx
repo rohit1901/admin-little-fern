@@ -65,19 +65,21 @@ const LFNavbar = () => {
                     }
                 >
                     <DropdownHeader>
-                        <span className="block text-sm">{session?.user?.name}</span>
-                        <span className="block truncate text-sm font-medium">{session?.user?.email}</span>
+                        <span className="block text-sm text-cyan-800 dark:text-cyan-50">{session?.user?.name}</span>
+                        <span className="block truncate text-sm font-medium text-cyan-800 dark:text-cyan-50">{session?.user?.email}</span>
                     </DropdownHeader>
-                    <DropdownItem icon={MdInsertChart} href="/">Dashboard</DropdownItem>
-                    <DropdownItem as='a' href="http://email.littlefern.in" target='_blank' icon={HiInbox}>
+                    <DropdownItem icon={MdInsertChart} href="/" className="text-cyan-800 dark:text-cyan-50">Dashboard</DropdownItem>
+                    <DropdownItem as='a' href="http://email.littlefern.in" target='_blank' icon={HiInbox}
+                                  className="text-cyan-800 dark:text-cyan-50">
                         Inbox
                     </DropdownItem>
-                    <DropdownItem as='a' href="https://littlefernnoida.substack.com/" target='_blank' icon={SiSubstack}>
+                    <DropdownItem as='a' href="https://littlefernnoida.substack.com/" target='_blank' icon={SiSubstack}
+                                  className="text-cyan-800 dark:text-cyan-50">
                         Newsletters
                     </DropdownItem>
-                    <DropdownItem icon={IoSettings} href="/settings">Settings</DropdownItem>
+                    <DropdownItem icon={IoSettings} href="/settings" className="text-cyan-800 dark:text-cyan-50">Settings</DropdownItem>
                     <DropdownDivider/>
-                    <DropdownItem icon={FaSignOutAlt} onClick={() => signOut()}>Sign out</DropdownItem>
+                    <DropdownItem icon={FaSignOutAlt} onClick={() => signOut()} className="text-cyan-800 dark:text-cyan-50">Sign out</DropdownItem>
                 </Dropdown>
             </div>
         </Navbar>
