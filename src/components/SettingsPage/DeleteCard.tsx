@@ -10,7 +10,6 @@ import {isEmailAuthorized} from "@admin/lib";
 export const DeleteCard = () => {
     const [isDeleting, setIsDeleting] = useState(false)
     const {data: session} = useSession()
-    if (!isEmailAuthorized(session)) return null
     return <Card className="max-w-sm dark:border-primary-50">
         <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">
             <TbHttpDelete/>
@@ -31,7 +30,7 @@ export const DeleteCard = () => {
             <Button
                 className='m-0'
                 outline
-                disabled={isDeleting} onClick={async () => {
+                disabled={isDeleting || !isEmailAuthorized(session)} onClick={async () => {
                 setIsDeleting(true)
                 await fetch('/api/settings/delete')
                 setIsDeleting(false)

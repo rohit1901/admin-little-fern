@@ -26,11 +26,18 @@ const removeProgramText = (program: string) => {
     return program.replace('Program', '');
 }
 
-const icons = [<FaApple key="fa-apple" className="w-auto h-auto mr-1"/>, <GiBanana key="fa-banana" className="w-auto h-auto mr-1"/>,
-    <GiCherry key="gi-cherry" className="w-auto h-auto mr-1"/>, <GiWatermelon key="gi-watermelon" className="w-auto h-auto mr-1"/>,
-    <FaEgg key="fa-egg" className="w-auto h-auto mr-1"/>, <FaFish key="fa-fish" className="w-auto h-auto mr-1"/>,
-    <GiGrapes key="gi-grapes" className="w-auto h-auto mr-1"/>, <FaHamburger key="fa-hamburger" className="w-auto h-auto mr-1"/>,
-    <FaIceCream key="fa-ice-cream" className="w-auto h-auto mr-1"/>, <FaKiwiBird key="fa-kiwi-bird" className="w-auto h-auto mr-1"/>,];
+const icons = [
+    <FaApple key="fa-apple" className="w-auto h-auto mr-1"/>,
+    <GiBanana key="fa-banana" className="w-auto h-auto mr-1"/>,
+    <GiCherry key="gi-cherry" className="w-auto h-auto mr-1"/>,
+    <GiWatermelon key="gi-watermelon" className="w-auto h-auto mr-1"/>,
+    <FaEgg key="fa-egg" className="w-auto h-auto mr-1"/>,
+    <FaFish key="fa-fish" className="w-auto h-auto mr-1"/>,
+    <GiGrapes key="gi-grapes" className="w-auto h-auto mr-1"/>,
+    <FaHamburger key="fa-hamburger" className="w-auto h-auto mr-1"/>,
+    <FaIceCream key="fa-ice-cream" className="w-auto h-auto mr-1"/>,
+    <FaKiwiBird key="fa-kiwi-bird" className="w-auto h-auto mr-1"/>,
+];
 
 export const ProgramTabs = () => {
     const [randomIcons, setRandomIcons] = useState(icons);

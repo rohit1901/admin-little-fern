@@ -90,7 +90,7 @@ export default function Home() {
                                 outline
                                 disabled={checkingS3Status} onClick={async () => checkS3Status()}>
                                 {checkingS3Status ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
-                                    <IoReload/>
+                                    <IoReload className="h-5 w-5"/>
                                     <span>Check S3 Status</span>
                                 </div>}
                             </Button>
@@ -114,7 +114,7 @@ export default function Home() {
                                 outline
                                 disabled={checkingHerokuStatus} onClick={async () => checkHerokuStatus()}>
                                 {checkingHerokuStatus ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
-                                    <IoReload/>
+                                    <IoReload className="h-5 w-5"/>
                                     <span>Check Heroku Status</span>
                                 </div>}
                             </Button>
@@ -138,7 +138,7 @@ export default function Home() {
                                 outline
                                 disabled={checkingMongoDBStatus} onClick={async () => checkMongoDBStatus()}>
                                 {checkingMongoDBStatus ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
-                                    <IoReload/>
+                                    <IoReload className="h-5 w-5"/>
                                     <span>Check MongoDB Status</span>
                                 </div>}
                             </Button>

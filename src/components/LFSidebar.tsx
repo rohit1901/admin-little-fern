@@ -48,7 +48,7 @@ export const RedBalloon = () => {
                 aria-hidden="true" role="img" className="iconify iconify--noto"
                 preserveAspectRatio="xMidYMid meet">
         <path d="M75.87 102.1c3 4.9-2.38 10.12 1.85 13.91c7.84 7 17.44-12.05 29.49 7.49" fill="none" stroke="#64b5f6"
-              stroke-width="3" stroke-miterlimit="10"></path>
+              strokeWidth="3" strokeMiterlimit="10"></path>
         <path
             d="M74.5 106.88l5.63-1a2.86 2.86 0 0 0 2.07-4.1a34.64 34.64 0 0 0-7.2-9.62c-.44 2.89-2.16 7.38-3.62 10.8a2.85 2.85 0 0 0 3.12 3.92z"
             fill="#f44336"></path>

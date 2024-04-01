@@ -11,7 +11,10 @@ import {FaSignOutAlt} from "react-icons/fa";
 import {IoSettings} from "react-icons/io5";
 import {LFNotifications} from "@admin/components/LFNotifications";
 
-const getUnauthorizedBanner = (session: Session | null) => {
+type UnauthorizedBannerProps = {
+    session: Session | null
+}
+const UnauthorizedBanner = ({session}: UnauthorizedBannerProps) => {
     if (isEmailAuthorized(session)) {
         return null
     }
@@ -20,16 +23,16 @@ const getUnauthorizedBanner = (session: Session | null) => {
             <div
                 className="flex w-full justify-between border-b border-gray-200 bg-gray-50 dark:border-cyan-50 dark:bg-cyan-50">
                 <div className="mx-auto flex items-center">
-                    <p className="flex items-center text-sm font-normal text-cyan-900">
+                    <p className="flex items-center text-sm font-normal text-cyan-800">
                         <MdInfo className="h-5 w-5 mr-2 ml-5"/>
                         <span className="[&_p]:inline">
                                 You are not authorized to edit anything. For more information, please contact your administrator.
                                 <Button
                                     onClick={() => signOut()}
-                                    className="inline-flex items-center justify-center ml-0 md:ml-1 md:inline-flex dark:text-cyan-50"
+                                    className="inline-flex items-center justify-center ml-0 md:ml-1 md:inline-flex dark:bg-cyan-800"
                                     size='xs'>
-                                    Login as a different user
-                                    <HiArrowRight className="ml-2 h-4 w-4"/>
+                                    <p className="dark:text-cyan-50">Login as a different user</p>
+                                    <HiArrowRight className="ml-2 h-4 w-4 dark:text-cyan-50"/>
                                 </Button>
                             </span>
                     </p>
@@ -53,9 +56,9 @@ const LFNavbar = () => {
                 <span
                     className="text-xl font-semibold text-cyan-800 dark:text-cyan-50">Little FERN Administration</span>
             </NavbarBrand>
-            {getUnauthorizedBanner(session)}
+            <UnauthorizedBanner session={session}/>
             <div className="flex items-center lg:order-2">
-                <DarkThemeToggle className='p-2 mr-5 text-cyan-800 dark:text-yellow-200'/>
+                <DarkThemeToggle className='mr-3 text-cyan-800 dark:text-yellow-200'/>
                 <LFNotifications/>
                 <Dropdown
                     arrowIcon={false}

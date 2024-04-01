@@ -7,13 +7,22 @@ import {
     LFNotification,
     LFPartyNotification,
     LFScheduleData,
+    NotificationPageData,
     ParentsPageData,
     SchoolProgram,
     SchoolProgramsBlock
 } from "@admin/types";
 import {Session} from "next-auth";
 import {ThemeMode} from "flowbite-react";
-import {API_PROGRAMS_UPDATE, PATHNAME_ABOUT, PATHNAME_HOME, PATHNAME_PROGRAMS, UPDATE_PATHNAME_MAPPING} from "@admin/lib/constants";
+import {
+    API_NOTIFICATIONS_GET,
+    API_NOTIFICATIONS_UPDATE,
+    API_PROGRAMS_UPDATE,
+    PATHNAME_ABOUT,
+    PATHNAME_HOME,
+    PATHNAME_PROGRAMS,
+    UPDATE_PATHNAME_MAPPING
+} from "@admin/lib/constants";
 
 /**
  * Get the image url from the src
@@ -301,4 +310,106 @@ export const getPartyKitHostname = (hostname: string): string => {
         return `http://${hostname}`
     }
     return `https://${hostname}`
+}
+/**
+ * Function to handle the party message. If the message is an LFPartyNotification,
+ * it updates the notification page data in the state. If the message is an acknowledgement, it does nothing.
+ * @param message {MessageEvent} - the message from the party socket
+ * @param notificationPageData {NotificationPageData} - the notification page data in the state
+ * @param callback {(data?: NotificationPageData) => void} - the callback function to update the state
+ */
+export const onPartyMessage = (message: MessageEvent,
+                               notificationPageData?: NotificationPageData,
+                               callback?: (data?: NotificationPageData) => void): void => {
+    const parsedMessage = JSON.parse(message.data)
+    if (!isLFPartyNotification(parsedMessage)) return;
+    if (parsedMessage.type === "acknowledgement") return;
+    const newNotification: LFNotification = {
+        message: parsedMessage.notification?.message ?? '',
+        read: !!parsedMessage.notification?.read,
+        dateCreated: parsedMessage.notification?.dateCreated ? new Date(parsedMessage.notification.dateCreated) : new Date()
+    }
+    const newNotificationPageData: NotificationPageData = notificationPageData && notificationPageData.notifications ? {
+        ...notificationPageData,
+        notifications: [...notificationPageData.notifications, newNotification]
+    } : {
+        notifications: [newNotification],
+        dateCreated: new Date()
+    }
+    callback?.(newNotificationPageData)
+}
+/**
+ * Function to update the notification page data in the DB. Sets the notifications as 'read'.
+ * @param newNotificationPageData {NotificationPageData} - the new notification page data
+ * @param callback {(data?: NotificationPageData) => void} - the callback function to update the state
+ * @returns {void}
+ */
+export const updateNotification = (newNotificationPageData: NotificationPageData,
+                                   callback?: (data?: NotificationPageData) => void): void => {
+    fetch(API_NOTIFICATIONS_UPDATE, {
+        method: 'POST',
+        body: JSON.stringify(newNotificationPageData),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(r => r.json())
+        .then((r) => {
+            console.info("Notifications updated", r.message)
+            callback?.(newNotificationPageData)
+        })
+        .catch(e => {
+            console.error("Error updating notifications", e)
+        })
+}
+/**
+ * Function to make all notifications read by updating the DB
+ * and updating the state
+ * @param notificationPageData {NotificationPageData} - the notification page data
+ * @param callback {(data?: NotificationPageData) => void} - the callback function to update the state
+ * @returns {void}
+ */
+export const makeAllNotificationsRead = (notificationPageData?: NotificationPageData,
+                                         callback?: (data?: NotificationPageData) => void): void => {
+    if (!notificationPageData) return
+    const newNotificationPageData: NotificationPageData = {
+        ...notificationPageData,
+        notifications: notificationPageData?.notifications?.map((notification) => ({
+            ...notification,
+            read: true
+        }))
+    }
+    updateNotification(newNotificationPageData, callback)
+}
+/**
+ * Function to fetch notifications from the DB
+ * and update the state
+ * @param callback {(data?: NotificationPageData) => void} - the callback function to update the state
+ * @returns {Promise<void>}
+ */
+export const fetchNotifications = async (callback?: (data?: NotificationPageData) => void): Promise<void> => {
+    fetch(API_NOTIFICATIONS_GET)
+        .then(r => r.json())
+        .then((r) => callback?.(r.body))
+        .catch(e => {
+            console.error("Error fetching notifications", e)
+        })
+}
+/**
+ * Function to determine whether to show the 'View All' link in the notifications dropdown
+ * @param notificationPageData {NotificationPageData} - the notification page data
+ * @returns {boolean}
+ */
+export const showViewAll = (notificationPageData?: NotificationPageData): boolean => {
+    const unreadCount = getUnreadNotificationCount(notificationPageData?.notifications ?? [])
+    if (!unreadCount) return false
+    return unreadCount > 5
+}
+/**
+ * Function to get the unread notifications from the notification page data
+ * @param notificationPageData {NotificationPageData} - the notification page data
+ * @returns {LFNotification[]}
+ */
+export const getUnreadNotifications = (notificationPageData?: NotificationPageData): LFNotification[] => {
+    return notificationPageData?.notifications?.filter(n => !n.read) ?? []
 }
