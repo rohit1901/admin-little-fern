@@ -1,5 +1,5 @@
 import {FaRegEye, FaRegEyeSlash} from "react-icons/fa";
-import {Dropdown, DropdownHeader, DropdownItem, Spinner} from "flowbite-react";
+import {Dropdown, DropdownHeader, DropdownItem} from "flowbite-react";
 import {useEffect, useState} from "react";
 import {NotificationPageData} from "@admin/types";
 import {
@@ -40,23 +40,21 @@ export const LFNotifications = () => {
             setLoading(false)
         }).catch(e => console.error("Error fetching notifications", e))
     }, [])
-
-    if (loading) return <Spinner className="mr-4" size="sm"/>
-
     return (
         <Dropdown
             arrowIcon={false}
             inline
-            label={<LFNotificationIcon count={getUnreadNotificationCount(notificationPageData?.notifications ?? [])}/>}>
+            label={<LFNotificationIcon count={getUnreadNotificationCount(notificationPageData?.notifications ?? [])} loading={loading}/>}>
             <DropdownHeader className="flex items-center">
-                <span className="font-bold mr-2 text-cyan-800 dark:text-cyan-50">
-                    {getUnreadNotificationCount(notificationPageData?.notifications ?? []) ?? 'No'}
-                </span>
                 <span className="block truncate text-sm font-bold text-cyan-800 dark:text-cyan-50">
                     {getNotificationsHeading(notificationPageData?.notifications ?? [])}</span>
                 {notificationPageData?.notifications.some(n => !n.read) &&
                     <span className="ml-auto cursor-pointer" onClick={() => {
-                        makeAllNotificationsRead(notificationPageData, setNotificationPageData)
+                        setLoading(true)
+                        makeAllNotificationsRead(notificationPageData, (data) => {
+                            setNotificationPageData(data)
+                            setLoading(false)
+                        })
                     }}>
                         <FaRegEyeSlash/>
                     </span>
@@ -89,7 +87,13 @@ export const LFNotifications = () => {
             {/* Display a View All link if there are more than 5 unread notifications */}
             {showViewAll(notificationPageData) &&
                 <DropdownItem as="a" href="http://email.littlefern.in" target="_blank" className="block py-2 text-md text-center text-cyan-800">
-                    <div className="inline-flex items-center">
+                    <div className="inline-flex items-center" onClick={() => {
+                        setLoading(true)
+                        makeAllNotificationsRead(notificationPageData, (data) => {
+                            setNotificationPageData(data)
+                            setLoading(false)
+                        })
+                    }}>
                         <span className="mr-2 text-sm font-semibold">
                             View all
                         </span>

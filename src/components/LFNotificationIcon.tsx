@@ -5,15 +5,20 @@ const NOTIFICATION_BADGE_CLASS = "absolute inline-flex items-center justify-cent
 
 type IconProps = {
     count?: number
+    loading?: boolean
+}
+const LFNotificationCount = ({count}: IconProps) => {
+    if (count && count > 0) return <div className={NOTIFICATION_BADGE_CLASS}>{count}</div>
+    return null
 }
 /**
  * Component to display the notification icon with the count
  * @param count {number | string} - the count of notifications
+ * @param loading {boolean} - whether the notifications are loading
  */
-export const LFNotificationIcon = ({count}: IconProps) => {
+export const LFNotificationIcon = ({count, loading}: IconProps) => {
     return (<div className="relative inline-flex mr-5">
-        <FaBell className="text-cyan-800 dark:text-cyan-50 h-6 w-6"/>
-        {count && <div
-            className={NOTIFICATION_BADGE_CLASS}>{count}</div>}
+        <FaBell className={`text-cyan-800 dark:text-cyan-50 h-6 w-6 ${loading ? 'animate-pulse' : 'animate-none'}`} disabled={loading}/>
+        <LFNotificationCount count={count}/>
     </div>)
 }

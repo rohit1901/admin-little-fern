@@ -27,6 +27,10 @@ export type LFScheduleData = {
     fromTime: string;
     toTime: string;
 }
+export type LFScheduleDate = {
+    fromDate: string;
+    toDate: string;
+}
 export type TextBlock = {
     headline: string
     subHeading?: string
