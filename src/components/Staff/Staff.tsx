@@ -1,10 +1,9 @@
-import {Fragment, useEffect} from "react";
+import {Fragment} from "react";
 import LFFormSection from "@admin/components/LFFormSection";
 import LFFormElement from "@admin/components/LFFormElement";
 import {Textarea, TextInput} from "flowbite-react";
 import {ImageBlock} from "@admin/components/ImageBlock";
-import {useStaffStore} from "@admin/store/useStaffStore";
-import {API_STAFF_GET} from "@admin/lib/constants";
+import {useStaff} from "@admin/lib/hooks/useStaff";
 
 
 const Staff = () => {
@@ -12,12 +11,6 @@ const Staff = () => {
         staffDetails,
         staffAssurancesBlock,
         homeTextBlock,
-        setStaffAssurancesBlock,
-        setHomeTextBlock,
-        setAboutTextBlock,
-        setStaffDetails,
-        staffPageDataId,
-        setStaffPageDataId,
         setHomeTextHeadline,
         setHomePageText,
         setHomeSubHeading,
@@ -26,26 +19,8 @@ const Staff = () => {
         setStaffDetailsRole,
         setStaffAssurancesBlockHeading,
         setStaffAssurancesBlockAssurances,
-    } = useStaffStore()
-    useEffect(() => {
-        if (!staffPageDataId) {
-            fetch(API_STAFF_GET, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => response.json())
-                .then(data => {
-                    setStaffDetails(data.body.staffDetails)
-                    setStaffAssurancesBlock(data.body.assurancesBlock)
-                    setHomeTextBlock(data.body.homeTextBlock)
-                    setAboutTextBlock(data.body.aboutTextBlock)
-                    setStaffPageDataId(data.body._id)
-                }).catch((error) => {
-                console.error('Error:', error);
-            });
-        }
-    }, [])
+    } = useStaff()
+
     return <Fragment>
         <LFFormSection sectionTitle='Featured Staff Block' column>
             <div className="flex flex-row">

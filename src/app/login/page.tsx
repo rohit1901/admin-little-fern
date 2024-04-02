@@ -4,9 +4,9 @@ import Image from "next/image";
 import {getImageUrl} from "@admin/lib";
 import {signIn, useSession} from "next-auth/react";
 import {HiMiniInformationCircle} from "react-icons/hi2";
-import {FaSignInAlt} from "react-icons/fa";
 import {redirect} from "next/navigation";
 import Loader from "@admin/components/Loader";
+import {PiSignInBold} from "react-icons/pi";
 
 export default function LoginPage() {
     const {status} = useSession();
@@ -35,8 +35,8 @@ export default function LoginPage() {
             </Banner>
             <Button onClick={() => signIn("auth0")} outline>
                 <div className='flex flex-row gap-2 items-center'>
-                    <FaSignInAlt className="mr-2 h-5 w-5"/>
-                    <p className="text-cyan-800">Sign in</p>
+                    <PiSignInBold className="mr-2 h-5 w-5"/>
+                    <p>Sign in</p>
                 </div>
             </Button>
         </Card>

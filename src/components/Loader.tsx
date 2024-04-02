@@ -1,4 +1,10 @@
-export default function Loader() {
+import {Fragment, PropsWithChildren} from "react";
+
+type LoaderProps = {
+    loading?: boolean;
+}
+export default function Loader({loading, children}: PropsWithChildren<LoaderProps>) {
+    if (!loading) return <Fragment>{children}</Fragment>
     return (
         <div className="min-w-screen flex min-h-screen items-center justify-center bg-purple-25 p-5">
             <div className="flex animate-pulse space-x-2">

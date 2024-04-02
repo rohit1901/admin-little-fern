@@ -1,11 +1,5 @@
-import HomePageComponent from "@admin/components/HomePage/HomePageComponent";
-import AboutPageComponent from "@admin/components/AboutPage";
-import GalleryPageComponent from "@admin/components/GalleryPage";
-import ParentsPageComponent from "@admin/components/ParentsPage";
-import ContactPageComponent from "@admin/components/ContactPage";
-import {Fragment, Suspense} from "react";
-import LFNavbar from "@admin/components/LFNavbar";
-import LFSidebar from "@admin/components/LFSidebar";
+import {Fragment} from "react";
+import dynamic from "next/dynamic";
 import Loader from "@admin/components/Loader";
 
 export async function generateMetadata() {
@@ -14,18 +8,38 @@ export async function generateMetadata() {
     }
 }
 
+const DynamicContactPage = dynamic(() => import("@admin/components/ContactPage"), {
+    loading: () => <Loader loading/>,
+    ssr: false
+})
+const DynamicAboutPage = dynamic(() => import("@admin/components/AboutPage"), {
+    loading: () => <Loader loading/>,
+    ssr: false
+})
+const DynamicGalleryPage = dynamic(() => import("@admin/components/GalleryPage"), {
+    loading: () => <Loader loading/>,
+    ssr: false
+})
+const DynamicHomePage = dynamic(() => import("@admin/components/HomePage/HomePageComponent"), {
+    loading: () => <Loader loading/>,
+    ssr: false
+})
+const DynamicParentsPage = dynamic(() => import("@admin/components/ParentsPage"), {
+    loading: () => <Loader loading/>,
+    ssr: false
+})
 const getPageComponent = (slug: string) => {
     switch (slug) {
         case 'Home':
-            return <HomePageComponent/>
+            return <DynamicHomePage/>
         case 'About':
-            return <AboutPageComponent/>
+            return <DynamicAboutPage/>
         case 'Gallery':
-            return <GalleryPageComponent/>
+            return <DynamicGalleryPage/>
         case 'Parents':
-            return <ParentsPageComponent/>
+            return <DynamicParentsPage/>
         case 'Contact':
-            return <ContactPageComponent/>
+            return <DynamicContactPage/>
         default:
             return null;
     }
@@ -37,12 +51,7 @@ export default function WebsitePage({params: {slug}}: {
     const elem = getPageComponent(slug);
     return (
         <Fragment>
-            <LFNavbar/>
-            <LFSidebar/>
-            <Suspense
-                fallback={<Loader/>}>
-                {elem}
-            </Suspense>
+            {elem}
         </Fragment>)
 }
 

@@ -1,7 +1,5 @@
-import ProgramsPageWrapper from "@admin/components/ProgramsPage/ProgramsPageWrapper";
-import {Fragment} from "react";
-import LFNavbar from "@admin/components/LFNavbar";
-import LFSidebar from "@admin/components/LFSidebar";
+import dynamic from "next/dynamic";
+import Loader from "@admin/components/Loader";
 
 export async function generateMetadata() {
     return {
@@ -10,15 +8,15 @@ export async function generateMetadata() {
     }
 }
 
+const DynamicProgramPageWrapper = dynamic(() => import("@admin/components/ProgramsPage/ProgramsPageWrapper"), {
+    loading: () => <Loader loading/>,
+    ssr: false
+})
 export default async function ProgramPage({params: {slug}}: {
     params: { slug: string }
 }) {
     return (
-        <Fragment>
-            <LFNavbar/>
-            <LFSidebar/>
-            <ProgramsPageWrapper slug={slug}/>
-        </Fragment>
+        <DynamicProgramPageWrapper slug={slug}/>
     )
 }
 
