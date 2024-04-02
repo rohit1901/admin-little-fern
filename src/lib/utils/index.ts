@@ -7,6 +7,7 @@ import {
     LFNotification,
     LFPartyNotification,
     LFScheduleData,
+    LFScheduleDate,
     NotificationPageData,
     ParentsPageData,
     SchoolProgram,
@@ -160,9 +161,9 @@ export const formatDate = (date: Date): string => {
  * Function to parse the date string to a LFScheduleData object
  * Example: 1 Jan 2022 - 2 Jan 2022 returns {fromDate: "1 Jan 2022", toDate: "2 Jan 202
  * @param dateString {string} - the date string
- * @returns {LFScheduleData} - the parsed schedule data
+ * @returns {LFScheduleDate} - the parsed schedule data
  */
-export const parseDateFromString = (dateString: string) => {
+export const parseDateFromString = (dateString: string): LFScheduleDate => {
     const [fromDate, toDate] = dateString.split('-')
     return {
         fromDate, toDate
@@ -217,7 +218,7 @@ export const isDarkMode = (themeMode: ThemeMode) => {
  * @param shouldUpdatePrograms {boolean} - whether to update the programs
  * @returns {string} - the update API path
  */
-export const getUpdateAPIPath = (path: string, shouldUpdatePrograms?: boolean) => {
+export const getUpdateAPIPath = (path: string, shouldUpdatePrograms?: boolean): string => {
     if (shouldUpdatePrograms) return API_PROGRAMS_UPDATE
     return UPDATE_PATHNAME_MAPPING[path]
 }
@@ -259,7 +260,7 @@ export const handleProgramUpdate = async (programs: WithId<SchoolProgram>[], hea
  * @param date {Date} - the date
  * @returns {string} - the formatted date
  */
-export const formatNotificationDate = (date: Date) => {
+export const formatNotificationDate = (date: Date): string => {
     const now = new Date();
     const providedDate = new Date(date);
 
@@ -289,7 +290,8 @@ export const formatNotificationDate = (date: Date) => {
  * @returns {number | undefined} - the unread notification count
  */
 export const getUnreadNotificationCount = (notifications: LFNotification[]): number | undefined => {
-    return notifications.filter(n => !n.read)?.length
+    const LENGTH = notifications.filter(n => !n.read)?.length
+    return LENGTH === 0 ? undefined : LENGTH
 }
 /**
  * Get the notifications heading based on the notifications
@@ -297,7 +299,8 @@ export const getUnreadNotificationCount = (notifications: LFNotification[]): num
  * @returns {string} - the notifications heading
  */
 export const getNotificationsHeading = (notifications: LFNotification[]): string => {
-    return getUnreadNotificationCount(notifications) ? 'New Notifications' : 'No new notifications'
+    const COUNT = getUnreadNotificationCount(notifications)
+    return COUNT ? `${COUNT} New Notifications` : 'No new notifications'
 }
 /**
  * Get the party kit hostname based on the environment
