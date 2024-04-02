@@ -8,7 +8,7 @@ import GalleryTextBlock from "@admin/components/GalleryPage/GalleryTextBlock";
 import {PageHeader} from "@admin/components/PageHeader";
 import {API_GALLERY_GET} from "@admin/lib/constants";
 import {isGalleryPageData} from "@admin/lib";
-import Loader from "@admin/components/Loader";
+import {ContentLoader} from "@admin/components/Loaders";
 
 
 const GalleryPageComponent = () => {
@@ -33,7 +33,7 @@ const GalleryPageComponent = () => {
         }
     }, [])
     return (
-        <Loader loading={loading}>
+        <ContentLoader loading={loading}>
             <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
                 <LFForm data={galleryPageData} afterSubmit={(data) => {
                     if (!isGalleryPageData(data)) return
@@ -45,7 +45,7 @@ const GalleryPageComponent = () => {
                     <GalleryWithTags/>
                 </LFForm>
             </div>
-        </Loader>
+        </ContentLoader>
     )
 }
 export default GalleryPageComponent;

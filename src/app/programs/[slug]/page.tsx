@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import Loader from "@admin/components/Loader";
+import {ScreenLoader} from "@admin/components/Loaders";
 
 export async function generateMetadata() {
     return {
@@ -9,7 +9,7 @@ export async function generateMetadata() {
 }
 
 const DynamicProgramPageWrapper = dynamic(() => import("@admin/components/ProgramsPage/ProgramsPageWrapper"), {
-    loading: () => <Loader loading/>,
+    loading: () => <ScreenLoader/>,
     ssr: false
 })
 export default async function ProgramPage({params: {slug}}: {

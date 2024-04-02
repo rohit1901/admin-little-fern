@@ -8,7 +8,7 @@ import {useEffect, useState} from "react";
 import {PageHeader} from "@admin/components/PageHeader";
 import {API_CONTACT_GET} from "@admin/lib/constants";
 import {isContactPageData} from "@admin/lib";
-import Loader from "@admin/components/Loader";
+import {ContentLoader} from "@admin/components/Loaders";
 
 const MapsIframe = () => {
     return (
@@ -52,7 +52,7 @@ const ContactPageComponent = () => {
         }
     }, [])
     return (
-        <Loader loading={loading}>
+        <ContentLoader loading={loading}>
             <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
                 <LFForm data={contactPageData} afterSubmit={(data) => {
                     if (!isContactPageData(data)) return
@@ -127,7 +127,7 @@ const ContactPageComponent = () => {
                     </LFFormSection>
                 </LFForm>
             </div>
-        </Loader>
+        </ContentLoader>
     );
 }
 export default ContactPageComponent

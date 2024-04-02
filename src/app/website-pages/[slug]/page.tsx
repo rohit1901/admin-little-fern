@@ -1,6 +1,6 @@
 import {Fragment} from "react";
 import dynamic from "next/dynamic";
-import Loader from "@admin/components/Loader";
+import {ScreenLoader} from "@admin/components/Loaders";
 
 export async function generateMetadata() {
     return {
@@ -9,23 +9,23 @@ export async function generateMetadata() {
 }
 
 const DynamicContactPage = dynamic(() => import("@admin/components/ContactPage"), {
-    loading: () => <Loader loading/>,
+    loading: () => <ScreenLoader/>,
     ssr: false
 })
 const DynamicAboutPage = dynamic(() => import("@admin/components/AboutPage"), {
-    loading: () => <Loader loading/>,
+    loading: () => <ScreenLoader/>,
     ssr: false
 })
 const DynamicGalleryPage = dynamic(() => import("@admin/components/GalleryPage"), {
-    loading: () => <Loader loading/>,
+    loading: () => <ScreenLoader/>,
     ssr: false
 })
 const DynamicHomePage = dynamic(() => import("@admin/components/HomePage/HomePageComponent"), {
-    loading: () => <Loader loading/>,
+    loading: () => <ScreenLoader/>,
     ssr: false
 })
 const DynamicParentsPage = dynamic(() => import("@admin/components/ParentsPage"), {
-    loading: () => <Loader loading/>,
+    loading: () => <ScreenLoader/>,
     ssr: false
 })
 const getPageComponent = (slug: string) => {

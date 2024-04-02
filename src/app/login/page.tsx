@@ -5,13 +5,13 @@ import {getImageUrl} from "@admin/lib";
 import {signIn, useSession} from "next-auth/react";
 import {HiMiniInformationCircle} from "react-icons/hi2";
 import {redirect} from "next/navigation";
-import Loader from "@admin/components/Loader";
+import {ScreenLoader} from "@admin/components/Loaders";
 import {PiSignInBold} from "react-icons/pi";
 
 export default function LoginPage() {
     const {status} = useSession();
     if (status === "loading") {
-        return <Loader/>;
+        return <ScreenLoader/>;
     }
     if (status === "authenticated") {
         redirect("/");

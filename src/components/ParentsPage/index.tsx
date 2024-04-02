@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import {PageHeader} from "@admin/components/PageHeader";
 import {API_PARENTS_GET} from "@admin/lib/constants";
 import {isParentsPageData} from "@admin/lib";
-import Loader from "@admin/components/Loader";
+import {ContentLoader} from "@admin/components/Loaders";
 
 const ParentsPageComponent = () => {
     const [loading, setLoading] = useState(false)
@@ -31,7 +31,7 @@ const ParentsPageComponent = () => {
         }
     }, [])
     return (
-        <Loader loading={loading}>
+        <ContentLoader loading={loading}>
             <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
                 <LFForm data={parentsPageData} afterSubmit={(data) => {
                     if (!isParentsPageData(data)) return
@@ -42,7 +42,7 @@ const ParentsPageComponent = () => {
                     <ParentsEvents/>
                 </LFForm>
             </div>
-        </Loader>
+        </ContentLoader>
     )
 }
 export default ParentsPageComponent
