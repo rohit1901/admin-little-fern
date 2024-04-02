@@ -67,11 +67,11 @@ export const RedBalloon = () => {
 }
 const LFSidebar = () => {
     const slug = usePathname()
-    const {data: session} = useSession()
+    const {data: session, status} = useSession()
     const [openAddStaffModal, setOpenAddStaffModal] = useState(false)
     const [openRemoveStaffModal, setOpenRemoveStaffModal] = useState(false)
     const [openRemoveProgramModal, setOpenRemoveProgramModal] = useState(false)
-    if (!session) return null
+    if (status === 'loading' || status === "unauthenticated") return null
     return (<Sidebar>
         <NewStaff openModal={openAddStaffModal} setOpenModal={setOpenAddStaffModal}/>
         <RemoveStaff openModal={openRemoveStaffModal} setOpenModal={setOpenRemoveStaffModal}/>

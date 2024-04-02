@@ -7,9 +7,9 @@ import {MdInfo, MdInsertChart} from "react-icons/md";
 import {HiArrowRight, HiInbox, HiX} from "react-icons/hi";
 import {Session} from "next-auth";
 import {SiSubstack} from "react-icons/si";
-import {FaSignOutAlt} from "react-icons/fa";
 import {IoSettings} from "react-icons/io5";
 import {LFNotifications} from "@admin/components/LFNotifications";
+import {PiSignOutBold} from "react-icons/pi";
 
 type UnauthorizedBannerProps = {
     session: Session | null
@@ -47,8 +47,8 @@ const UnauthorizedBanner = ({session}: UnauthorizedBannerProps) => {
 }
 
 const LFNavbar = () => {
-    const {data: session} = useSession()
-    if (!session) return null
+    const {data: session, status} = useSession()
+    if (status === 'loading' || status === "unauthenticated") return null
     return (
         <Navbar fluid rounded border className='fixed top-0 w-full z-50'>
             <NavbarBrand href="https://www.littlefern.in" className='mr-2'>
@@ -83,7 +83,7 @@ const LFNavbar = () => {
                     </DropdownItem>
                     <DropdownItem icon={IoSettings} href="/settings" className="text-cyan-800 dark:text-cyan-50">Settings</DropdownItem>
                     <DropdownDivider/>
-                    <DropdownItem icon={FaSignOutAlt} onClick={() => signOut()} className="text-cyan-800 dark:text-cyan-50">Sign out</DropdownItem>
+                    <DropdownItem icon={PiSignOutBold} onClick={() => signOut()} className="text-cyan-800 dark:text-cyan-50">Sign out</DropdownItem>
                 </Dropdown>
             </div>
         </Navbar>

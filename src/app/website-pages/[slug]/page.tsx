@@ -1,12 +1,6 @@
-import HomePageComponent from "@admin/components/HomePage/HomePageComponent";
-import AboutPageComponent from "@admin/components/AboutPage";
-import GalleryPageComponent from "@admin/components/GalleryPage";
-import ParentsPageComponent from "@admin/components/ParentsPage";
-import ContactPageComponent from "@admin/components/ContactPage";
-import {Fragment, Suspense} from "react";
-import LFNavbar from "@admin/components/LFNavbar";
-import LFSidebar from "@admin/components/LFSidebar";
-import Loader from "@admin/components/Loader";
+import {Fragment} from "react";
+import dynamic from "next/dynamic";
+import {ScreenLoader} from "@admin/components/Loaders";
 
 export async function generateMetadata() {
     return {
@@ -14,18 +8,38 @@ export async function generateMetadata() {
     }
 }
 
+const DynamicContactPage = dynamic(() => import("@admin/components/ContactPage"), {
+    loading: () => <ScreenLoader/>,
+    ssr: false
+})
+const DynamicAboutPage = dynamic(() => import("@admin/components/AboutPage"), {
+    loading: () => <ScreenLoader/>,
+    ssr: false
+})
+const DynamicGalleryPage = dynamic(() => import("@admin/components/GalleryPage"), {
+    loading: () => <ScreenLoader/>,
+    ssr: false
+})
+const DynamicHomePage = dynamic(() => import("@admin/components/HomePage/HomePageComponent"), {
+    loading: () => <ScreenLoader/>,
+    ssr: false
+})
+const DynamicParentsPage = dynamic(() => import("@admin/components/ParentsPage"), {
+    loading: () => <ScreenLoader/>,
+    ssr: false
+})
 const getPageComponent = (slug: string) => {
     switch (slug) {
         case 'Home':
-            return <HomePageComponent/>
+            return <DynamicHomePage/>
         case 'About':
-            return <AboutPageComponent/>
+            return <DynamicAboutPage/>
         case 'Gallery':
-            return <GalleryPageComponent/>
+            return <DynamicGalleryPage/>
         case 'Parents':
-            return <ParentsPageComponent/>
+            return <DynamicParentsPage/>
         case 'Contact':
-            return <ContactPageComponent/>
+            return <DynamicContactPage/>
         default:
             return null;
     }
@@ -37,12 +51,7 @@ export default function WebsitePage({params: {slug}}: {
     const elem = getPageComponent(slug);
     return (
         <Fragment>
-            <LFNavbar/>
-            <LFSidebar/>
-            <Suspense
-                fallback={<Loader/>}>
-                {elem}
-            </Suspense>
+            {elem}
         </Fragment>)
 }
 

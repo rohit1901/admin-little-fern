@@ -25,14 +25,14 @@ const LFForm = ({children, data, isProgram, afterSubmit}: PropsWithChildren<LFFo
         staffPageDataId, staffDetails, homeTextBlock, aboutTextBlock, staffAssurancesBlock,
         setStaffDetails, setAboutTextBlock, setHomeTextBlock, setStaffAssurancesBlock, setStaffPageDataId
     } = useStaffStore()
-    const [loading, setLoading] = useState(false)
+    const [submitting, setSubmitting] = useState(false)
     return (
         <form ref={formRef} onSubmit={async (event) => {
             event.preventDefault()
             if (!pathname) {
                 return
             }
-            setLoading(true)
+            setSubmitting(true)
             if (!isProgram) {
                 const res = await fetch(getUpdateAPIPath(pathname), {
                     method: 'POST', headers: {
@@ -67,10 +67,10 @@ const LFForm = ({children, data, isProgram, afterSubmit}: PropsWithChildren<LFFo
                 }
             }
             await handleProgramUpdate(programs, heading ?? '', pathname, setPrograms, setHeading)
-            setLoading(false)
+            setSubmitting(false)
         }}>
             {children}
-            <LFFormButtonGroup session={session} loading={loading}/>
+            <LFFormButtonGroup session={session} loading={submitting}/>
         </form>
     )
 }
