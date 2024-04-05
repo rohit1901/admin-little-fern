@@ -28,5 +28,9 @@ declare namespace NodeJS {
         // PartyKit
         NEXT_PUBLIC_PARTYKIT_HOSTNAME: string
         NEXT_PUBLIC_PARTYKIT_ROOM: string
+        // Google Maps
+        PLACE_ID: string
+        GOOGLE_PLACES_API_KEY_DEV: string
+        GOOGLE_PLACES_API_KEY: string
     }
 }
