@@ -1,5 +1,4 @@
 'use client'
-import {Checkbox, Label, Tooltip} from "flowbite-react";
 import LFForm from "@admin/components/LFForm";
 import HomeHero from "@admin/components/HomePage/HomeHero";
 import SchoolFeaturesText from "@admin/components/HomePage/SchoolFeaturesText";
@@ -58,29 +57,6 @@ const HomePageComponent = () => {
                     <SchoolPrograms/>
                     {/*FAQ Block*/}
                     <FAQsBlock/>
-                    {/* Ratings Block
-                    * NOTE: empties the ratings array when the checkbox is checked or unchecked.
-                    * This feature should fetch the ratings from Google Maps and display them on the website.
-                    */}
-                    <div className="flex items-center gap-2 pt-2 pb-2">
-                        <Checkbox id="ratings" checked={homePageData?.homeHero?.ratings && homePageData?.homeHero?.ratings.length > 0}
-                                  onChange={() => setRatings([])}/>
-                        <Tooltip content="Currently under development">
-                            <Label htmlFor="ratings" className="flex" disabled>
-                                Show ratings from Google Maps on the website?
-                            </Label>
-                        </Tooltip>
-                    </div>
-                    <div className="flex items-center gap-2 pt-2 pb-2">
-                        <Checkbox id="testimonials" checked={!!homePageData?.testimonialsBlock?.testimonials}
-                                  onChange={() => setTestimonialsBlock({})}/>
-                        <Tooltip content="Currently under development">
-                            <Label htmlFor="testimonials" className="flex" disabled>
-                                Show testimonials (Reviews) from Google Maps on the website?
-                            </Label>
-                        </Tooltip>
-                    </div>
-
                 </LFForm>
             </div>
         </ContentLoader>

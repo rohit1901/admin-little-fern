@@ -3,9 +3,10 @@ import {DeleteCard} from "@admin/components/SettingsPage/DeleteCard";
 import {PageHeader} from "@admin/components/PageHeader";
 import {useSession} from "next-auth/react";
 import {ScreenLoader} from "@admin/components/Loaders";
-import {FetchReviewsCard} from "@admin/components/SettingsPage/FetchReviewsCard";
-// Database Cleanup
-// This option could allow the user to delete old data from the database.
+import {GoogleReviewsCard} from "@admin/components/SettingsPage/GoogleReviewsCard";
+// TODO: Add feature to hide ratings and testimonials block
+// TODO: Add feature to toggle image previews
+// TODO: Add feature to hide ratings and testimonials block
 export default function Settings() {
     const {status} = useSession();
     if (status === "unauthenticated") return null;
@@ -15,7 +16,7 @@ export default function Settings() {
             <PageHeader title={'Settings'}/>
             <div className='flex flex-row gap-4 mt-4'>
                 <DeleteCard/>
-                <FetchReviewsCard/>
+                <GoogleReviewsCard/>
             </div>
         </main>
     );

@@ -42,16 +42,18 @@ export type Rating = {
 }
 
 export interface GoogleReview {
-    "author_name": string,
-    "author_url": string,
-    "language": string,
-    "profile_photo_url": string,
-    "rating": number,
-    "relative_time_description": string,
-    "text": string,
-    "time": number
-    "translated": boolean
+    author_name: string,
+    author_url: string,
+    language: string,
+    profile_photo_url: string,
+    rating: number,
+    relative_time_description: string,
+    text: string,
+    time: number
+    translated: boolean
 }
+
+export type PlacesApiResponse = { rating: number, reviews: GoogleReview[] }
 
 export interface Testimonial {
     name: string

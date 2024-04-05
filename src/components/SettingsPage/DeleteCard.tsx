@@ -1,7 +1,7 @@
 'use client'
 import {Banner, Button, Card, Spinner} from "flowbite-react";
 import {useState} from "react";
-import {TbHttpDelete} from "react-icons/tb";
+import {TbDatabaseX} from "react-icons/tb";
 import {RiDeleteBin6Fill} from "react-icons/ri";
 import {HiMiniInformationCircle} from "react-icons/hi2";
 import {useSession} from "next-auth/react";
@@ -12,14 +12,14 @@ export const DeleteCard = () => {
     const {data: session} = useSession()
     return <Card className="max-w-sm dark:border-primary-50">
         <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">
-            <TbHttpDelete/>
+            <TbDatabaseX/>
             <div className='flex flex-wrap items-center'>
-                <p>Delete all but latest data</p>
+                <p>Clean up old data</p>
             </div>
 
         </h5>
         <p className="font-normal text-cyan-700 dark:text-cyan-50">
-            This will delete all but the latest data from the database. This is useful if you want to clean up the database.
+            This will delete all but the latest data from the database and is useful if you want to clean up the database.
         </p>
         <Banner
             className="flex justify-between items-center rounded border-b border-gray-200 bg-gray-50 dark:border-cyan-50 dark:bg-cyan-50 p-2">
