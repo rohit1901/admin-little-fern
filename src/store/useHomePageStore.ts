@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {Faq, HomeFeatureBlock, HomePageData} from "@admin/types";
+import {Faq, HomeFeatureBlock, HomePageData, Rating, TestimonialsBlock} from "@admin/types";
 import {ObjectId, WithId} from "mongodb";
 
 type HomePageStore = {
@@ -19,6 +19,8 @@ type HomePageStore = {
     setFaqBlockHeading: (heading: string) => void;
     setFaqQuestion: (id: ObjectId, question: string) => void;
     setFaqAnswer: (id: ObjectId, answer: string) => void;
+    setRatings: (ratings: Rating[]) => void;
+    setTestimonialsBlock: (testimonialsBlock: TestimonialsBlock) => void;
 };
 
 export const useHomePageStore = create<HomePageStore>((set) => ({
@@ -178,5 +180,17 @@ export const useHomePageStore = create<HomePageStore>((set) => ({
                 faqBlock: {...state.homePageData.faqBlock, faqs: newFaqs}
             }
         }
-    })
+    }),
+    setRatings: (ratings: Rating[]) => set((state) => ({
+        homePageData: {
+            ...state.homePageData,
+            homeHero: {...state.homePageData.homeHero, ratings: ratings}
+        }
+    })),
+    setTestimonialsBlock: (block: TestimonialsBlock) => set((state) => ({
+        homePageData: {
+            ...state.homePageData,
+            testimonialsBlock: block
+        }
+    }))
 }));
