@@ -7,6 +7,7 @@ import {GoogleReviewsCard} from "@admin/components/SettingsPage/GoogleReviewsCar
 // TODO: Add feature to hide ratings and testimonials block
 // TODO: Add feature to toggle image previews
 // TODO: Add feature to hide ratings and testimonials block
+// TODO: Fetch new google reviews only when the user selects the option to show ratings and testimonials
 export default function Settings() {
     const {status} = useSession();
     if (status === "unauthenticated") return null;
