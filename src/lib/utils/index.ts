@@ -3,6 +3,7 @@ import {
     AboutPageData,
     ContactPageData,
     GalleryPageData,
+    GoogleReview,
     HomePageData,
     LFNotification,
     LFPartyNotification,
@@ -10,8 +11,11 @@ import {
     LFScheduleDate,
     NotificationPageData,
     ParentsPageData,
+    Rating,
     SchoolProgram,
-    SchoolProgramsBlock
+    SchoolProgramsBlock,
+    Testimonial,
+    TestimonialsBlock
 } from "@admin/types";
 import {Session} from "next-auth";
 import {ThemeMode} from "flowbite-react";
@@ -415,4 +419,62 @@ export const showViewAll = (notificationPageData?: NotificationPageData): boolea
  */
 export const getUnreadNotifications = (notificationPageData?: NotificationPageData): LFNotification[] => {
     return notificationPageData?.notifications?.filter(n => !n.read) ?? []
+}
+/**
+ * Function to get the correct Google Maps API key based on the environment
+ * @returns {string} - the Google Maps API key
+ */
+export const getMapsApiKey = (): string => {
+    if (process.env.NODE_ENV === "development") return process.env.GOOGLE_PLACES_API_KEY_DEV
+    return process.env.GOOGLE_PLACES_API_KEY
+}
+/**
+ * Function to build the Google Maps URL based on the placeId
+ * @param placeId {string} - the placeId
+ * @returns {string} - the Google Maps URL
+ */
+export const getGoogleMapsUrl = (placeId: string): string => {
+    const API_KEY = getMapsApiKey()
+    return `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=rating%2Creviews&key=${API_KEY}`
+}
+/**
+ * Function to get the rating object from the rating number
+ * @param rating {number} - the rating number
+ * @returns {Rating} - the rating object
+ */
+export const getRating = (rating: number): Rating => {
+    return {
+        label: 'Google Rating',
+        stars: rating
+    }
+}
+/**
+ * Function to get the testimonial object from the Google Review
+ * @param review {GoogleReview} - the Google Review
+ * @returns {Testimonial} - the testimonial object
+ */
+export const getTestimonial = (review: GoogleReview): Testimonial => {
+    return {
+        name: review.author_name,
+        testimonial: review.text,
+        stars: review.rating,
+        image: review.profile_photo_url,
+    }
+}
+/**
+ * Function to create the testimonials block from the Google Reviews. If there are no reviews, it returns an empty object
+ * @param reviews {GoogleReview[]} - the Google Reviews
+ * @returns {TestimonialsBlock} - the testimonials block
+ */
+export const createTestimonialsBlock = (reviews?: GoogleReview[]): TestimonialsBlock => {
+    if (!reviews) return {}
+    if (reviews.length === 0) return {}
+    return {
+        heading: "See what parents are saying about us!",
+        subHeading: "Curious about the experiences of other parents at Little FERN? Gain insights into the impact of our nurturing environment," +
+            " dedicated educators, and the holistic learning approach. " +
+            "Let the words of our parents paint a vivid picture of the Little FERN journey, " +
+            "offering you a firsthand glimpse into the positive impact our school has on children and families alike.",
+        testimonials: reviews.map(getTestimonial)
+    }
 }
