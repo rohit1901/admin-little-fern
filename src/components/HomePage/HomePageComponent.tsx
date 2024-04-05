@@ -18,7 +18,7 @@ const HomePageComponent = () => {
     const [loading, setLoading] = useState(false)
     const {
         homePageData,
-        setHomePageData
+        setHomePageData, setRatings, setTestimonialsBlock
     } = useHomePageStore()
     useEffect(() => {
         if (!homePageData || !homePageData._id) {
@@ -58,12 +58,25 @@ const HomePageComponent = () => {
                     <SchoolPrograms/>
                     {/*FAQ Block*/}
                     <FAQsBlock/>
-
+                    {/* Ratings Block
+                    * NOTE: empties the ratings array when the checkbox is checked or unchecked.
+                    * This feature should fetch the ratings from Google Maps and display them on the website.
+                    */}
                     <div className="flex items-center gap-2 pt-2 pb-2">
-                        <Checkbox id="ratings" defaultChecked disabled/>
-                        <Tooltip content="This feature is not yet available">
+                        <Checkbox id="ratings" checked={homePageData?.homeHero?.ratings && homePageData?.homeHero?.ratings.length > 0}
+                                  onChange={() => setRatings([])}/>
+                        <Tooltip content="Currently under development">
                             <Label htmlFor="ratings" className="flex" disabled>
-                                Show ratings from Google Maps on the website
+                                Show ratings from Google Maps on the website?
+                            </Label>
+                        </Tooltip>
+                    </div>
+                    <div className="flex items-center gap-2 pt-2 pb-2">
+                        <Checkbox id="testimonials" checked={!!homePageData?.testimonialsBlock?.testimonials}
+                                  onChange={() => setTestimonialsBlock({})}/>
+                        <Tooltip content="Currently under development">
+                            <Label htmlFor="testimonials" className="flex" disabled>
+                                Show testimonials (Reviews) from Google Maps on the website?
                             </Label>
                         </Tooltip>
                     </div>
