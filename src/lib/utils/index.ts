@@ -435,6 +435,7 @@ export const getMapsApiKey = (): string => {
  */
 export const getGoogleMapsUrl = (placeId: string): string => {
     const API_KEY = getMapsApiKey()
+    console.log(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=rating%2Creviews&key=${API_KEY}`)
     return `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=rating%2Creviews&key=${API_KEY}`
 }
 /**
