@@ -421,11 +421,10 @@ export const getUnreadNotifications = (notificationPageData?: NotificationPageDa
     return notificationPageData?.notifications?.filter(n => !n.read) ?? []
 }
 /**
- * Function to get the correct Google Maps API key based on the environment
+ * Function to get the correct Google Maps API key
  * @returns {string} - the Google Maps API key
  */
 export const getMapsApiKey = (): string => {
-    if (process.env.NODE_ENV === "development") return process.env.GOOGLE_PLACES_API_KEY_DEV
     return process.env.GOOGLE_PLACES_API_KEY
 }
 /**
@@ -435,7 +434,6 @@ export const getMapsApiKey = (): string => {
  */
 export const getGoogleMapsUrl = (placeId: string): string => {
     const API_KEY = getMapsApiKey()
-    console.log(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=rating%2Creviews&key=${API_KEY}`)
     return `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=rating%2Creviews&key=${API_KEY}`
 }
 /**

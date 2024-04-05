@@ -13,7 +13,7 @@ import {PageHeader} from "@admin/components/PageHeader";
 import {IoReload} from "react-icons/io5";
 import {useSession} from "next-auth/react";
 import {ScreenLoader} from "@admin/components/Loaders";
-
+// TODO: Show a chart of the number of emails sent via the website
 export default function Dashboard() {
     const {data: session, status} = useSession()
     const {mode} = useThemeMode()
