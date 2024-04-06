@@ -14,7 +14,7 @@ import {IoReload} from "react-icons/io5";
 import {useSession} from "next-auth/react";
 import {ScreenLoader} from "@admin/components/Loaders";
 import {isEmailAuthorized} from "@admin/lib";
-// TODO: Show a chart of the number of emails sent via the website
+import {EmailStatistics} from "@admin/components/Dashboard/EmailStatistics";
 export default function Dashboard() {
     const {data: session, status} = useSession()
     const {mode} = useThemeMode()
@@ -69,6 +69,7 @@ export default function Dashboard() {
     return (
         <main className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
             <PageHeader title="Dashboard"/>
+            <EmailStatistics/>
             <div className='flex flex-row gap-4 mt-4 justify-between'>
                 <Card className="max-w-sm dark:border-primary-50">
                     <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">

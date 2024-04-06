@@ -5,7 +5,6 @@ import {useSession} from "next-auth/react";
 import {ScreenLoader} from "@admin/components/Loaders";
 import {GoogleReviewsCard} from "@admin/components/SettingsPage/GoogleReviewsCard";
 import {ImagePreviewCard} from "@admin/components/SettingsPage/ImagePreviewCard";
-// TODO: Add feature to toggle image previews
 export default function Settings() {
     const {status} = useSession();
     if (status === "unauthenticated") return null;

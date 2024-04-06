@@ -315,3 +315,8 @@ export type HerokuStatusResponseType = {
 export type PathnameMappingType = {
     [key: string]: string
 }
+
+export type TrendType = {
+    trend: "up" | "down" | "same",
+    value: number
+}
