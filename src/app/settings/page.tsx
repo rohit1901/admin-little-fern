@@ -5,7 +5,6 @@ import {useSession} from "next-auth/react";
 import {ScreenLoader} from "@admin/components/Loaders";
 import {GoogleReviewsCard} from "@admin/components/SettingsPage/GoogleReviewsCard";
 import {ImagePreviewCard} from "@admin/components/SettingsPage/ImagePreviewCard";
-// TODO: Add feature to toggle image previews
 export default function Settings() {
     const {status} = useSession();
     if (status === "unauthenticated") return null;
@@ -13,7 +12,7 @@ export default function Settings() {
     return (
         <main className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
             <PageHeader title={'Settings'}/>
-            <div className='flex flex-row gap-4 mt-4'>
+            <div className='flex lg:flex-row md:flex-row flex-col justify-between gap-4'>
                 <DeleteCard/>
                 <GoogleReviewsCard/>
                 <ImagePreviewCard/>

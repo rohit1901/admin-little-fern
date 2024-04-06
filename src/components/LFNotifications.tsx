@@ -1,7 +1,6 @@
 import {FaRegEye, FaRegEyeSlash} from "react-icons/fa";
 import {Dropdown, DropdownHeader, DropdownItem} from "flowbite-react";
 import {useEffect, useState} from "react";
-import {NotificationPageData} from "@admin/types";
 import {
     fetchNotifications,
     formatNotificationDate,
@@ -16,11 +15,12 @@ import usePartySocket from "partysocket/react";
 import {getSession} from "next-auth/react";
 import {LFNotificationIcon} from "./LFNotificationIcon";
 import {LFNotificationMessageIcon} from "@admin/components/LFNotificationMessageIcon";
+import {useNotificationsStore} from "@admin/store/useNotificationsStore";
 
 export const LFNotifications = () => {
     const [loading, setLoading] = useState(false)
-    const [notificationPageData, setNotificationPageData] =
-        useState<NotificationPageData>()
+    const {notificationPageData, setNotificationPageData} =
+        useNotificationsStore()
     usePartySocket({
         host: process.env.NEXT_PUBLIC_PARTYKIT_HOSTNAME,
         room: process.env.NEXT_PUBLIC_PARTYKIT_ROOM,
@@ -29,15 +29,19 @@ export const LFNotifications = () => {
             // get an auth token using your authentication client library
             token: await getSession().then((session) => session?.idToken)
         }),
-        onMessage: (message: MessageEvent): void => onPartyMessage(message, notificationPageData, setNotificationPageData)
+        onMessage: (message: MessageEvent): void => onPartyMessage(message, notificationPageData, (data) => {
+            if (!data) return
+            setNotificationPageData(data)
+        })
     })
 
     useEffect(() => {
         setLoading(true)
         // fetch notifications on initial render
         fetchNotifications((data) => {
-            setNotificationPageData(data)
             setLoading(false)
+            if (!data) return
+            setNotificationPageData(data)
         }).catch(e => console.error("Error fetching notifications", e))
     }, [])
     return (
@@ -52,8 +56,9 @@ export const LFNotifications = () => {
                     <span className="ml-auto cursor-pointer" onClick={() => {
                         setLoading(true)
                         makeAllNotificationsRead(notificationPageData, (data) => {
-                            setNotificationPageData(data)
                             setLoading(false)
+                            if (!data) return
+                            setNotificationPageData(data)
                         })
                     }}>
                         <FaRegEyeSlash/>
@@ -90,8 +95,9 @@ export const LFNotifications = () => {
                     <div className="inline-flex items-center" onClick={() => {
                         setLoading(true)
                         makeAllNotificationsRead(notificationPageData, (data) => {
-                            setNotificationPageData(data)
                             setLoading(false)
+                            if (!data) return
+                            setNotificationPageData(data)
                         })
                     }}>
                         <span className="mr-2 text-sm font-semibold">

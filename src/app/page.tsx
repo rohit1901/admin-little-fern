@@ -13,7 +13,8 @@ import {PageHeader} from "@admin/components/PageHeader";
 import {IoReload} from "react-icons/io5";
 import {useSession} from "next-auth/react";
 import {ScreenLoader} from "@admin/components/Loaders";
-// TODO: Show a chart of the number of emails sent via the website
+import {isEmailAuthorized} from "@admin/lib";
+import {EmailStatistics} from "@admin/components/Dashboard/EmailStatistics";
 export default function Dashboard() {
     const {data: session, status} = useSession()
     const {mode} = useThemeMode()
@@ -68,6 +69,7 @@ export default function Dashboard() {
     return (
         <main className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
             <PageHeader title="Dashboard"/>
+            <EmailStatistics/>
             <div className='flex flex-row gap-4 mt-4 justify-between'>
                 <Card className="max-w-sm dark:border-primary-50">
                     <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">
@@ -85,7 +87,7 @@ export default function Dashboard() {
                     <div className="flex flex-wrap gap-2">
                         <Button
                             outline
-                            disabled={checkingS3Status} onClick={async () => checkS3Status()}>
+                            disabled={checkingS3Status || !isEmailAuthorized(session)} onClick={async () => checkS3Status()}>
                             {checkingS3Status ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
                                 <IoReload className="h-5 w-5"/>
                                 <span>Check S3 Status</span>
@@ -109,7 +111,7 @@ export default function Dashboard() {
                     <div className="flex flex-wrap gap-2">
                         <Button
                             outline
-                            disabled={checkingHerokuStatus} onClick={async () => checkHerokuStatus()}>
+                            disabled={checkingHerokuStatus || !isEmailAuthorized(session)} onClick={async () => checkHerokuStatus()}>
                             {checkingHerokuStatus ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
                                 <IoReload className="h-5 w-5"/>
                                 <span>Check Heroku Status</span>
@@ -133,7 +135,7 @@ export default function Dashboard() {
                     <div className="flex flex-wrap gap-2">
                         <Button
                             outline
-                            disabled={checkingMongoDBStatus} onClick={async () => checkMongoDBStatus()}>
+                            disabled={checkingMongoDBStatus || !isEmailAuthorized(session)} onClick={async () => checkMongoDBStatus()}>
                             {checkingMongoDBStatus ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
                                 <IoReload className="h-5 w-5"/>
                                 <span>Check MongoDB Status</span>

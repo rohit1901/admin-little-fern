@@ -7,6 +7,11 @@ import {PathnameMappingType, StaffDetails} from "@admin/types";
  * "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
  */
 export const DAYS_OF_WEEK: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const
+export type MonthsType =
+    "January" | "February" | "March" | "April" | "May" | "June" | "July" | "August" | "September" | "October" | "November" | "December"
+export const MONTHS: MonthsType[] = [
+    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+] as const
 
 export const INTERVALS = ["per day", "per week", "per month", "per year"] as const
 

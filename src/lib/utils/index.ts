@@ -15,7 +15,8 @@ import {
     SchoolProgram,
     SchoolProgramsBlock,
     Testimonial,
-    TestimonialsBlock
+    TestimonialsBlock,
+    TrendType
 } from "@admin/types";
 import {Session} from "next-auth";
 import {ThemeMode} from "flowbite-react";
@@ -23,6 +24,8 @@ import {
     API_NOTIFICATIONS_GET,
     API_NOTIFICATIONS_UPDATE,
     API_PROGRAMS_UPDATE,
+    MONTHS,
+    MonthsType,
     PATHNAME_ABOUT,
     PATHNAME_HOME,
     PATHNAME_PROGRAMS,
@@ -475,5 +478,40 @@ export const createTestimonialsBlock = (reviews?: GoogleReview[]): TestimonialsB
             "Let the words of our parents paint a vivid picture of the Little FERN journey, " +
             "offering you a firsthand glimpse into the positive impact our school has on children and families alike.",
         testimonials: reviews.map(getTestimonial)
+    }
+}
+/**
+ * Function to get the data for the month. Filters the notifications based on the month.
+ * @example getDataForMonth("January", notifications) => LFNotification[]
+ * @param month {MonthsType} - the month
+ * @param notifications {LFNotification[]} - the notifications
+ * @returns {number} - the data for the month
+ */
+export const getDataForMonth = (month: MonthsType, notifications: LFNotification[]): number => {
+    const filteredNotifications = notifications.filter(n => {
+        const date = new Date(n.dateCreated)
+        return date.getMonth() === MONTHS.indexOf(month)
+    })
+    return filteredNotifications.length
+}
+/**
+ * Function to get the absolute value of a number.
+ * @example getAbsoluteValue(-5) => 5
+ * @param value {number} - the value
+ */
+export const getAbsoluteValue = (value: number): number => {
+    return Math.abs(value)
+}
+/**
+ * Function to get the trend of the data. Compares the data of the current month with the previous month.
+ * @param data {number[]} - the data
+ * @returns {TrendType} - the trend object
+ */
+export const getDataTrend = (data: number[]): TrendType => {
+    const monthNow = new Date().getMonth()
+    const monthBefore = monthNow - 1
+    return {
+        trend: data[monthNow] > data[monthBefore] ? "up" : data[monthNow] < data[monthBefore] ? "down" : "same",
+        value: data[monthNow] - data[monthBefore]
     }
 }
