@@ -10,6 +10,7 @@ import {SiSubstack} from "react-icons/si";
 import {IoSettings} from "react-icons/io5";
 import {LFNotifications} from "@admin/components/LFNotifications";
 import {PiSignOutBold} from "react-icons/pi";
+import Link from "next/link";
 
 type UnauthorizedBannerProps = {
     session: Session | null
@@ -72,7 +73,9 @@ const LFNavbar = () => {
                         <span className="block text-sm text-cyan-800 dark:text-cyan-50">{session?.user?.name}</span>
                         <span className="block truncate text-sm font-medium text-cyan-800 dark:text-cyan-50">{session?.user?.email}</span>
                     </DropdownHeader>
-                    <DropdownItem icon={MdInsertChart} href="/" className="text-cyan-800 dark:text-cyan-50">Dashboard</DropdownItem>
+                    <Link href="/">
+                        <DropdownItem icon={MdInsertChart} href="/" className="text-cyan-800 dark:text-cyan-50">Dashboard</DropdownItem>
+                    </Link>
                     <DropdownItem as='a' href="http://email.littlefern.in" target='_blank' icon={HiInbox}
                                   className="text-cyan-800 dark:text-cyan-50">
                         Inbox
@@ -81,7 +84,9 @@ const LFNavbar = () => {
                                   className="text-cyan-800 dark:text-cyan-50">
                         Newsletters
                     </DropdownItem>
-                    <DropdownItem icon={IoSettings} href="/settings" className="text-cyan-800 dark:text-cyan-50">Settings</DropdownItem>
+                    <Link href="/settings">
+                        <DropdownItem icon={IoSettings} className="text-cyan-800 dark:text-cyan-50">Settings</DropdownItem>
+                    </Link>
                     <DropdownDivider/>
                     <DropdownItem icon={PiSignOutBold} onClick={() => signOut()} className="text-cyan-800 dark:text-cyan-50">Sign out</DropdownItem>
                 </Dropdown>

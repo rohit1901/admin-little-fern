@@ -55,4 +55,4 @@ export default function WebsitePage({params: {slug}}: {
         </Fragment>)
 }
 
-export const dynamicParams = false
+export const dynamicParams = true
