@@ -44,7 +44,7 @@ export const GoogleReviewsCard = () => {
                 <label htmlFor="toggle-reviews-switch" className="mx-2 text-xs">Show Reviews on the website?</label>
                 <Switch
                     id="toggle-reviews-switch"
-                    disabled={isFetching}
+                    disabled={isFetching || !isEmailAuthorized(session)}
                     onColor="#155"
                     checked={isReviewsEnabled}
                     onChange={(checked) => toggleReviews(checked)}/>

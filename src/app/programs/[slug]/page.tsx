@@ -20,4 +20,4 @@ export default async function ProgramPage({params: {slug}}: {
     )
 }
 
-export const dynamicParams = false
+export const dynamicParams = true

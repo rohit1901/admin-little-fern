@@ -13,6 +13,7 @@ import {PageHeader} from "@admin/components/PageHeader";
 import {IoReload} from "react-icons/io5";
 import {useSession} from "next-auth/react";
 import {ScreenLoader} from "@admin/components/Loaders";
+import {isEmailAuthorized} from "@admin/lib";
 // TODO: Show a chart of the number of emails sent via the website
 export default function Dashboard() {
     const {data: session, status} = useSession()
@@ -85,7 +86,7 @@ export default function Dashboard() {
                     <div className="flex flex-wrap gap-2">
                         <Button
                             outline
-                            disabled={checkingS3Status} onClick={async () => checkS3Status()}>
+                            disabled={checkingS3Status || !isEmailAuthorized(session)} onClick={async () => checkS3Status()}>
                             {checkingS3Status ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
                                 <IoReload className="h-5 w-5"/>
                                 <span>Check S3 Status</span>
@@ -109,7 +110,7 @@ export default function Dashboard() {
                     <div className="flex flex-wrap gap-2">
                         <Button
                             outline
-                            disabled={checkingHerokuStatus} onClick={async () => checkHerokuStatus()}>
+                            disabled={checkingHerokuStatus || !isEmailAuthorized(session)} onClick={async () => checkHerokuStatus()}>
                             {checkingHerokuStatus ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
                                 <IoReload className="h-5 w-5"/>
                                 <span>Check Heroku Status</span>
@@ -133,7 +134,7 @@ export default function Dashboard() {
                     <div className="flex flex-wrap gap-2">
                         <Button
                             outline
-                            disabled={checkingMongoDBStatus} onClick={async () => checkMongoDBStatus()}>
+                            disabled={checkingMongoDBStatus || !isEmailAuthorized(session)} onClick={async () => checkMongoDBStatus()}>
                             {checkingMongoDBStatus ? <Spinner/> : <div className='flex flex-row gap-2 items-center'>
                                 <IoReload className="h-5 w-5"/>
                                 <span>Check MongoDB Status</span>

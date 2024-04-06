@@ -13,7 +13,7 @@ export default function Settings() {
     return (
         <main className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
             <PageHeader title={'Settings'}/>
-            <div className='flex flex-row gap-4 mt-4'>
+            <div className='flex lg:flex-row md:flex-row flex-col justify-between gap-4'>
                 <DeleteCard/>
                 <GoogleReviewsCard/>
                 <ImagePreviewCard/>

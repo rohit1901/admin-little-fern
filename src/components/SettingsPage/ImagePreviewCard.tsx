@@ -4,9 +4,12 @@ import {HiMiniInformationCircle} from "react-icons/hi2";
 import Switch from "react-switch"
 import {useSettingsStore} from "@admin/store/useSettingsStore";
 import {LuImage, LuImageOff} from "react-icons/lu";
+import {isEmailAuthorized} from "@admin/lib";
+import {useSession} from "next-auth/react";
 
 export const ImagePreviewCard = () => {
     const {imagePreviews, setImagePreviews} = useSettingsStore()
+    const {data: session} = useSession()
     return <Card className="max-w-sm dark:border-primary-50">
         <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">
             {imagePreviews ? <LuImage/> : <LuImageOff/>}
@@ -25,9 +28,10 @@ export const ImagePreviewCard = () => {
             <p className="font-mono text-xs text-cyan-800">Image previews are enabled by default.</p>
         </Banner>
         <div className="flex flex-row justify-between mt-4 text-cyan-800 dark:text-cyan-50 items-center">
-            <label htmlFor="toggle-image-switch" className="mx-2 text-xs">Show Image previews above the Dropzones on the website?</label>
+            <label htmlFor="toggle-image-switch" className="mx-2 text-xs">Show Image previews above the Dropzones?</label>
             <Switch
                 id="toggle-image-switch"
+                disabled={!isEmailAuthorized(session)}
                 onColor="#155"
                 checked={imagePreviews}
                 onChange={(checked) => {

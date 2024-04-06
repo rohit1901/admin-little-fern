@@ -74,7 +74,7 @@ const LFNavbar = () => {
                         <span className="block truncate text-sm font-medium text-cyan-800 dark:text-cyan-50">{session?.user?.email}</span>
                     </DropdownHeader>
                     <Link href="/">
-                        <DropdownItem icon={MdInsertChart} href="/" className="text-cyan-800 dark:text-cyan-50">Dashboard</DropdownItem>
+                        <DropdownItem as="div" icon={MdInsertChart} href="/" className="text-cyan-800 dark:text-cyan-50">Dashboard</DropdownItem>
                     </Link>
                     <DropdownItem as='a' href="http://email.littlefern.in" target='_blank' icon={HiInbox}
                                   className="text-cyan-800 dark:text-cyan-50">
