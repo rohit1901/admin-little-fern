@@ -17,7 +17,7 @@ const HomePageComponent = () => {
     const [loading, setLoading] = useState(false)
     const {
         homePageData,
-        setHomePageData, setRatings, setTestimonialsBlock
+        setHomePageData
     } = useHomePageStore()
     useEffect(() => {
         if (!homePageData || !homePageData._id) {

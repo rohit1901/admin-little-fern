@@ -4,9 +4,7 @@ import {PageHeader} from "@admin/components/PageHeader";
 import {useSession} from "next-auth/react";
 import {ScreenLoader} from "@admin/components/Loaders";
 import {GoogleReviewsCard} from "@admin/components/SettingsPage/GoogleReviewsCard";
-// TODO: Add feature to hide ratings and testimonials block
 // TODO: Add feature to toggle image previews
-// TODO: Add feature to hide ratings and testimonials block
 export default function Settings() {
     const {status} = useSession();
     if (status === "unauthenticated") return null;
