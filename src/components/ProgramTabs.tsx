@@ -8,6 +8,7 @@ import {FaEgg, FaFish, FaHamburger, FaIceCream, FaKiwiBird} from "react-icons/fa
 import {useEffect, useState} from "react";
 import {useSchoolProgramsPageStore} from "@admin/store";
 import {API_PROGRAMS_GET} from "@admin/lib/constants";
+import Link from "next/link";
 
 type ProgramTabsProps = {
     programs: WithId<SchoolProgram>[]
@@ -62,9 +63,13 @@ export const ProgramTabs = () => {
     }, [programs]);
     return <div className="flex justify-center">
         {programs?.map((program: SchoolProgram, index) => {
-            return (<Button key={program.slug} href={`/programs/${program.slug}`} className='m-2' outline>
-                {randomIcons[index]} {removeProgramText(program.name)}
-            </Button>);
+            return (
+                <Link key={program.slug} href={`/programs/${program.slug}`}>
+                    <Button className='m-2' outline>
+                        {randomIcons[index]} {removeProgramText(program.name)}
+                    </Button>
+                </Link>
+            );
         })}
     </div>
 }

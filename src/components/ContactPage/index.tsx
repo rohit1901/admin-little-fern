@@ -34,8 +34,8 @@ const ContactPageComponent = () => {
         setTextBlockText
     } = useContactPageStore()
     useEffect(() => {
-        setLoading(true)
         if (!contactPageData || !contactPageData._id) {
+            setLoading(true)
             fetch(API_CONTACT_GET, {
                 method: 'GET',
                 headers: {

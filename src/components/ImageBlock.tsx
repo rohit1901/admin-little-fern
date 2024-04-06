@@ -6,6 +6,7 @@ import {useState} from "react";
 import {uploadToS3} from "@admin/lib/s3";
 import {useSession} from "next-auth/react";
 import {HiMiniCloudArrowUp} from "react-icons/hi2";
+import {useSettingsStore} from "@admin/store/useSettingsStore";
 
 type ImageBlockProps = {
     imagePath?: string
@@ -62,6 +63,7 @@ const UploadButton = ({imagePath, afterUpload, dropzone}: ImageBlockProps) => {
     )
 }
 export const ImageBlock = ({imagePath, dropzone = true, label, afterUpload}: ImageBlockProps) => {
+    const {imagePreviews} = useSettingsStore()
     if (!dropzone) return (
         <div className="flex flex-col rounded-lg mb-10">
             <div className=" border-b-2 border-gray-100 mb-2">
@@ -77,7 +79,7 @@ export const ImageBlock = ({imagePath, dropzone = true, label, afterUpload}: Ima
     )
     return <div className="rounded-lg mt-10 mb-10">
         <div className="mx-auto">
-            {imagePath && <div className="rounded-lg h-64 overflow-hidden">
+            {imagePreviews && imagePath && <div className="rounded-lg h-64 overflow-hidden">
                 <Image alt="content" width={1200} height={500}
                        className="object-cover object-center h-full w-full"
                        src={getImageUrl(imagePath)}/>

@@ -15,6 +15,7 @@ import {PiUsersBold} from "react-icons/pi";
 import {IoMdCall, IoMdInformationCircleOutline} from "react-icons/io";
 import {getPartyKitHostname, isEmailAuthorized} from "@admin/lib";
 import {useSession} from "next-auth/react";
+import Link from "next/link";
 
 const pages = [{
     name: 'Home', href: PATHNAME_HOME, icon: RiHomeHeartLine,
@@ -78,16 +79,19 @@ const LFSidebar = () => {
         <RemoveProgram openModal={openRemoveProgramModal} setOpenModal={setOpenRemoveProgramModal}/>
         <SidebarItems>
             <SidebarItemGroup>
-                <SidebarItem href="/" icon={MdInsertChartOutlined} active={setActive('/', slug)}>
-                    Dashboard
-                </SidebarItem>
+                <Link href="/">
+                    <SidebarItem icon={MdInsertChartOutlined} active={setActive('/', slug)} as="div">
+                        Dashboard
+                    </SidebarItem>
+                </Link>
                 <SidebarCollapse icon={BiCopyAlt} label="Pages" open>
-                    {pages?.map((page) => (<SidebarItem href={page.href} key={page.name}
-                                                        icon={page.icon}
-                                                        className='text-ellipsis overflow-hidden text-sm'
-                                                        active={setActive(page.href, slug)}>
+                    {pages?.map((page) => (<Link href={page.href} key={page.name}>
+                        <SidebarItem
+                            as="div" icon={page.icon}
+                            className='text-ellipsis overflow-hidden text-sm my-2' active={setActive(page.href, slug)}>
                         {page.name}
-                    </SidebarItem>))}
+                        </SidebarItem>
+                    </Link>))}
                 </SidebarCollapse>
             </SidebarItemGroup>
             <SidebarItemGroup>
