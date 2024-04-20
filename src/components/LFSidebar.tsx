@@ -113,7 +113,7 @@ const LFSidebar = () => {
                 </SidebarItem>
             </SidebarItemGroup>
             <SidebarItemGroup>
-                <SidebarItem href="#" icon={FaLaptopCode}>
+                <SidebarItem href="https://rohit1901.github.io/little-fern-docs/" icon={FaLaptopCode}>
                     Documentation
                 </SidebarItem>
                 <SidebarItem as="a" target="_blank" href={getPartyKitHostname(process.env.NEXT_PUBLIC_PARTYKIT_HOSTNAME)}
