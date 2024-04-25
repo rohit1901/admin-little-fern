@@ -25,7 +25,7 @@ const ProgramsPage = ({schoolProgram}: ProgramsPageProps) => {
         setProgramHeroText,
         setProgramDescriptionSectionText,
     } = useSchoolProgramsPageStore()
-    return <div className='p-8 mx-auto md:ml-64 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
+    return <div className='p-8 mx-auto 2xl:ml-64 ml-20 h-auto pt-20 bg-white-50 dark:bg-gray-800'>
         <ProgramTabs/>
         <LFForm isProgram afterSubmit={(data) => {
             if (!isSchoolProgramsBlock(data)) return

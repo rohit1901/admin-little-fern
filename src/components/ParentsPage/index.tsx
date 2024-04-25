@@ -32,7 +32,7 @@ const ParentsPageComponent = () => {
     }, [])
     return (
         <ContentLoader loading={loading}>
-            <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
+            <div className='p-8 mx-auto 2xl:ml-64 ml-20 h-auto bg-white-50 dark:bg-gray-800'>
                 <LFForm data={parentsPageData} afterSubmit={(data) => {
                     if (!isParentsPageData(data)) return
                     setParentsPageData(data)

@@ -15,6 +15,7 @@ import {useSession} from "next-auth/react";
 import {ScreenLoader} from "@admin/components/Loaders";
 import {isEmailAuthorized} from "@admin/lib";
 import {EmailStatistics} from "@admin/components/Dashboard/EmailStatistics";
+
 export default function Dashboard() {
     const {data: session, status} = useSession()
     const {mode} = useThemeMode()
@@ -67,10 +68,10 @@ export default function Dashboard() {
     if (status === "loading") return <ScreenLoader/>
     if (status === "unauthenticated") return null
     return (
-        <main className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
+        <main className='p-8 mx-auto 2xl:ml-64 ml-20 h-auto bg-white-50 dark:bg-gray-800'>
             <PageHeader title="Dashboard"/>
             <EmailStatistics/>
-            <div className='flex flex-row gap-4 mt-4 justify-between'>
+            <div className='flex xl:flex-row flex-wrap gap-4 mt-4 justify-between'>
                 <Card className="max-w-sm dark:border-primary-50">
                     <h5 className="text-2xl font-bold tracking-tight text-cyan-800 dark:text-cyan-50">
                         <FaAws color={mode === "dark" ? 'white' : '#CC7A00'}/>

@@ -20,6 +20,11 @@ main {
     @apply dark:text-cyan-800 !important;
 }
 
+.admin-sidebar {
+    @apply fixed top-0 left-0 z-40 h-screen pt-20 transition-transform -translate-x-full bg-white border
+    border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700 w-20 2xl:w-64 !important;
+}
+
 /* feed styles */
 
 @media (min-width: 1280px) {

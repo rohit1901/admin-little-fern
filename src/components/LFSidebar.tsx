@@ -80,28 +80,36 @@ const LFSidebar = () => {
         <SidebarItems>
             <SidebarItemGroup>
                 <Link href="/">
-                    <SidebarItem icon={MdInsertChartOutlined} active={setActive('/', slug)} as="div">
-                        Dashboard
+                    <SidebarItem icon={MdInsertChartOutlined} active={setActive('/', slug)} as="button" size="sm">
+                        <p className="xl:flex hidden">Dashboard</p>
                     </SidebarItem>
                 </Link>
-                <SidebarCollapse icon={BiCopyAlt} label="Pages" open>
-                    {pages?.map((page) => (<Link href={page.href} key={page.name}>
+                <SidebarCollapse icon={BiCopyAlt} label="Pages" open className="xl:flex hidden">
+                    {pages?.map((page) => (<Link href={page.href} key={page.name} className="xl:flex hidden">
                         <SidebarItem
                             as="div" icon={page.icon}
-                            className='text-ellipsis overflow-hidden text-sm my-2' active={setActive(page.href, slug)}>
+                            className='text-ellipsis overflow-hidden text-sm' active={setActive(page.href, slug)}>
                         {page.name}
                         </SidebarItem>
                     </Link>))}
                 </SidebarCollapse>
+                <div className="xl:hidden">
+                    {pages?.map((page) => (<Link href={page.href} key={page.name}>
+                        <SidebarItem
+                            as="button" size="sm" icon={page.icon}
+                            className='text-ellipsis overflow-hidden text-sm my-2' active={setActive(page.href, slug)}>
+                        </SidebarItem>
+                    </Link>))}
+                </div>
             </SidebarItemGroup>
             <SidebarItemGroup>
                 <SidebarItem as="button" icon={MdOutlineAddReaction} size="sm" className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''}
                              onClick={() => setOpenAddStaffModal(true)} disabled={!isEmailAuthorized(session)}>
-                    Add Staff
+                    <p className="xl:flex hidden">Add Staff</p>
                 </SidebarItem>
                 <SidebarItem as="button" icon={RiEmotionSadLine} size="sm" className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''}
                              onClick={() => setOpenRemoveStaffModal(true)} disabled={!isEmailAuthorized(session)}>
-                    Remove Staff
+                    <p className="xl:flex hidden">Remove Staff</p>
                 </SidebarItem>
                 {/*TODO: Add Program*/}
                 {/*<SidebarItem href="#" icon={AddGraduate}>
@@ -109,16 +117,17 @@ const LFSidebar = () => {
                 </SidebarItem>*/}
                 <SidebarItem as="button" icon={MdOutlineFolderDelete} onClick={() => setOpenRemoveProgramModal(true)}
                              className={!isEmailAuthorized(session) ? 'cursor-not-allowed' : ''} disabled={!isEmailAuthorized(session)}>
-                    <span>Remove Program</span>
+                    <span className="xl:flex hidden">Remove Program</span>
                 </SidebarItem>
             </SidebarItemGroup>
             <SidebarItemGroup>
-                <SidebarItem href="https://rohit1901.github.io/little-fern-docs/" icon={FaLaptopCode}>
-                    Documentation
+                <SidebarItem href="https://rohit1901.github.io/little-fern-docs/" icon={FaLaptopCode} as="a" target="_blank"
+                             className="w-20 h-20 xl:w-auto xl:h-auto">
+                    <p className="xl:flex hidden">Documentation</p>
                 </SidebarItem>
                 <SidebarItem as="a" target="_blank" href={getPartyKitHostname(process.env.NEXT_PUBLIC_PARTYKIT_HOSTNAME)}
-                             icon={RedBalloon}>
-                    PartyKit Server
+                             icon={RedBalloon} className="w-20 h-20 xl:w-auto xl:h-auto">
+                    <p className="xl:flex hidden">PartyKit Server</p>
                 </SidebarItem>
             </SidebarItemGroup>
         </SidebarItems>

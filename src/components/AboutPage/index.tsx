@@ -33,7 +33,7 @@ const AboutPageComponent = () => {
     }, [])
     return (
         <ContentLoader loading={loading}>
-            <div className='p-8 mx-auto md:ml-64 h-auto bg-white-50 dark:bg-gray-800'>
+            <div className='p-8 mx-auto 2xl:ml-64 ml-20 h-auto bg-white-50 dark:bg-gray-800'>
                 <LFForm data={aboutPageData} afterSubmit={(data) => {
                     if (!isAboutPageData(data)) return
                     setAboutPageData(data)

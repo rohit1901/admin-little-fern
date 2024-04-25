@@ -6,8 +6,7 @@ const collapseButton = "group flex w-full items-center rounded-lg p-2 text-base 
     "transition duration-75 hover:bg-gray-100 dark:text-cyan-50 dark:hover:bg-gray-700"
 export const sidebarTheme: DeepPartial<FlowbiteSidebarTheme> = {
     root: {
-        base: "fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border border-gray-200" +
-            " md:translate-x-0 dark:bg-gray-800 dark:border-gray-700",
+        base: `admin-sidebar`,
         inner: "h-full overflow-y-auto overflow-x-hidden rounded bg-white py-4 px-3 dark:bg-gray-800"
     },
     collapse: {

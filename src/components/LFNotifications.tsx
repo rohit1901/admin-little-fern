@@ -12,7 +12,7 @@ import {
     showViewAll
 } from "@admin/lib";
 import usePartySocket from "partysocket/react";
-import {getSession} from "next-auth/react";
+import {getSession, signOut} from "next-auth/react";
 import {LFNotificationIcon} from "./LFNotificationIcon";
 import {LFNotificationMessageIcon} from "@admin/components/LFNotificationMessageIcon";
 import {useNotificationsStore} from "@admin/store/useNotificationsStore";
@@ -32,7 +32,11 @@ export const LFNotifications = () => {
         onMessage: (message: MessageEvent): void => onPartyMessage(message, notificationPageData, (data) => {
             if (!data) return
             setNotificationPageData(data)
-        })
+        }),
+        onError: (error: Event): void => {
+            console.error("PartySocket error", error)
+            signOut().then(() => console.info("Token expired, user signed out"))
+        }
     })
 
     useEffect(() => {

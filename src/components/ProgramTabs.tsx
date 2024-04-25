@@ -61,12 +61,12 @@ export const ProgramTabs = () => {
         // Shuffle the array and select the first 7 icons
         setRandomIcons(shuffleArray(icons).slice(0, programs.length));
     }, [programs]);
-    return <div className="flex justify-center">
+    return <div className="flex flex-wrap justify-center">
         {programs?.map((program: SchoolProgram, index) => {
             return (
                 <Link key={program.slug} href={`/programs/${program.slug}`}>
                     <Button className='m-2' outline>
-                        {randomIcons[index]} {removeProgramText(program.name)}
+                        {randomIcons[index]} <p className="truncate">{removeProgramText(program.name)}</p>
                     </Button>
                 </Link>
             );
